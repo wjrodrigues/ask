@@ -1,0 +1,24 @@
+{
+  "realm": "ask",
+  "displayName": "ASK",
+  "enabled": true,
+  "accessTokenLifespan": 1800,
+  "clients": [
+    {
+      "clientId": "ask-frontend-client",
+      "name": "ask-frontend-client",
+      "description": "Client for frontend",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "rootUrl": "http://localhost:3000",
+      "redirectUris": [
+        "http://localhost:3000/*"
+      ],
+      "webOrigins": [
+        "http://localhost:3000"
+      ]
+    }
+  ],
+  "users": []
+}

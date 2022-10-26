@@ -1,0 +1,46 @@
+version: "3"
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:19.0.3
+    container_name: keycloak
+    restart: always
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+      KC_DB: postgres
+      KC_DB_USERNAME: ${KEYCLOAK_DB_USER}
+      KC_DB_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+      KC_DB_URL_HOST: keycloak_db
+    volumes:
+      - ./keycloak/config.json:/data/import/config.json
+    command: "start-dev --import-realm && /opt/keycloak/bin/kc.sh import --file /data/import/config.json"
+    ports:
+      - ${KEYCLOAK_PORT}:8080
+    networks:
+      - keycloak-net
+      - keycloak-db-net
+    depends_on:
+      - keycloak_db
+
+  keycloak_db:
+    image: postgres:15-alpine
+    container_name: keycloak_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${KEYCLOAK_DB_NAME}
+      POSTGRES_PASSWORD: ${KEYCLOAK_DB_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - ./tmp/keycloak/db:/var/lib/postgresql/data
+    networks:
+      - keycloak-db-net
+
+networks:
+  keycloak-net:
+    driver: bridge
+  keycloak-db-net:
+    driver: bridge
