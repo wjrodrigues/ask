@@ -1,0 +1,4 @@
+## Docker/Docker compose
+**/docker/tmp
+**/docker/**/*.env
+**/docker/**/*.json
