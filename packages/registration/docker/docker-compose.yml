@@ -1,0 +1,39 @@
+version: "3"
+
+services:
+  registration_app:
+    build: ./build
+    container_name: registration_app
+    restart: always
+    tty: true
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+    volumes:
+      - ../:/app
+    networks:
+      - registration_db
+      - registration_app
+
+  registration_db:
+    image: postgres:15-alpine
+    container_name: registration_db
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 5433:5432
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    networks:
+      - registration_db
+
+networks:
+  registration_db:
+    driver: bridge
+  registration_app:
+    driver: bridge

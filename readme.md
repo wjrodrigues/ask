@@ -13,3 +13,4 @@ Purpose is to register questions and their answers in a collaborative way.
 ## Services
 
 - [Access management](https://github.com/wjrodrigues/ask/tree/main/packages/access_management)
+- [Registration](https://github.com/wjrodrigues/ask/tree/main/packages/registration)
