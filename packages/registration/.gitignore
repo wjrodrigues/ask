@@ -1,3 +1,6 @@
 ## Docker/Docker compose
 **/docker/tmp
 **/docker/**/*.env
+
+## Application
+.env
