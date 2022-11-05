@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 ENV['RACK_ENV'] ||= 'test'
+
+require 'support/simplecov'
 require_relative '../config/environment'
 require 'sinatra/activerecord/rake'
 require 'support/factory_bot'
@@ -59,10 +61,4 @@ Shoulda::Matchers.configure do |config|
     with.library :active_record
     with.library :active_model
   end
-end
-
-if ENV['coverage']
-  require 'simplecov'
-
-  SimpleCov.start
 end
