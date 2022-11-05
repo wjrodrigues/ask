@@ -51,7 +51,11 @@ end
 # These gems will only be used when we are running tests
 group :test do
   gem 'database_cleaner', '~> 2.0', '>= 2.0.1'
+  gem 'factory_bot', '~> 6.2', '>= 6.2.1'
+  gem 'faker', '~> 3.0'
   gem 'rack-test', '~> 2.0', '>= 2.0.2'
   gem 'rspec', '~> 3.12'
   gem 'rspec-expectations', '~> 3.12'
+  gem 'shoulda-matchers', '~> 5.0'
+  gem 'simplecov', '~> 0.21.2'
 end
