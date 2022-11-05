@@ -16,9 +16,8 @@ services:
       - $APP_PORT:$APP_PORT
     volumes:
       - ../:/app
-    networks:
+    links:
       - registration_db
-      - registration_app
 
   registration_db:
     image: postgres:15-alpine
@@ -30,11 +29,3 @@ services:
       POSTGRES_DB: $DB_NAME
     ports:
       - 5432:5432
-    networks:
-      - registration_db
-
-networks:
-  registration_db:
-    driver: bridge
-  registration_app:
-    driver: bridge
