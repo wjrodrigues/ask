@@ -3,6 +3,10 @@
 require 'spec_helper'
 
 RSpec.describe User, type: :model do
+  describe 'associations' do
+    it { should have_one(:profile) }
+  end
+
   describe 'validations' do
     subject { build(:user) }
 
