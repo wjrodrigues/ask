@@ -3,7 +3,11 @@
 ENV['RACK_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'sinatra/activerecord/rake'
+require 'support/factory_bot'
+require_all 'app'
+require 'pry'
 
+# rubocop:disable Metrics/BlockLength
 RSpec.configure do |config|
   config.include Rack::Test::Methods
 
@@ -42,9 +46,23 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.order = 'random'
+end
+# rubocop:enable Metrics/BlockLength
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+
+    # Keep as many of these lines as are necessary:
+    with.library :active_record
+    with.library :active_model
+  end
 end
 
-# Rack::Test::Methods needs this to run our controller
-def app
-  Rack::Builder.parse_file('config.ru').first
+if ENV['coverage']
+  require 'simplecov'
+
+  SimpleCov.start
 end
