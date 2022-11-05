@@ -7,11 +7,14 @@ services:
     restart: always
     tty: true
     environment:
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
-      DB_HOST: ${DB_HOST}
-      DB_PORT: ${DB_PORT}
+      DB_NAME: $DB_NAME
+      DB_USER: $DB_USER
+      DB_PASSWORD: $DB_PASSWORD
+      DB_HOST: $DB_HOST
+      DB_PORT: $DB_PORT
+    command: bash /entrypoint.sh
+    ports:
+      - $APP_PORT:$APP_PORT
     volumes:
       - ../:/app
     networks:
@@ -23,12 +26,13 @@ services:
     container_name: registration_db
     restart: always
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASSWORD
+      POSTGRES_DB: $DB_NAME
     ports:
-      - 5433:5432
+      - 5432:5432
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - /tmp/registration_db:/var/lib/postgresql/data
     networks:
       - registration_db
 

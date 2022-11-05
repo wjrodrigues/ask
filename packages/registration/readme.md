@@ -10,6 +10,10 @@ Copy file with environment variables
 cp docker/.env-example docker/.env
 ```
 
+```bash
+cp .env.example .env
+```
+
 Run container
 
 ```bash
@@ -25,28 +29,11 @@ Access container
 docker exec -it -u dev registration_app bash
 ```
 
-## Migrations
+# Prepare application
+Database
 
-[Database migrations documentation](https://github.com/golang-migrate/migrate/tree/master/database/postgres)
-
-> Inside the container
-
-Create migrate
 ```bash
-migrate:create MIGRATE_NAME
+docker exec -u dev registration_app bash -c "rake db:drop db:setup db:seed"
 ```
 
-Perform migrations
-```bash
-migrate:up
-```
-
-Revert migrations
-```bash
-migrate:down
-```
-
-Execution with any argument
-```bash
-migrate:run version
-```
+#

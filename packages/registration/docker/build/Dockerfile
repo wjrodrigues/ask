@@ -1,11 +1,13 @@
-FROM golang:1.19.2-bullseye
+FROM ruby:3.1.2-bullseye
 
-## GO Dependency
-RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+## Prepare
+RUN mkdir /app
+WORKDIR /app
+COPY entrypoint.sh /entrypoint.sh
+
+## Dependency
+RUN apt update && apt install postgresql-client -y
 
 ## Config
 RUN useradd -m dev
 RUN usermod -a -G root dev
-
-## Bash
-COPY ./.bash_aliases /home/dev/.bash_aliases
