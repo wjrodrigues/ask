@@ -22,7 +22,7 @@ jobs:
         run: docker exec registration_app bash -c "gem install bundler && bundle config build.nokogiri --use-system-libraries && bundle install"
 
       - name: Setup
-        run: docker exec registration_app sh -c "RACK_ENV=test rake db:setup"
+        run: docker exec -u dev registration_app bash -c "RACK_ENV=test rake db:setup"
 
       - name: Run tests
-        run: docker exec registration_app sh -c "coverage=true bundle exec rspec --color"
+        run: docker exec -u dev registration_app bash -c "coverage=true bundle exec rspec --color"
