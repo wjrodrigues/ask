@@ -14,10 +14,14 @@ cp docker/.env-example docker/.env
 cp .env.example .env
 ```
 
+```bash
+cp config/database.yml.example config/database.yml
+```
+
 Run container
 
 ```bash
-docker-compose -f docker/docker-compose.yml up -d --build
+cd docker && docker-compose up -d --build && cd ..
 ```
 
 # Commands
