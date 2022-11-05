@@ -1,0 +1,25 @@
+name: ASK - CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test_registration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Copy Env's
+        run: cp packages/registration/.env.example packages/registration/.env && cp packages/registration/docker/.env-example packages/registration/docker/.env
+
+      - name: Run docker
+        run: docker-compose -f packages/registration/docker/docker-compose-ci.yml up -d --build
+
+      - name: Install dependencies
+        run: docker exec registration_app bash -c "gem install bundler && bundle config build.nokogiri --use-system-libraries && bundle install"
+
+      - name: Run tests
+        run: docker exec registration_app sh -c "coverage=true bundle exec rspec --color"
