@@ -43,6 +43,9 @@ gem 'require_all', '~> 3.0'
 group :development do
   gem 'pry', '~> 0.14.1'
 
+  gem 'rubocop', '~> 1.38'
+  gem 'rubocop-performance', '~> 1.15'
+
   # Automatically reload when there are changes
   # https://github.com/alexch/rerun
   gem 'rerun'
