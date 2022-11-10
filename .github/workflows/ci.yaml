@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: docker exec registration_app bash -c "gem install bundler && bundle config build.nokogiri --use-system-libraries && bundle install"
 
+      - name: Rubocop
+        run: docker exec registration_app bash -c "rubocop"
+
       - name: Setup
         run: cp packages/registration/config/database.yml.example packages/registration/config/database.yml && docker exec -u dev registration_app bash -c "RACK_ENV=test rake db:setup" 
 

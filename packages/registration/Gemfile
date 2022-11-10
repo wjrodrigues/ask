@@ -8,6 +8,10 @@ ruby '3.1.2'
 # https://github.com/sinatra/sinatra
 gem 'sinatra', '~> 3.0', '>= 3.0.2'
 
+# Internationalization
+# https://github.com/ruby-i18n/i18n
+gem 'i18n', '~> 1.12'
+
 # A fast and simple web server
 # https://github.com/macournoyer/thin
 gem 'thin', '~> 1.8', '>= 1.8.1'
@@ -42,6 +46,9 @@ gem 'require_all', '~> 3.0'
 # These gems will only be used when we are running the application locally
 group :development do
   gem 'pry', '~> 0.14.1'
+
+  gem 'rubocop', '~> 1.38'
+  gem 'rubocop-performance', '~> 1.15'
 
   # Automatically reload when there are changes
   # https://github.com/alexch/rerun
