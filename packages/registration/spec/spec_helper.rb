@@ -4,12 +4,12 @@ ENV['RACK_ENV'] ||= 'test'
 
 require 'support/simplecov'
 require_relative '../config/environment'
+require File.expand_path('./config/initializers/i18n')
 require 'sinatra/activerecord/rake'
 require 'support/factory_bot'
 require_all 'app'
 require 'pry'
 
-# rubocop:disable Metrics/BlockLength
 RSpec.configure do |config|
   config.include Rack::Test::Methods
 
@@ -17,6 +17,10 @@ RSpec.configure do |config|
   if ActiveRecord::Base.connection.migration_context.needs_migration?
     # Run migrations for test environment
     Rake::Task['db:migrate'].execute
+  end
+
+  config.before do |example|
+    I18n.locale = example.metadata.fetch(:locale, :en)
   end
 
   config.before(:suite) do
@@ -51,7 +55,6 @@ RSpec.configure do |config|
 
   config.order = 'random'
 end
-# rubocop:enable Metrics/BlockLength
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
