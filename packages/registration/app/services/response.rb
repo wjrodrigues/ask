@@ -19,5 +19,9 @@ module Service
     def errors
       @errors.clone
     end
+
+    def ok?
+      @errors.empty?
+    end
   end
 end
