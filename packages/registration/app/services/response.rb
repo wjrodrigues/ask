@@ -6,8 +6,14 @@ module Service
       @errors = []
     end
 
-    def add_error(error)
-      @errors << error
+    def add_error(error, translate: true)
+      @errors << if translate
+                   I18n.t(error)
+                 else
+                   error
+                 end
+
+      self
     end
 
     def errors
