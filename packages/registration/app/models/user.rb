@@ -6,4 +6,12 @@ class User < ActiveRecord::Base
   validates :email, :password, presence: true
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 8 }
+
+  before_save :encrypt_password, unless: :persisted?
+
+  private
+
+  def encrypt_password
+    password.crypt(ENV.fetch('SECRET_KEY', nil))
+  end
 end
