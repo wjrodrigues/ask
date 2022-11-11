@@ -44,4 +44,14 @@ RSpec.describe Service::Response, type: :service do
       end
     end
   end
+
+  describe '#add_result' do
+    context 'when informed' do
+      it 'returns instance with result' do
+        response = subject.add_result('ruby')
+
+        expect(response.result).to eq('ruby')
+      end
+    end
+  end
 end

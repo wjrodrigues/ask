@@ -2,8 +2,11 @@
 
 module Service
   class Response
+    attr_reader :result
+
     def initialize
       @errors = []
+      @result = nil
     end
 
     def add_error(error, translate: true)
@@ -12,6 +15,12 @@ module Service
                  else
                    error
                  end
+
+      self
+    end
+
+    def add_result(value)
+      @result = value
 
       self
     end
