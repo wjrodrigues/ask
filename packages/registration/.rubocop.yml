@@ -95,6 +95,13 @@ Metrics/ModuleLength:
   Exclude:
     - "spec/**/*.rb"
 
+Metrics/AbcSize:
+  Enabled: true
+  Max: 54.28
+
+Metrics/MethodLength:
+  Enabled: false
+
 Naming/InclusiveLanguage:
   Enabled: true
   CheckStrings: true
