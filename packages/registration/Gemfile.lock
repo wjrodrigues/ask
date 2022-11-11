@@ -23,6 +23,7 @@ GEM
     database_cleaner-core (2.0.1)
     diff-lcs (1.5.0)
     docile (1.4.0)
+    dotenv (2.8.1)
     eventmachine (1.2.7)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -126,6 +127,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 7.0, >= 7.0.4)
   database_cleaner (~> 2.0, >= 2.0.1)
+  dotenv (~> 2.8, >= 2.8.1)
   factory_bot (~> 6.2, >= 6.2.1)
   faker (~> 3.0)
   i18n (~> 1.12)

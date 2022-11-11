@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'dotenv/load'
+
 ENV['RACK_ENV'] ||= 'test'
 
 require 'support/simplecov'
