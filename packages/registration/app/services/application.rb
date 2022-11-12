@@ -4,8 +4,8 @@ module Service
   class Application
     attr_reader :response
 
-    def self.call(**args, &)
-      new(**args, &).call
+    def self.call(...)
+      new(...).call
     end
 
     private

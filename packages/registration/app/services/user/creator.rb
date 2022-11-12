@@ -2,18 +2,18 @@
 
 module Service
   class CreatorUser < Service::Application
-    attr_accessor :profile, :email, :password
+    attr_accessor :params
 
-    def initialize(profile:, email:, password:)
-      self.profile = profile
-      self.email = email
-      self.password = password
+    def initialize(params)
+      self.params = params
 
       super
     end
 
     def call
-      user = User.new(email:, profile:, password:)
+      user = User.new(email: params.email,
+                      password: params.password,
+                      profile: instance_profile(params))
 
       if user.valid?
         user.save!
@@ -26,6 +26,14 @@ module Service
       response
     end
 
-    private :profile=, :email=, :password=
+    private :params=
+
+    def instance_profile(params)
+      return if params.try(:first_name).nil?
+
+      Profile.new(first_name: params.try(:first_name),
+                  last_name: params.try(:last_name),
+                  photo: params.try(:photo))
+    end
   end
 end

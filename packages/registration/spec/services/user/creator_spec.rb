@@ -6,11 +6,12 @@ RSpec.describe Service::CreatorUser, type: :service do
   describe '#call' do
     context 'when values are valid' do
       it 'returns response with created user' do
-        response = described_class.call(
-          profile: build(:profile, user: nil),
-          email: Faker::Internet.email,
-          password: Faker::Internet.password
+        params = Struct.new(:email, :password, :first_name).new(
+          Faker::Internet.email,
+          Faker::Internet.password,
+          Faker::Name.first_name
         )
+        response = described_class.call(params)
 
         expect(response.ok?).to be_truthy
         expect(response.result).to be_is_a(User)
@@ -24,7 +25,8 @@ RSpec.describe Service::CreatorUser, type: :service do
           [:password, ["can't be blank", 'is too short (minimum is 8 characters)']]
         ]
 
-        response = described_class.call(profile: nil, email: nil, password: nil)
+        params = Struct.new(:email, :password, :first_name).new
+        response = described_class.call(params)
 
         expect(response.ok?).to be_falsy
         expect(response.errors).to eq(expected_errors)
