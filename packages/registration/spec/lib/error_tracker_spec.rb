@@ -2,11 +2,11 @@
 
 require 'spec_helper'
 
-RSpec.describe Lib::Tracker, type: :lib do
-  describe '#tracking' do
+RSpec.describe Lib::ErrorTracker, type: :lib do
+  describe '#notify' do
     context 'when calls' do
       it 'sends remote stack' do
-        described_class.tracking(stack: nil)
+        described_class.notify(nil, {})
       end
     end
   end
