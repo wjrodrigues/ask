@@ -7,11 +7,13 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, length: { minimum: 8 }
 
-  before_save :encrypt_password, unless: :persisted?
+  before_save :encrypt_password
 
   private
 
   def encrypt_password
-    password.crypt(ENV.fetch('SECRET_KEY', nil))
+    return unless attribute_changed?(:password) || !persisted?
+
+    self.password = password.crypt(ENV.fetch('SECRET_KEY', nil))
   end
 end
