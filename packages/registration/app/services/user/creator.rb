@@ -11,8 +11,8 @@ module Service
     end
 
     def call
-      user = User.new(email: params.email,
-                      password: params.password,
+      user = User.new(email: params.try(:email),
+                      password: params.try(:password),
                       profile: instance_profile(params))
 
       if user.valid?
