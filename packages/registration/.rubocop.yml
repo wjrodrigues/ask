@@ -44,6 +44,9 @@ Style/IpAddresses:
 Style/Documentation:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 Layout/EndOfLine:
   EnforcedStyle: lf
 

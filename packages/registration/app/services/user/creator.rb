@@ -31,9 +31,9 @@ module Service
     def instance_profile(params)
       return if params.try(:first_name).nil?
 
-      Profile.new(first_name: params.try(:first_name),
-                  last_name: params.try(:last_name),
-                  photo: params.try(:photo))
+      User::Profile.new(first_name: params.try(:first_name),
+                        last_name: params.try(:last_name),
+                        photo: params.try(:photo))
     end
   end
 end
