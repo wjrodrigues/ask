@@ -3,7 +3,5 @@
 class Routes < Sinatra::Base
   set :default_content_type, 'application/json'
 
-  get '/' do
-    'Hello world!'
-  end
+  before { Location.define(request.env['HTTP_ACCEPT_LANGUAGE']) }
 end

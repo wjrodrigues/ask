@@ -6,6 +6,7 @@ ENV['RACK_ENV'] ||= 'test'
 
 require 'support/simplecov'
 require_relative '../config/environment'
+require_relative '../config/application'
 require File.expand_path('./config/initializers/i18n')
 require 'sinatra/activerecord/rake'
 require 'support/factory_bot'
@@ -15,6 +16,8 @@ require 'pry'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
+
+  Application.load!
 
   # Database setup
   if ActiveRecord::Base.connection.migration_context.needs_migration?
@@ -67,4 +70,12 @@ Shoulda::Matchers.configure do |config|
     with.library :active_record
     with.library :active_model
   end
+end
+
+def app
+  Application.initialize!
+end
+
+def json_body(body)
+  JSON.parse(body)
 end
