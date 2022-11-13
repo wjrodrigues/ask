@@ -4,8 +4,8 @@ module Service
   class Application
     attr_reader :response
 
-    def self.call(*args, &block)
-      new(*args, &block).call
+    def self.call(...)
+      new(...).call
     end
 
     private
@@ -14,10 +14,8 @@ module Service
 
     private_class_method :new
 
-    def initialize
+    def initialize(*_)
       self.response = Service::Response.new
-
-      super
     end
   end
 end

@@ -4,6 +4,8 @@ module Application
   def self.load!
     require_rel 'initializers'
     require_all 'app'
+
+    Location.load
   end
 
   def self.initialize!

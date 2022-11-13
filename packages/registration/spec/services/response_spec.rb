@@ -28,4 +28,30 @@ RSpec.describe Service::Response, type: :service do
       end
     end
   end
+
+  describe '#ok?' do
+    context 'when has errors' do
+      it 'returns false' do
+        subject.add_error('errors.messages.blank')
+
+        expect(subject.ok?).to be_falsy
+      end
+    end
+
+    context 'when not has errors' do
+      it 'returns true' do
+        expect(subject.ok?).to be_truthy
+      end
+    end
+  end
+
+  describe '#add_result' do
+    context 'when informed' do
+      it 'returns instance with result' do
+        response = subject.add_result('ruby')
+
+        expect(response.result).to eq('ruby')
+      end
+    end
+  end
 end

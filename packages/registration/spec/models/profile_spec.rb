@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Profile, type: :model do
+RSpec.describe User::Profile, type: :model do
   describe 'associations' do
     it { should belong_to(:user) }
   end

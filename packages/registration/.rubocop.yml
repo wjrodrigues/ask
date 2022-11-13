@@ -14,7 +14,7 @@ AllCops:
     - ".git/**/*"
     - "bin/*"
     - "db/schema.rb"
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.1.2
   SuggestExtensions: false
 
 Naming/PredicateName:
@@ -42,6 +42,9 @@ Style/IpAddresses:
     - spec/rubocop/cop/style/ip_addresses_spec.rb
 
 Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
   Enabled: false
 
 Layout/EndOfLine:
@@ -94,6 +97,13 @@ Metrics/ClassLength:
 Metrics/ModuleLength:
   Exclude:
     - "spec/**/*.rb"
+
+Metrics/AbcSize:
+  Enabled: true
+  Max: 54.28
+
+Metrics/MethodLength:
+  Enabled: false
 
 Naming/InclusiveLanguage:
   Enabled: true

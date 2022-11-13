@@ -43,6 +43,9 @@ gem 'pg', '~> 1.4', '>= 1.4.4'
 # Require all files in a folder
 gem 'require_all', '~> 3.0'
 
+# DOTENV
+gem 'dotenv', '~> 2.8', '>= 2.8.1'
+
 # These gems will only be used when we are running the application locally
 group :development do
   gem 'pry', '~> 0.14.1'
