@@ -22,5 +22,17 @@ module Controller
 
       Response.call(:UNPROCESSABLE_ENTITY, response.errors.to_json)
     end
+
+    def self.update_profile(request)
+      params = body(request)
+      params[:user_id] = request.params['id']
+
+      struct = Controller::Request.call(params)
+      response = Service::UpdaterProfile.call(struct)
+
+      return Response.call(:OK) if response.ok?
+
+      Response.call(:UNPROCESSABLE_ENTITY, response.errors.to_json)
+    end
   end
 end

@@ -14,4 +14,10 @@ class Routes < Sinatra::Base
 
     Controller::User.patch(request)
   end
+
+  post '/users/:id/profile' do
+    request.params.merge!(params)
+
+    Controller::User.update_profile(request)
+  end
 end
