@@ -44,4 +44,33 @@ RSpec.describe Controller::User, type: :controller do
       end
     end
   end
+
+  describe '#PATCH' do
+    context 'when the parameters are valid' do
+      it 'updates email and return status http :OK' do
+        user = create(:user)
+        body = { email: Faker::Internet.email }
+
+        patch "/users/#{user.id}", body.to_json, 'CONTENT_TYPE' => 'application/json'
+
+        expected_user = User.find_by(email: body[:email])
+
+        expect(expected_user).not_to be_nil
+        expect(last_response.body).to be_empty
+        expect(last_response.status).to eq(Controller::Response::REASONS[:OK])
+      end
+    end
+
+    context 'when invalid user' do
+      it 'update email and return status http :OK' do
+        id = '6782e790-6b26-4e37-8cd7-10c3b6c99452'
+
+        patch "/users/#{id}", {}.to_json, 'CONTENT_TYPE' => 'application/json'
+
+        expect(last_response.body).not_to be_empty
+        expect(json_body(last_response.body)).to eq(['is invalid'])
+        expect(last_response.status).to eq(Controller::Response::REASONS[:UNPROCESSABLE_ENTITY])
+      end
+    end
+  end
 end

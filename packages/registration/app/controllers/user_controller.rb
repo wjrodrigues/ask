@@ -10,5 +10,17 @@ module Controller
 
       Response.call(:UNPROCESSABLE_ENTITY, response.errors.to_json)
     end
+
+    def self.patch(request)
+      params = body(request)
+      params[:id] = request.params['id']
+
+      struct = Controller::Request.call(params)
+      response = Service::UpdaterUser.call(struct)
+
+      return Response.call(:OK) if response.ok?
+
+      Response.call(:UNPROCESSABLE_ENTITY, response.errors.to_json)
+    end
   end
 end

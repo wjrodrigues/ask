@@ -8,4 +8,10 @@ class Routes < Sinatra::Base
   post '/users' do
     Controller::User.post(request)
   end
+
+  patch '/users/:id' do
+    request.params.merge!(params)
+
+    Controller::User.patch(request)
+  end
 end
