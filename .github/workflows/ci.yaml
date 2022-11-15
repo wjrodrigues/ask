@@ -29,3 +29,23 @@ jobs:
 
       - name: Run tests
         run: docker exec registration_app bash -c "coverage=true bundle exec rspec --color"
+
+  test_frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Copy Env's
+        run: cp packages/frontend/docker/.env-example packages/frontend/docker/.env
+
+      - name: Run docker
+        run: docker-compose -f packages/frontend/docker/docker-compose-ci.yml up -d --build
+
+      - name: Install dependencies
+        run: docker exec frontend_app bash -c "npm install"
+
+      - name: Lint
+        run: docker exec frontend_app bash -c "npm run lint"
+
+      - name: Run tests
+        run: docker exec frontend_app bash -c "npm run coverage"

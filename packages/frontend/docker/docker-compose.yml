@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  frontend_app:
+    build: ./build
+    container_name: frontend_app
+    restart: always
+    tty: true
+    command: bash /entrypoint.sh
+    ports:
+      - $APP_PORT:$APP_PORT
+    volumes:
+      - ../:/app
