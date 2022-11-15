@@ -7,12 +7,10 @@ module Controller
 
       struct = Struct.new(*params.keys.map(&:to_sym)) do
         # rubocop:disable Lint/MissingRespondToMissing
-        def method_missing(meth, *args)
+        def method_missing(meth, *_)
           return nil unless respond_to?(meth)
-
-          super(meth, *args)
-          # rubocop:enable Lint/MissingRespondToMissing
         end
+        # rubocop:enable Lint/MissingRespondToMissing
       end
 
       klass = struct.new
