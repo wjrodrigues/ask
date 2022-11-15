@@ -15,11 +15,7 @@ module Service
                       password: params.password,
                       profile: instance_profile(params))
 
-      if user.valid?
-        user.save!
-
-        return response.add_result(user)
-      end
+      return response.add_result(user) if user.save
 
       user.errors.messages.each { |msg| response.add_error(msg, translate: false) }
 

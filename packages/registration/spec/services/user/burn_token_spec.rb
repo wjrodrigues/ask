@@ -13,7 +13,7 @@ RSpec.describe Service::BurnToken, type: :service do
           kind: User::Token::KINDS[:SMS]
         )
 
-        response = described_class.call(params, Service::ValidatorToken)
+        response = described_class.call(params:, validator: Service::ValidatorToken)
 
         expect(response.ok?).to be_truthy
       end
@@ -27,7 +27,7 @@ RSpec.describe Service::BurnToken, type: :service do
             kind: User::Token::KINDS[:SMS]
           )
 
-          response = described_class.call(params, Service::ValidatorToken)
+          response = described_class.call(params:, validator: Service::ValidatorToken)
 
           expect(response.errors).to eq(['Token has already been used'])
           expect(response).not_to be_ok
@@ -43,7 +43,7 @@ RSpec.describe Service::BurnToken, type: :service do
             kind: User::Token::KINDS[:SMS]
           )
 
-          response = described_class.call(params, Service::ValidatorToken)
+          response = described_class.call(params:, validator: Service::ValidatorToken)
 
           expect(response.errors).to eq(['Token expired'])
           expect(response).not_to be_ok
@@ -59,9 +59,9 @@ RSpec.describe Service::BurnToken, type: :service do
             kind: User::Token::KINDS[:SMS]
           )
 
-          allow_any_instance_of(User::Token).to receive(:update).and_return(false)
+          allow_any_instance_of(User::Token).to receive(:burn!).and_raise(StandardError)
 
-          response = described_class.call(params, Service::ValidatorToken)
+          response = described_class.call(params:, validator: Service::ValidatorToken)
 
           expect(response.errors).to eq(['is invalid'])
           expect(response).not_to be_ok

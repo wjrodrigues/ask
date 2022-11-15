@@ -6,7 +6,7 @@ module Service
   class BurnToken < Service::Application
     attr_accessor :params, :validator
 
-    def initialize(params, validator)
+    def initialize(params:, validator:)
       self.params = params
       self.validator = validator
 
@@ -19,8 +19,8 @@ module Service
 
       user_token = User::Token.where(user_id: params.user_id, kind: params.kind).last
 
-      return response.add_result(true) if user_token.update(used_at: DateTime.current)
-
+      response.add_result(true) if user_token.burn!
+    rescue StandardError
       response.add_error(:'errors.messages.invalid')
     end
 

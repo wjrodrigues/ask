@@ -27,8 +27,8 @@ module Controller
       params = body(request)
       params[:code] = request.params['code']
 
-      struct = Controller::Request.call(params)
-      response = Service::BurnToken.call(struct, Service::ValidatorToken)
+      params = Controller::Request.call(params)
+      response = Service::BurnToken.call(params:, validator: Service::ValidatorToken)
 
       return Response.call(:OK) if response.ok?
 
