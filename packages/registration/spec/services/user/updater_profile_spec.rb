@@ -7,11 +7,11 @@ RSpec.describe Service::UpdaterProfile, type: :service do
     context 'when values are valid' do
       it 'returns response with created user' do
         user = create(:user)
-        params = Struct.new(:user_id, :first_name, :last_name, :photo).new(
-          user.id,
-          Faker::Name.first_name,
-          Faker::Name.last_name,
-          Faker::Internet.url
+        params = Controller::Request.call(
+          user_id: user.id,
+          first_name: Faker::Name.first_name,
+          last_name: Faker::Name.last_name,
+          photo: Faker::Internet.url
         )
 
         response = described_class.call(params)
@@ -24,7 +24,7 @@ RSpec.describe Service::UpdaterProfile, type: :service do
     context 'when values are not valid' do
       it 'returns response with errors' do
         user = create(:user)
-        params = Struct.new(:user_id).new(user.id)
+        params = Controller::Request.call(user_id: user.id)
 
         response = described_class.call(params)
 
@@ -35,7 +35,7 @@ RSpec.describe Service::UpdaterProfile, type: :service do
 
     context 'when invalid user' do
       it 'returns response with errors' do
-        params = Struct.new(:user_id).new('6782e790-6b26-4e37-8cd7-10c3b6c99452')
+        params = Controller::Request.call(user_id: '6782e790-6b26-4e37-8cd7-10c3b6c99452')
         expected_errors = [[:first_name, ["can't be blank"]], [:user, ["can't be blank"]]]
 
         response = described_class.call(params)

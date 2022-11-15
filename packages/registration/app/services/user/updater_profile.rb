@@ -11,11 +11,11 @@ module Service
     end
 
     def call
-      profile = User::Profile.find_or_create_by(user_id: params.try(:user_id))
+      profile = User::Profile.find_or_create_by(user_id: params.user_id)
 
-      first_name = params.try(:first_name)
-      last_name = params.try(:last_name)
-      photo = params.try(:photo)
+      first_name = params.first_name
+      last_name = params.last_name
+      photo = params.photo
 
       profile.first_name = first_name unless first_name.nil?
       profile.last_name = last_name unless last_name.nil?

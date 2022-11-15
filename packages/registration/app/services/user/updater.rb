@@ -11,10 +11,10 @@ module Service
     end
 
     def call
-      user = User.find_by!(id: params.try(:id))
+      user = User.find_by!(id: params.id)
 
-      email = params.try(:email)
-      password = params.try(:password)
+      email = params.email
+      password = params.password
 
       user.email = email unless email.nil?
       user.password = password unless password.nil?

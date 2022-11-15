@@ -11,8 +11,8 @@ module Service
     end
 
     def call
-      user = User.new(email: params.try(:email),
-                      password: params.try(:password),
+      user = User.new(email: params.email,
+                      password: params.password,
                       profile: instance_profile(params))
 
       if user.valid?
@@ -29,11 +29,11 @@ module Service
     private :params=
 
     def instance_profile(params)
-      return if params.try(:first_name).nil?
+      return if params.first_name.nil?
 
-      User::Profile.new(first_name: params.try(:first_name),
-                        last_name: params.try(:last_name),
-                        photo: params.try(:photo))
+      User::Profile.new(first_name: params.first_name,
+                        last_name: params.last_name,
+                        photo: params.photo)
     end
   end
 end

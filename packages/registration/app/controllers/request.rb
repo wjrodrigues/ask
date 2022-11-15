@@ -5,7 +5,15 @@ module Controller
     def self.call(params = {})
       return nil if params.empty?
 
-      klass = Struct.new(*params.keys.map(&:to_sym)).new
+      struct = Struct.new(*params.keys.map(&:to_sym)) do
+        # rubocop:disable Lint/MissingRespondToMissing
+        def method_missing(meth, *_)
+          return nil unless respond_to?(meth)
+        end
+        # rubocop:enable Lint/MissingRespondToMissing
+      end
+
+      klass = struct.new
 
       params.map { |key, value| klass[key] = value }
 
