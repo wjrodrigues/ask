@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "vite";
@@ -8,17 +10,20 @@ export default defineConfig({
   plugins: [vue()],
   test: {
     watch: false,
-    include: ['**/*.spec.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
     globals: true,
-    environment: 'jsdom',
-    reporters: ['verbose'],
+    environment: "jsdom",
+    reporters: ["verbose"],
+    include: ["**/*.spec.*", "**/*.test.*"],
+    exclude: ["**/node_modules/**"],
     coverage: {
-      reporter: ["text", "json", "html"],
-      all: true,
-      lines: 80,
-      functions: 80,
+      provider: "istanbul",
+      enabled: true,
+      reporter: ["text", "lcov"],
+      reportsDirectory: "coverage",
+      include: ["**/*.vue", "**/*.js", "**/*.ts*"],
       branches: 80,
-      statements: 80,
+      functions: 80,
+      lines: 80,
     },
   },
   resolve: {
