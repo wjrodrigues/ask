@@ -20,4 +20,20 @@ class Routes < Sinatra::Base
 
     Controller::User.update_profile(request)
   end
+
+  post '/tokens' do
+    Controller::Token.post(request)
+  end
+
+  post '/tokens/:code' do
+    request.params.merge!(params)
+
+    Controller::Token.validate(request)
+  end
+
+  patch '/tokens/:code' do
+    request.params.merge!(params)
+
+    Controller::Token.burn(request)
+  end
 end
