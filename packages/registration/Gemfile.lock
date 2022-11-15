@@ -117,6 +117,7 @@ GEM
       eventmachine (~> 1.0, >= 1.0.4)
       rack (>= 1, < 3)
     tilt (2.0.11)
+    timecop (0.9.5)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
@@ -148,6 +149,7 @@ DEPENDENCIES
   sinatra (~> 3.0, >= 3.0.2)
   sinatra-activerecord (~> 2.0, >= 2.0.26)
   thin (~> 1.8, >= 1.8.1)
+  timecop (~> 0.9.5)
 
 RUBY VERSION
    ruby 3.1.2p20

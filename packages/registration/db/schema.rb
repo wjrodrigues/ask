@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_13_185406) do
   end
 
   create_table "user_tokens", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "token", null: false
+    t.string "code", null: false
     t.string "kind", null: false
     t.datetime "expire_at"
     t.datetime "used_at"

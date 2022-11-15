@@ -7,13 +7,13 @@ module Location
     locales_path = "#{File.expand_path('config/locales')}/**/*.yml"
 
     I18n.load_path << Dir[locales_path]
-    I18n.default_locale = ENV.fetch('LOCATION', :en).to_sym
+    I18n.default_locale = ENV.fetch('LOCATION', :'en-US').to_sym
   end
 
   def self.define(location)
     location = location&.to_sym
 
-    return I18n.locale = :en unless SUPPORTED.include?(location)
+    return I18n.locale = :'en-US' unless SUPPORTED.include?(location)
 
     I18n.locale = location
   end

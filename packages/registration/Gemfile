@@ -68,4 +68,5 @@ group :test do
   gem 'rspec-expectations', '~> 3.12'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'simplecov', '~> 0.21.2'
+  gem 'timecop', '~> 0.9.5'
 end

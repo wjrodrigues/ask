@@ -26,7 +26,7 @@ RSpec.configure do |config|
   end
 
   config.before do |example|
-    I18n.locale = example.metadata.fetch(:locale, :en)
+    I18n.locale = example.metadata.fetch(:locale, :'en-US')
   end
 
   config.before(:suite) do
