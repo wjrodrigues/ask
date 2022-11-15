@@ -7,7 +7,7 @@ RSpec.describe Service::UpdaterUser, type: :service do
     context 'when values are valid' do
       it 'returns response with created user' do
         user = create(:user)
-        params = Struct.new(:id, :email).new(user.id, Faker::Internet.email)
+        params = Controller::Request.call(id: user.id, email: Faker::Internet.email)
         response = described_class.call(params)
 
         expect(response.ok?).to be_truthy
@@ -22,7 +22,7 @@ RSpec.describe Service::UpdaterUser, type: :service do
 
         first_user, second_user = create_list(:user, 2)
 
-        params = Struct.new(:id, :email).new(first_user.id, second_user.email)
+        params = Controller::Request.call(id: first_user.id, email: second_user.email)
         response = described_class.call(params)
 
         expect(response.ok?).to be_falsy
@@ -32,7 +32,7 @@ RSpec.describe Service::UpdaterUser, type: :service do
 
     context 'when invalid user' do
       it 'returns response with errors' do
-        params = Struct.new(:id).new('6782e790-6b26-4e37-8cd7-10c3b6c99452')
+        params = Controller::Request.call(id: '6782e790-6b26-4e37-8cd7-10c3b6c99452')
         response = described_class.call(params)
 
         expect(response.ok?).to be_falsy

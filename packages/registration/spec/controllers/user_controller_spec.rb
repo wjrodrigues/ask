@@ -32,7 +32,9 @@ RSpec.describe Controller::User, type: :controller do
       end
 
       it 'returns errors in the body' do
-        post '/users', {}.to_json, 'CONTENT_TYPE' => 'application/json'
+        params = { last_name: Faker::Name.last_name }
+
+        post '/users', params.to_json, 'CONTENT_TYPE' => 'application/json'
 
         expected_response = [
           ['email', ["can't be blank", 'is invalid']],
@@ -93,8 +95,9 @@ RSpec.describe Controller::User, type: :controller do
     context 'when parameters are not valid' do
       it 'does not update profile and returns http :UNPROCESSABLE_ENTITY status' do
         user = create(:user)
+        params = { last_name: Faker::Name.last_name }
 
-        post "/users/#{user.id}/profile", {}.to_json, 'CONTENT_TYPE' => 'application/json'
+        post "/users/#{user.id}/profile", params.to_json, 'CONTENT_TYPE' => 'application/json'
 
         expected_response = [['first_name', ["can't be blank"]]]
 
