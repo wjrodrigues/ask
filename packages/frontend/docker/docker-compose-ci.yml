@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  frontend_app:
+    build: ./build
+    container_name: frontend_app
+    restart: always
+    tty: true
+    volumes:
+      - ../:/app
