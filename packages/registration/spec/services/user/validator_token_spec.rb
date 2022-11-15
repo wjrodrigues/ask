@@ -9,6 +9,7 @@ RSpec.describe Service::ValidatorToken, type: :service do
         user_token = create(:user_token, :sms)
         params = Controller::Request.call(
           user_id: user_token.user_id,
+          code: user_token.code,
           kind: User::Token::KINDS[:SMS]
         )
 
@@ -22,6 +23,7 @@ RSpec.describe Service::ValidatorToken, type: :service do
           user_token = create(:user_token, :sms, used_at: DateTime.current)
           params = Controller::Request.call(
             user_id: user_token.user_id,
+            code: user_token.code,
             kind: User::Token::KINDS[:SMS]
           )
 
@@ -37,6 +39,7 @@ RSpec.describe Service::ValidatorToken, type: :service do
           user_token = create(:user_token, :sms, expire_at: 1.day.ago)
           params = Controller::Request.call(
             user_id: user_token.user_id,
+            code: user_token.code,
             kind: User::Token::KINDS[:SMS]
           )
 

@@ -13,7 +13,9 @@ module Service
     end
 
     def call
-      user_token = User::Token.where(user_id: params.user_id, kind: params.kind).last
+      user_token = User::Token.where(user_id: params.user_id,
+                                     kind: params.kind,
+                                     code: params.code).last
 
       return response.add_error(:'errors.messages.invalid') if user_token.nil?
       return response.add_error(:'services.validator_token.errors.used') if user_token.used?
