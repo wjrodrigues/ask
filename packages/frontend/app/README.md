@@ -1,6 +1,6 @@
 # Frontend
 
-Frontend application
+Frontend application developed in [vuejs](https://vuejs.org/) and [vuetifyjs](https://vuetifyjs.com/en/)
 
 # Start
 
