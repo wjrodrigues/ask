@@ -64,7 +64,7 @@ RSpec.describe Controller::User, type: :controller do
     end
 
     context 'when invalid user' do
-      it 'update email and return status http :OK' do
+      it 'updates email and return status http :OK' do
         id = '6782e790-6b26-4e37-8cd7-10c3b6c99452'
 
         patch "/users/#{id}", {}.to_json, 'CONTENT_TYPE' => 'application/json'
