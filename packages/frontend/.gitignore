@@ -27,8 +27,6 @@ coverage
 *.sln
 *.sw?
 
-## Docker/Docker compose
-**/docker/**/*.env
-
 ## Application
-.env
+**/.env
+docker/.env
