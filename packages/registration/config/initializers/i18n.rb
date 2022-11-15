@@ -13,7 +13,7 @@ module Location
   def self.define(location)
     location = location&.to_sym
 
-    return I18n.locale = :en unless SUPPORTED.include?(location)
+    return I18n.locale = :'en-US' unless SUPPORTED.include?(location)
 
     I18n.locale = location
   end
