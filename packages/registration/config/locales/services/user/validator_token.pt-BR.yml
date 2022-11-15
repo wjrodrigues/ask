@@ -1,0 +1,6 @@
+pt-BR:
+  services:
+    validator_token:
+      errors:
+        used: Token já foi usado
+        expired: Token expirou
