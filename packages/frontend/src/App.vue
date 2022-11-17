@@ -1,7 +1,9 @@
 <script setup lang="ts"></script>
 
 <template>
-  <header></header>
+  <header>
+    <p>{{ $t("hello") }}</p>
+  </header>
 
   <RouterView />
 </template>

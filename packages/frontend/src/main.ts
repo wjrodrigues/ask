@@ -4,8 +4,16 @@ import router from "./router";
 
 import "./assets/main.css";
 
-const app = createApp(App);
+// Vuetify
+import "vuetify/styles";
+import { createVuetify } from "vuetify";
+import * as components from "vuetify/components";
+import * as directives from "vuetify/directives";
+import i18n from "@/config/i18n";
 
-app.use(router);
+const vuetify = createVuetify({
+  components,
+  directives,
+});
 
-app.mount("#app");
+createApp(App).use(i18n).use(vuetify).use(router).mount("#app");
