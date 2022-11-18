@@ -1,5 +1,7 @@
 export default {
   "pt-BR": {
-    hello: "Ola",
+    signup: {
+      title: "Inscrever-se",
+    },
   },
 };

@@ -1,11 +1,15 @@
-<script setup lang="ts"></script>
-
 <template>
-  <header>
-    <p>{{ $t("hello") }}</p>
-  </header>
-
   <RouterView />
 </template>
 
-<style scoped></style>
+<script lang="ts">
+export default {
+  watch: {
+    '$route'(to) { document.title = `${this.$t(to.meta.title)} | Ask`}
+  }
+}
+</script>
+
+<style scoped>
+
+</style>
