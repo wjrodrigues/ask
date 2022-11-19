@@ -14,7 +14,7 @@ export default defineConfig({
     environment: "jsdom",
     reporters: ["verbose"],
     include: ["**/*.spec.*", "**/*.test.*"],
-    exclude: ["**/node_modules/**"],
+    exclude: ["**/node_modules/**", "**/__snapshots__/**"],
     coverage: {
       provider: "istanbul",
       enabled: true,
@@ -26,6 +26,9 @@ export default defineConfig({
       lines: 80,
     },
     setupFiles: "vitest.setup.ts",
+    deps: {
+      inline: ["vuetify"],
+    },
   },
   resolve: {
     alias: {
