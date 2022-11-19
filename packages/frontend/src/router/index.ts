@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Signup from "../views/Signup.vue"
+import Signup from "../views/SignUp.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/signup",
-      name: "Sign up",
+      name: "signup",
       component: () => Signup,
       meta: {
-        title: 'signup.title'
+        title: "signup.title",
       },
-    }
+    },
   ],
 });
 
