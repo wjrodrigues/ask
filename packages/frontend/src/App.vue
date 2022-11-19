@@ -5,11 +5,11 @@
 <script lang="ts">
 export default {
   watch: {
-    '$route'(to) { document.title = `${this.$t(to.meta.title)} | Ask`}
-  }
-}
+    $route(to) {
+      document.title = `${this.$t(to.meta.title)} | Ask`;
+    },
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
