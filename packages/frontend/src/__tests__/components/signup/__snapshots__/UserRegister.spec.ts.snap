@@ -1,0 +1,55 @@
+// Vitest Snapshot v1
+
+exports[`when render UserRegisterVue > render form with all components 1`] = `
+<v-card
+  class="mx-auto"
+  max-width="344"
+  title="Cadastro do usuário"
+>
+  <v-container>
+    <v-form
+      modelvalue="false"
+    >
+      <v-text-field
+        clearable=""
+        label="Nome"
+        rules="function () { [native code] }"
+        type="text"
+        variant="underlined"
+      />
+      <v-text-field
+        clearable=""
+        label="Sobrenome"
+        type="text"
+        variant="underlined"
+      />
+      <v-text-field
+        clearable=""
+        label="Email"
+        rules="function () { [native code] }"
+        type="email"
+        variant="underlined"
+      />
+      <v-text-field
+        clearable=""
+        label="Senha"
+        rules="function () { [native code] }"
+        type="password"
+        variant="underlined"
+      />
+      <v-card-actions>
+        <v-btn
+          block=""
+          disabled="true"
+          loading="false"
+          rounded="pill"
+          type="submit"
+          variant="tonal"
+        >
+          Salvar
+        </v-btn>
+      </v-card-actions>
+    </v-form>
+  </v-container>
+</v-card>
+`;
