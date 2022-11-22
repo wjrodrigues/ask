@@ -3,8 +3,8 @@
 exports[`when render UserRegisterVue > render form with all components 1`] = `
 <v-card
   class="mx-auto"
-  max-width="344"
   title="Cadastro do usuário"
+  width="344"
 >
   <v-container>
     <v-form

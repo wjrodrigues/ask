@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="344" :title="$t('signup.form.title')">
+  <v-card class="mx-auto" width="344" :title="$t('signup.form.title')">
     <v-container>
       <v-form v-model="form" @submit.prevent="onSubmit">
         <v-text-field
