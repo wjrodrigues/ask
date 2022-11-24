@@ -11,7 +11,7 @@ export default defineConfig({
   test: {
     watch: false,
     globals: true,
-    environment: "jsdom",
+    environment: "happy-dom",
     reporters: ["verbose"],
     include: ["**/*.spec.*", "**/*.test.*"],
     exclude: ["**/node_modules/**", "**/__snapshots__/**"],
