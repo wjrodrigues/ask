@@ -32,8 +32,10 @@ RSpec.describe Service::CreatorToken, type: :service do
       it 'returns response with errors' do
         user = create(:user)
         params = Controller::Request.call(user_id: user.id)
-        expected_errors = [[:code, ["can't be blank"]],
-                           [:kind, ["can't be blank", 'is not included in the list']]]
+        expected_errors = [{
+          code: ["can't be blank"],
+          kind: ["can't be blank", 'is not included in the list']
+        }]
 
         response = described_class.call(params)
 
