@@ -13,7 +13,7 @@ describe("when render AppVue", () => {
         {
           path: "/",
           component: { template: "Welcome" },
-          meta: { title: "App" },
+          meta: { title: "signup.title" },
         },
       ],
     });
@@ -27,7 +27,7 @@ describe("when render AppVue", () => {
     await router.isReady();
 
     expect(wrapper.text()).toEqual("Welcome");
-    expect(wrapper.vm.$el.ownerDocument.title).toEqual("App | Ask");
+    expect(wrapper.vm.$el.ownerDocument.title).toEqual("Inscrever-se | Ask");
   });
 
   it("renders route component without title", async () => {
