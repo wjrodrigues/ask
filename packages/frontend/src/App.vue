@@ -4,10 +4,18 @@
 
 <script lang="ts">
 export default {
-  watch: {
-    $route(to) {
-      document.title = `${this.$t(to.meta.title)} | Ask`;
-    },
+  mounted() {
+    const title = () => {
+      let title = this.$route.meta.title;
+      if (title != undefined) {
+        title = this.$t(String(title));
+        document.title = `${title} | Ask`;
+      } else {
+        document.title = "Ask";
+      }
+    };
+
+    this.$router.afterEach(() => title());
   },
 };
 </script>
