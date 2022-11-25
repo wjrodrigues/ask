@@ -36,10 +36,10 @@ RSpec.describe Controller::User, type: :controller do
 
         post '/users', params.to_json, 'CONTENT_TYPE' => 'application/json'
 
-        expected_response = [
-          ['email', ["can't be blank", 'is invalid']],
-          ['password', ["can't be blank", 'is too short (minimum is 8 characters)']]
-        ]
+        expected_response = [{
+          'email' => ["can't be blank", 'is invalid'],
+          'password' => ["can't be blank", 'is too short (minimum is 8 characters)']
+        }]
 
         expect(last_response.body).not_to be_empty
         expect(json_body(last_response.body)).to eq(expected_response)
@@ -99,7 +99,7 @@ RSpec.describe Controller::User, type: :controller do
 
         post "/users/#{user.id}/profile", params.to_json, 'CONTENT_TYPE' => 'application/json'
 
-        expected_response = [['first_name', ["can't be blank"]]]
+        expected_response = [{ 'first_name' => ["can't be blank"] }]
 
         expect(user.reload.profile).to be_nil
         expect(json_body(last_response.body)).to eq(expected_response)
