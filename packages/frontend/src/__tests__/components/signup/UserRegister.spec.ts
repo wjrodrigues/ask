@@ -2,22 +2,23 @@ import { describe, it, expect } from "vitest";
 import { shallowMount, mount } from "@vue/test-utils";
 
 import UserRegisterVue from "@/components/signup/UserRegister.vue";
-import vuetify from "@/__tests__/help";
+import { basic_mount } from "@/__tests__/help";
 
 describe("when render UserRegisterVue", () => {
   it("render form with all components", () => {
-    const wrapper = shallowMount(UserRegisterVue, { props: {} });
+    const wrapper = shallowMount(
+      UserRegisterVue,
+      basic_mount({ props: {}, plugins: [] })
+    );
 
     expect(wrapper.element).toMatchSnapshot();
   });
 
   it("validate required input", async () => {
-    const wrapper = mount(UserRegisterVue, {
-      props: {},
-      global: {
-        plugins: [vuetify],
-      },
-    });
+    const wrapper = mount(
+      UserRegisterVue,
+      basic_mount({ props: {}, plugins: [] })
+    );
 
     await wrapper.findAll("input").forEach(async (e) => e.setValue(""));
     await wrapper.trigger("change");
@@ -31,12 +32,10 @@ describe("when render UserRegisterVue", () => {
   });
 
   it("submit form button", async () => {
-    const wrapper = mount(UserRegisterVue, {
-      props: {},
-      global: {
-        plugins: [vuetify],
-      },
-    });
+    const wrapper = mount(
+      UserRegisterVue,
+      basic_mount({ props: {}, plugins: [] })
+    );
 
     expect(wrapper.find("button").attributes("disabled")).toEqual("");
 
