@@ -23,7 +23,7 @@ module Service
 
       return response.add_result(profile) if profile.save
 
-      profile.errors.messages.each { |msg| response.add_error(msg, translate: false) }
+      response.add_error(profile.errors.messages, translate: false) unless profile.valid?
 
       response
     end
