@@ -17,5 +17,10 @@ export default {
         title: "Cadastro do usuário",
       },
     },
+    notify: {
+      snackbar: {
+        close: "Fechar",
+      },
+    },
   },
 };

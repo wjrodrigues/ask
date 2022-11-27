@@ -1,0 +1,13 @@
+// Vitest Snapshot v1
+
+exports[`when render SnackBar > does not render SnackBar when empty text 1`] = `
+"<div class=\\"text-center\\">
+  <v-snackbar-stub multiline=\\"true\\" timeout=\\"5000\\" vertical=\\"false\\" location=\\"bottom\\" variant=\\"elevated\\" absolute=\\"false\\" attach=\\"false\\" closeonback=\\"true\\" contained=\\"false\\" disabled=\\"false\\" modelvalue=\\"false\\" zindex=\\"2000\\" activatorprops=\\"[object Object]\\" openonhover=\\"false\\" closeoncontentclick=\\"false\\" eager=\\"false\\" locationstrategy=\\"static\\" origin=\\"auto\\" transition=\\"v-snackbar-transition\\"></v-snackbar-stub>
+</div>"
+`;
+
+exports[`when render SnackBar > render SnackBar with text 1`] = `
+"<div class=\\"text-center\\">
+  <v-snackbar-stub multiline=\\"true\\" timeout=\\"5000\\" vertical=\\"false\\" location=\\"bottom\\" variant=\\"elevated\\" absolute=\\"false\\" attach=\\"false\\" closeonback=\\"true\\" contained=\\"false\\" disabled=\\"false\\" modelvalue=\\"true\\" zindex=\\"2000\\" activatorprops=\\"[object Object]\\" openonhover=\\"false\\" closeoncontentclick=\\"false\\" eager=\\"false\\" locationstrategy=\\"static\\" origin=\\"auto\\" transition=\\"v-snackbar-transition\\"></v-snackbar-stub>
+</div>"
+`;
