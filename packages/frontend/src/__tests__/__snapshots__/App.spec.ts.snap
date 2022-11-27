@@ -1,0 +1,6 @@
+// Vitest Snapshot v1
+
+exports[`when render AppVue > match snapshot 1`] = `
+"<router-view-stub name=\\"default\\"></router-view-stub>
+<snack-bar-stub></snack-bar-stub>"
+`;

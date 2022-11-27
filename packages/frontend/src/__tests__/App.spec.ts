@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { mount } from "@vue/test-utils";
+import { mount, shallowMount } from "@vue/test-utils";
 
 import AppVue from "@/App.vue";
 import { basic_mount } from "./help";
@@ -52,5 +52,25 @@ describe("when render AppVue", () => {
 
     expect(wrapper.text()).toEqual("Welcome");
     expect(wrapper.vm.$el.ownerDocument.title).toEqual("Ask");
+  });
+
+  it("match snapshot", async () => {
+    const router = createRouter({
+      history: createWebHistory(),
+      routes: [
+        {
+          path: "",
+          component: { template: "Welcome" },
+          meta: {},
+        },
+      ],
+    });
+
+    const wrapper = shallowMount(
+      AppVue,
+      basic_mount({ props: {}, plugins: [router] })
+    );
+
+    expect(wrapper.html()).toMatchSnapshot();
   });
 });

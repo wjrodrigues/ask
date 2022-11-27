@@ -1,11 +1,18 @@
 <template>
   <RouterView />
+
+  <SnackBar />
 </template>
 
 <script lang="ts">
+import SnackBar from "@/components/notify/SnackBar.vue";
+
 export default {
   mounted() {
-    const title = () => {
+    this.$router.afterEach(() => this.title());
+  },
+  methods: {
+    title: function () {
       let title = this.$route.meta.title;
       if (title != undefined) {
         title = this.$t(String(title));
@@ -13,10 +20,9 @@ export default {
       } else {
         document.title = "Ask";
       }
-    };
-
-    this.$router.afterEach(() => title());
+    },
   },
+  components: { SnackBar },
 };
 </script>
 
