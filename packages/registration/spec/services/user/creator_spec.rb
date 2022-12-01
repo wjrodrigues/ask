@@ -22,10 +22,10 @@ RSpec.describe Service::CreatorUser, type: :service do
 
     context 'when values are not valid' do
       it 'returns response with errors' do
-        expected_errors =  [
-          [:email, ["can't be blank", 'is invalid']],
-          [:password, ["can't be blank", 'is too short (minimum is 8 characters)']]
-        ]
+        expected_errors =  [{
+          email: ["can't be blank", 'is invalid'],
+          password: ["can't be blank", 'is too short (minimum is 8 characters)']
+        }]
 
         params = Controller::Request.call({ first_name: nil })
         response = described_class.call(params)
