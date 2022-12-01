@@ -29,14 +29,14 @@ RSpec.describe Service::UpdaterProfile, type: :service do
         response = described_class.call(params)
 
         expect(response.ok?).not_to be_truthy
-        expect(response.errors).to eq([[:first_name, ["can't be blank"]]])
+        expect(response.errors).to eq([{ first_name: ["can't be blank"] }])
       end
     end
 
     context 'when invalid user' do
       it 'returns response with errors' do
         params = Controller::Request.call(user_id: '6782e790-6b26-4e37-8cd7-10c3b6c99452')
-        expected_errors = [[:first_name, ["can't be blank"]], [:user, ["can't be blank"]]]
+        expected_errors = [{ first_name: ["can't be blank"], user: ["can't be blank"] }]
 
         response = described_class.call(params)
 

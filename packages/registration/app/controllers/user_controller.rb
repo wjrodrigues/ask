@@ -6,9 +6,9 @@ module Controller
       struct = Controller::Request.call(body(request))
       response = Service::CreatorUser.call(struct)
 
-      return Response.call(:CREATED) if response.ok?
-
-      Response.call(:UNPROCESSABLE_ENTITY, response.errors.to_json)
+      Response.success(status: :CREATED)
+              .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
+              .call(response.ok?)
     end
 
     def self.patch(request)
@@ -18,9 +18,9 @@ module Controller
       struct = Controller::Request.call(params)
       response = Service::UpdaterUser.call(struct)
 
-      return Response.call(:OK) if response.ok?
-
-      Response.call(:UNPROCESSABLE_ENTITY, response.errors.to_json)
+      Response.success(status: :OK)
+              .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
+              .call(response.ok?)
     end
 
     def self.update_profile(request)
@@ -30,9 +30,9 @@ module Controller
       struct = Controller::Request.call(params)
       response = Service::UpdaterProfile.call(struct)
 
-      return Response.call(:OK) if response.ok?
-
-      Response.call(:UNPROCESSABLE_ENTITY, response.errors.to_json)
+      Response.success(status: :OK)
+              .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
+              .call(response.ok?)
     end
   end
 end

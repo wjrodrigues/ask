@@ -25,8 +25,34 @@ module Controller
       BAD_GATEWAY: 502
     }.freeze
 
-    def self.call(status, body = nil)
-      [REASONS[status], body]
+    def call(value)
+      return @success if value
+
+      @failure
+    end
+
+    def self.success(status:, body: nil, action: nil)
+      new.success(status:, body:, action:)
+    end
+
+    def success(status:, body: nil, action: nil)
+      @success = [REASONS[status], body]
+
+      action&.call
+
+      self
+    end
+
+    def self.failure(status:, body: nil, action: nil)
+      new.failure(status:, body:, action:)
+    end
+
+    def failure(status:, body: nil, action: nil)
+      @failure = [REASONS[status], body]
+
+      action&.call
+
+      self
     end
   end
 end

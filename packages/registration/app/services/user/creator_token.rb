@@ -23,7 +23,7 @@ module Service
 
       return response.add_result(user_token) if user_token.save
 
-      user_token.errors.messages.each { |msg| response.add_error(msg, translate: false) }
+      response.add_error(user_token.errors.messages, translate: false) unless user_token.valid?
 
       response
     rescue ActiveRecord::RecordNotFound
