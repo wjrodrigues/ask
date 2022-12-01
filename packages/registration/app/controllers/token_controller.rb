@@ -6,9 +6,9 @@ module Controller
       struct = Controller::Request.call(body(request))
       response = Service::CreatorToken.call(struct)
 
-      return Response.call(:CREATED) if response.ok?
-
-      Response.call(:UNPROCESSABLE_ENTITY, response.errors.to_json)
+      Response.success(status: :CREATED)
+              .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
+              .call(response.ok?)
     end
 
     def self.validate(request)
@@ -18,9 +18,9 @@ module Controller
       struct = Controller::Request.call(params)
       response = Service::ValidatorToken.call(struct)
 
-      return Response.call(:OK) if response.ok?
-
-      Response.call(:UNPROCESSABLE_ENTITY, response.errors.to_json)
+      Response.success(status: :OK)
+              .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
+              .call(response.ok?)
     end
 
     def self.burn(request)
@@ -30,9 +30,9 @@ module Controller
       params = Controller::Request.call(params)
       response = Service::BurnToken.call(params:, validator: Service::ValidatorToken)
 
-      return Response.call(:OK) if response.ok?
-
-      Response.call(:UNPROCESSABLE_ENTITY, response.errors.to_json)
+      Response.success(status: :OK)
+              .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
+              .call(response.ok?)
     end
   end
 end
