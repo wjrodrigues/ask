@@ -21,7 +21,7 @@ module Service
 
       return response.add_result(user) if user.save
 
-      user.errors.messages.each { |msg| response.add_error(msg, translate: false) }
+      response.add_error(user.errors.messages, translate: false) unless user.valid?
 
       response
     rescue StandardError
