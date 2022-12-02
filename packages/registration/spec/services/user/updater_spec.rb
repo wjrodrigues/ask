@@ -18,7 +18,7 @@ RSpec.describe Service::UpdaterUser, type: :service do
 
     context 'when values are not valid' do
       it 'returns response with errors' do
-        expected_errors = [{ email: ['has already been taken'] }]
+        expected_errors =  [{ email: ['has already been taken'] }]
 
         first_user, second_user = create_list(:user, 2)
 
