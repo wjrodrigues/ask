@@ -18,8 +18,8 @@ module Token
                                          code: params.code).last
 
       return response.add_error(:'errors.messages.invalid') if user_token.nil?
-      return response.add_error(:'models.validator_token.errors.used') if user_token.used?
-      return response.add_error(:'models.validator_token.errors.expired') if user_token.expired?
+      return response.add_error(:'models.token.validator.errors.used') if user_token.used?
+      return response.add_error(:'models.token.validator.errors.expired') if user_token.expired?
 
       response.add_result(true)
     end
