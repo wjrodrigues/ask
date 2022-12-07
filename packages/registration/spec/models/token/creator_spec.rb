@@ -2,28 +2,28 @@
 
 require 'spec_helper'
 
-RSpec.describe Service::CreatorToken, type: :service do
+RSpec.describe ::Token::Creator, type: :model do
   describe '#call' do
     context 'when values are valid' do
       it 'returns response with SMS token created' do
         user = create(:user)
-        params = Controller::Request.call(user_id: user.id, kind: User::Token::KINDS[:SMS])
+        params = Controller::Request.call(user_id: user.id, kind: ::Token::Record::KINDS[:SMS])
 
         response = described_class.call(params)
 
         expect(response.ok?).to be_truthy
-        expect(response.result).to be_is_a(User::Token)
+        expect(response.result).to be_is_a(::Token::Record)
         expect(response.result.kind).to eq('sms')
       end
 
       it 'returns response with RESET token created' do
         user = create(:user)
-        params = Controller::Request.call(user_id: user.id, kind: User::Token::KINDS[:RESET])
+        params = Controller::Request.call(user_id: user.id, kind: ::Token::Record::KINDS[:RESET])
 
         response = described_class.call(params)
 
         expect(response.ok?).to be_truthy
-        expect(response.result).to be_is_a(User::Token)
+        expect(response.result).to be_is_a(::Token::Record)
         expect(response.result.kind).to eq('reset')
       end
     end

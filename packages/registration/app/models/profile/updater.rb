@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Service
-  class UpdaterProfile < Service::Application
+module Profile
+  class Updater < Model::Application
     attr_accessor :params
 
     def initialize(params)
@@ -11,7 +11,7 @@ module Service
     end
 
     def call
-      profile = User::Profile.find_or_create_by(user_id: params.user_id)
+      profile = ::Profile::Record.find_or_create_by(user_id: params.user_id)
 
       first_name = params.first_name
       last_name = params.last_name

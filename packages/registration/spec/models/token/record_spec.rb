@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe User::Token, type: :model do
+RSpec.describe ::Token::Record, type: :model do
   describe 'constants' do
     it { expect(described_class::KINDS).to eq({ SMS: 'sms', LOGIN: 'login', RESET: 'reset' }) }
   end

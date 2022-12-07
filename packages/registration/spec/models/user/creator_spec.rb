@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Service::CreatorUser, type: :service do
+RSpec.describe ::User::Creator, type: :model do
   describe '#call' do
     context 'when values are valid' do
       it 'returns response with created user' do
@@ -16,7 +16,7 @@ RSpec.describe Service::CreatorUser, type: :service do
         response = described_class.call(params)
 
         expect(response.ok?).to be_truthy
-        expect(response.result).to be_is_a(User)
+        expect(response.result).to be_is_a(User::Record)
       end
     end
 

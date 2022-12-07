@@ -2,9 +2,9 @@
 
 require 'spec_helper'
 
-RSpec.describe User::Profile, type: :model do
+RSpec.describe ::Profile::Record, type: :model do
   describe 'associations' do
-    it { should belong_to(:user) }
+    it { should belong_to(:user).class_name('::User::Record') }
   end
 
   describe 'validations' do

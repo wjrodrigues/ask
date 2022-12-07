@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :user_token, class: 'User::Token' do
+  factory :user_token, class: '::Token::Record' do
     user
     code { Faker::Alphanumeric.alphanumeric(number: 30) }
     kind { :reset }

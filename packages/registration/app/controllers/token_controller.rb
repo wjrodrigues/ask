@@ -4,7 +4,7 @@ module Controller
   class Token < Controller::Base
     def self.post(request)
       struct = Controller::Request.call(body(request))
-      response = Service::CreatorToken.call(struct)
+      response = ::Token::Creator.call(struct)
 
       Response.success(status: :CREATED)
               .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
@@ -16,7 +16,7 @@ module Controller
       params[:code] = request.params['code']
 
       struct = Controller::Request.call(params)
-      response = Service::ValidatorToken.call(struct)
+      response = ::Token::Validator.call(struct)
 
       Response.success(status: :OK)
               .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
@@ -28,7 +28,7 @@ module Controller
       params[:code] = request.params['code']
 
       params = Controller::Request.call(params)
-      response = Service::BurnToken.call(params:, validator: Service::ValidatorToken)
+      response = ::Token::Burn.call(params:, validator: ::Token::Validator)
 
       Response.success(status: :OK)
               .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)

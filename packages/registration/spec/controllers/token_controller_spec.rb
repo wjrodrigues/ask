@@ -8,11 +8,11 @@ RSpec.describe Controller::Token, type: :controller do
 
     context 'when the parameters are valid' do
       it 'creates token, return http :created status and empty body' do
-        body = { kind: User::Token::KINDS[:SMS], user_id: user.id }
+        body = { kind: ::Token::Record::KINDS[:SMS], user_id: user.id }
 
         post '/tokens', body.to_json, 'CONTENT_TYPE' => 'application/json'
 
-        expected_token = User::Token.find_by(user_id: body[:user_id], kind: body[:kind])
+        expected_token = ::Token::Record.find_by(user_id: body[:user_id], kind: body[:kind])
 
         expect(expected_token).not_to be_nil
         expect(last_response.body).to be_empty
@@ -26,7 +26,7 @@ RSpec.describe Controller::Token, type: :controller do
 
         post '/tokens', body.to_json, 'CONTENT_TYPE' => 'application/json'
 
-        expected_token = User::Token.find_by(user_id: body[:user_id], kind: body[:kind])
+        expected_token = Token::Record.find_by(user_id: body[:user_id], kind: body[:kind])
 
         expect(expected_token).to be_nil
         expect(last_response.body).not_to be_empty

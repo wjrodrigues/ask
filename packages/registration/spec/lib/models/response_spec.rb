@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Service::Response, type: :service do
+RSpec.describe Model::Response, type: :lib do
   describe '#add_error' do
     context 'when the default is translate' do
       it 'adds translated error to list' do

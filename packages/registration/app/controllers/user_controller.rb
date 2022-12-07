@@ -4,7 +4,7 @@ module Controller
   class User < Controller::Base
     def self.post(request)
       struct = Controller::Request.call(body(request))
-      response = Service::CreatorUser.call(struct)
+      response = ::User::Creator.call(struct)
 
       Response.success(status: :CREATED)
               .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
@@ -16,7 +16,7 @@ module Controller
       params[:id] = request.params['id']
 
       struct = Controller::Request.call(params)
-      response = Service::UpdaterUser.call(struct)
+      response = ::User::Updater.call(struct)
 
       Response.success(status: :OK)
               .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
@@ -28,7 +28,7 @@ module Controller
       params[:user_id] = request.params['id']
 
       struct = Controller::Request.call(params)
-      response = Service::UpdaterProfile.call(struct)
+      response = ::Profile::Updater.call(struct)
 
       Response.success(status: :OK)
               .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)

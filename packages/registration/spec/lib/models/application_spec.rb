@@ -2,11 +2,11 @@
 
 require 'spec_helper'
 
-RSpec.describe Service::Application, type: :service do
+RSpec.describe Model::Application, type: :lib do
   describe '#call' do
     before do
       # rubocop:disable Lint/ConstantDefinitionInBlock
-      class Foo < Service::Application
+      class Foo < Model::Application
         def call
           self
         end
@@ -15,10 +15,10 @@ RSpec.describe Service::Application, type: :service do
     end
 
     context 'when accessing attribute :response' do
-      it 'returns instance of Service::Response' do
+      it 'returns instance of Model::Response' do
         instance = Foo.call
 
-        expect(instance.response).to be_is_a(Service::Response)
+        expect(instance.response).to be_is_a(Model::Response)
       end
     end
   end

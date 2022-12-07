@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Service::ValidatorToken, type: :service do
+RSpec.describe ::Token::Validator, type: :model do
   describe '#call' do
     context 'when token exists' do
       it 'returns response with true value' do
@@ -10,7 +10,7 @@ RSpec.describe Service::ValidatorToken, type: :service do
         params = Controller::Request.call(
           user_id: user_token.user_id,
           code: user_token.code,
-          kind: User::Token::KINDS[:SMS]
+          kind: ::Token::Record::KINDS[:SMS]
         )
 
         response = described_class.call(params)
@@ -24,7 +24,7 @@ RSpec.describe Service::ValidatorToken, type: :service do
           params = Controller::Request.call(
             user_id: user_token.user_id,
             code: user_token.code,
-            kind: User::Token::KINDS[:SMS]
+            kind: ::Token::Record::KINDS[:SMS]
           )
 
           response = described_class.call(params)
@@ -40,7 +40,7 @@ RSpec.describe Service::ValidatorToken, type: :service do
           params = Controller::Request.call(
             user_id: user_token.user_id,
             code: user_token.code,
-            kind: User::Token::KINDS[:SMS]
+            kind: ::Token::Record::KINDS[:SMS]
           )
 
           response = described_class.call(params)

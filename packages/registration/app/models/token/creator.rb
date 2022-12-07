@@ -2,8 +2,8 @@
 
 require 'securerandom'
 
-module Service
-  class CreatorToken < Service::Application
+module Token
+  class Creator < Model::Application
     attr_accessor :params
 
     def initialize(params)
@@ -13,8 +13,8 @@ module Service
     end
 
     def call
-      user = User.find_by!(id: params.try(:user_id))
-      user_token = User::Token.create(
+      user = ::User::Record.find_by!(id: params.try(:user_id))
+      user_token = ::Token::Record.create(
         code:,
         kind: params.kind,
         expire_at: 24.hours.from_now,

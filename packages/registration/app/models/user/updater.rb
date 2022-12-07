@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Service
-  class UpdaterUser < Service::Application
+module User
+  class Updater < Model::Application
     attr_accessor :params
 
     def initialize(params)
@@ -11,7 +11,7 @@ module Service
     end
 
     def call
-      user = User.find_by!(id: params.id)
+      user = Record.find_by!(id: params.id)
 
       email = params.email
       password = params.password

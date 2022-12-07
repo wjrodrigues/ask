@@ -10,7 +10,7 @@ RSpec.describe Controller::User, type: :controller do
 
         post '/users', body.to_json, 'CONTENT_TYPE' => 'application/json'
 
-        expected_user = User.find_by(email: body[:email])
+        expected_user = ::User::Record.find_by(email: body[:email])
 
         expect(expected_user).not_to be_nil
         expect(last_response.body).to be_empty
@@ -24,7 +24,7 @@ RSpec.describe Controller::User, type: :controller do
 
         post '/users', body.to_json, 'CONTENT_TYPE' => 'application/json'
 
-        expected_user = User.find_by(email: body[:email])
+        expected_user = ::User::Record.find_by(email: body[:email])
 
         expect(expected_user).to be_nil
         expect(last_response.body).not_to be_empty
@@ -55,7 +55,7 @@ RSpec.describe Controller::User, type: :controller do
 
         patch "/users/#{user.id}", body.to_json, 'CONTENT_TYPE' => 'application/json'
 
-        expected_user = User.find_by(email: body[:email])
+        expected_user = ::User::Record.find_by(email: body[:email])
 
         expect(expected_user).not_to be_nil
         expect(last_response.body).to be_empty
@@ -84,7 +84,7 @@ RSpec.describe Controller::User, type: :controller do
 
         post "/users/#{user.id}/profile", profile.to_json, 'CONTENT_TYPE' => 'application/json'
 
-        expected_profile = User::Profile.find_by(user_id: user.id)
+        expected_profile = ::Profile::Record.find_by(user_id: user.id)
 
         expect(expected_profile).not_to be_nil
         expect(last_response.body).to be_empty

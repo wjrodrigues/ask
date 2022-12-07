@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Service
+module Model
   class Application
     attr_reader :response
 
@@ -15,7 +15,7 @@ module Service
     private_class_method :new
 
     def initialize(*_)
-      self.response = Service::Response.new
+      self.response = Model::Response.new
     end
   end
 end

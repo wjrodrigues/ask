@@ -2,8 +2,8 @@
 
 require 'securerandom'
 
-module Service
-  class BurnToken < Service::Application
+module Token
+  class Burn < Model::Application
     attr_accessor :params, :validator
 
     def initialize(params:, validator:)
@@ -17,7 +17,7 @@ module Service
       response_validator = validator.call(params)
       return response_validator unless response_validator.ok?
 
-      user_token = User::Token.where(user_id: params.user_id, kind: params.kind).last
+      user_token = ::Token::Record.where(user_id: params.user_id, kind: params.kind).last
 
       response.add_result(true) if user_token.burn!
     rescue StandardError
