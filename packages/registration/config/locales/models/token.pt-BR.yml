@@ -1,0 +1,7 @@
+pt-BR:
+  models:
+    token:
+      validator:
+        errors:
+          used: Token já foi usado
+          expired: Token expirou

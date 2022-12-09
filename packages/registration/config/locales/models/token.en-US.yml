@@ -1,0 +1,7 @@
+en-US:
+  models:
+    token:
+      validator:
+        errors:
+          used: Token has already been used
+          expired: Token expired

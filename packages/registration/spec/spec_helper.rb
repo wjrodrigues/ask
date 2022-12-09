@@ -10,8 +10,8 @@ require_relative '../config/application'
 require File.expand_path('./config/initializers/i18n')
 require 'sinatra/activerecord/rake'
 require 'support/factory_bot'
-require_all 'app'
 require_all 'lib'
+require_all 'app'
 require 'pry'
 
 RSpec.configure do |config|

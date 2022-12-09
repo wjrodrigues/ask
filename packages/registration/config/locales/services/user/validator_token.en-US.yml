@@ -1,6 +1,0 @@
-en-US:
-  services:
-    validator_token:
-      errors:
-        used: Token has already been used
-        expired: Token expired
