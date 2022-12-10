@@ -5,7 +5,7 @@ require 'spec_helper'
 RSpec.describe ::Profile::Updater, type: :model do
   describe '#call' do
     context 'when values are valid' do
-      it 'returns response with created user' do
+      it 'returns response with created profile' do
         user = create(:user)
         params = Controller::Request.call(
           user_id: user.id,
@@ -17,7 +17,7 @@ RSpec.describe ::Profile::Updater, type: :model do
         response = described_class.call(params)
 
         expect(response.ok?).to be_truthy
-        expect(response.result).to be_is_a(::Profile::Record)
+        expect(response.result).to be_is_a(Hash)
       end
     end
 
