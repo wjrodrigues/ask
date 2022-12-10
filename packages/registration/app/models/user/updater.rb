@@ -2,32 +2,32 @@
 
 module User
   class Updater < Model::Application
-    attr_accessor :params
+    attr_accessor :params, :repository
 
-    def initialize(params)
+    def initialize(params, repository: Repository)
       self.params = params
+      self.repository = repository
 
       super
     end
 
     def call
-      user = Record.find_by!(id: params.id)
+      if repository.find(value: params.id).nil?
+        return response.add_error(:'errors.messages.invalid')
+      end
 
-      email = params.email
-      password = params.password
+      result = repository.update(id: params.id, email: params.email, password: params.password)
 
-      user.email = email unless email.nil?
-      user.password = password unless password.nil?
+      unless result
+        response.add_error(
+          repository.errors(email: params.email, password: params.password),
+          translate: false
+        )
+      end
 
-      return response.add_result(user) if user.save
-
-      response.add_error(user.errors.messages, translate: false) unless user.valid?
-
-      response
-    rescue StandardError
-      response.add_error(:'errors.messages.invalid')
+      response.add_result(repository.find(value: params.id))
     end
 
-    private :params=
+    private :params=, :repository
   end
 end

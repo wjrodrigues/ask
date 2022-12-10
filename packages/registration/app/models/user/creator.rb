@@ -2,34 +2,25 @@
 
 module User
   class Creator < Model::Application
-    attr_accessor :params
+    attr_accessor :params, :repository
 
-    def initialize(params)
+    def initialize(params, repository: Repository)
       self.params = params
+      self.repository = repository
 
       super
     end
 
     def call
-      user = ::User::Record.new(email: params.email,
-                                password: params.password,
-                                profile: instance_profile(params))
+      values = { email: params.email, password: params.password }
 
-      return response.add_result(user) if user.save
+      result = repository.create(**values)
 
-      response.add_error(user.errors.messages, translate: false) unless user.valid?
+      return response.add_result(repository.find(value: params.email)) if result
 
-      response
+      response.add_error(repository.errors(**values), translate: false)
     end
 
-    private :params=
-
-    def instance_profile(params)
-      return if params.first_name.nil?
-
-      ::Profile::Record.new(first_name: params.first_name,
-                            last_name: params.last_name,
-                            photo: params.photo)
-    end
+    private :params=, :repository=
   end
 end

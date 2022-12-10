@@ -15,6 +15,7 @@ module Token
 
     def burn!
       raise ActiveRecord::RecordInvalid unless used_at.nil?
+      raise ActiveRecord::RecordInvalid if expired?
 
       update!(used_at: DateTime.current)
     end

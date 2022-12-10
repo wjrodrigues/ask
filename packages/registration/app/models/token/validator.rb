@@ -4,26 +4,27 @@ require 'securerandom'
 
 module Token
   class Validator < Model::Application
-    attr_accessor :params
+    attr_accessor :params, :repository
 
-    def initialize(params)
+    def initialize(params, repository: Repository)
       self.params = params
+      self.repository = repository
 
       super
     end
 
     def call
-      user_token = ::Token::Record.where(user_id: params.user_id,
-                                         kind: params.kind,
-                                         code: params.code).last
+      values = { user_id: params.user_id, kind: params.kind, code: params.code }
 
-      return response.add_error(:'errors.messages.invalid') if user_token.nil?
-      return response.add_error(:'models.token.validator.errors.used') if user_token.used?
-      return response.add_error(:'models.token.validator.errors.expired') if user_token.expired?
+      return response.add_error(:'errors.messages.invalid') unless repository.valid?(**values)
+      return response.add_error(:'models.token.validator.errors.used') if repository.used?(**values)
+      if repository.expired?(**values)
+        return response.add_error(:'models.token.validator.errors.expired')
+      end
 
       response.add_result(true)
     end
 
-    private :params=
+    private :params=, :repository=
   end
 end

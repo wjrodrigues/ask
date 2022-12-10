@@ -11,5 +11,13 @@ FactoryBot.define do
       code { Faker::Alphanumeric.alphanumeric(number: 6) }
       kind { :sms }
     end
+
+    trait :expired do
+      expire_at { 1.day.ago }
+    end
+
+    trait :burned do
+      used_at { DateTime.current }
+    end
   end
 end
