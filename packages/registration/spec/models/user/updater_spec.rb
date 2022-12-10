@@ -11,14 +11,17 @@ RSpec.describe ::User::Updater, type: :model do
         response = described_class.call(params)
 
         expect(response.ok?).to be_truthy
-        expect(response.result).to be_is_a(::User::Record)
-        expect(response.result.email).not_to eq(user.email)
+        expect(response.result).to be_is_a(Hash)
+        expect(response.result[:email]).not_to eq(user.email)
       end
     end
 
     context 'when values are not valid' do
       it 'returns response with errors' do
-        expected_errors =  [{ email: ['has already been taken'] }]
+        expected_errors = [{
+          email: ['has already been taken'],
+          password: ["can't be blank", 'is too short (minimum is 8 characters)']
+        }]
 
         first_user, second_user = create_list(:user, 2)
 
