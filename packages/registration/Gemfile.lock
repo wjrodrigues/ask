@@ -112,6 +112,7 @@ GEM
     sinatra-activerecord (2.0.26)
       activerecord (>= 4.1)
       sinatra (>= 1.0)
+    sinatra-cross_origin (0.4.0)
     thin (1.8.1)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0, >= 1.0.4)
@@ -148,6 +149,7 @@ DEPENDENCIES
   simplecov (~> 0.21.2)
   sinatra (~> 3.0, >= 3.0.2)
   sinatra-activerecord (~> 2.0, >= 2.0.26)
+  sinatra-cross_origin
   thin (~> 1.8, >= 1.8.1)
   timecop (~> 0.9.5)
 
