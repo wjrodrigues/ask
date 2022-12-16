@@ -3,6 +3,7 @@
 module Application
   def self.load!
     require_rel 'initializers'
+    require_all 'lib'
     require_all 'app'
 
     Location.load
