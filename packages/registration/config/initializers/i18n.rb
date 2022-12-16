@@ -11,7 +11,7 @@ module Location
   end
 
   def self.define(location)
-    location = location&.to_sym
+    location = location&.split(',')&.first&.to_sym
 
     return I18n.locale = :'en-US' unless SUPPORTED.include?(location)
 
