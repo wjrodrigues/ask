@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'sinatra/cross_origin'
 
 module Controller
