@@ -78,19 +78,22 @@ export default {
       }).then((response) => {
         this.loading = false;
 
-        this.errorMessages(response.errors);
+        this.errorMessages(response.errors || []);
       });
     },
     required(value: String) {
       return !!value || this.$t("form.field_required");
     },
-    errorMessages(errors = []) {
-      if (errors.length == 0) return;
-      let listError = {} as any;
-      const error = errors.pop() || {};
+    errorMessages(errors: []) {
+      if (errors.length > 0) {
+        let listError = {} as any;
+        const error = errors.pop() || {};
 
-      Object.keys(error).forEach((key) => (listError[key] = { ...error }[key]));
-      this.errors = { ...this.errors, ...listError };
+        Object.keys(error).forEach(
+          (key) => (listError[key] = { ...error }[key])
+        );
+        this.errors = { ...this.errors, ...listError };
+      }
     },
   },
 };

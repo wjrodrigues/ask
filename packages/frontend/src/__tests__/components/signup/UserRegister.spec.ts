@@ -58,10 +58,6 @@ describe("when render UserRegisterVue", () => {
     wrapper.find("[name='email']").setValue(faker.internet.email());
     wrapper.find("[name='password']").setValue(faker.internet.password());
 
-    nock(base_urls.API_REGISTRATION)
-      .post("/users")
-      .reply(422, [{ email: ["já está em uso"] }]);
-
     await wrapper.trigger("change");
 
     expect(wrapper.vm.errors).toEqual({
@@ -69,8 +65,12 @@ describe("when render UserRegisterVue", () => {
       email: "",
       password: "",
     });
-    expect(wrapper.vm.form).toBeTruthy;
+    expect(wrapper.vm.form).toEqual(true);
 
-    await wrapper.find("form").trigger("submit.prevent")
+    nock(base_urls.API_REGISTRATION)
+      .post("/users")
+      .reply(422, [{ email: ["já está em uso"] }]);
+
+    await wrapper.find("form").trigger("submit");
   });
 });
