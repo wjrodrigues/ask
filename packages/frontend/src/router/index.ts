@@ -1,8 +1,18 @@
 import { createRouter, createWebHistory } from "vue-router";
+import Signup from "../views/SignUp.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [],
+  routes: [
+    {
+      path: "/signup",
+      name: "signup",
+      component: () => Signup,
+      meta: {
+        title: "signup.title",
+      },
+    },
+  ],
 });
 
 export default router;

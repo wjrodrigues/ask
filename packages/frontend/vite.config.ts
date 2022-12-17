@@ -11,21 +11,24 @@ export default defineConfig({
   test: {
     watch: false,
     globals: true,
-    environment: "jsdom",
+    environment: "happy-dom",
     reporters: ["verbose"],
     include: ["**/*.spec.*", "**/*.test.*"],
-    exclude: ["**/node_modules/**"],
+    exclude: ["**/node_modules/**", "**/__snapshots__/**"],
     coverage: {
       provider: "istanbul",
       enabled: true,
       reporter: ["text", "lcov"],
       reportsDirectory: "coverage",
       include: ["**/*.vue", "**/*.js", "**/*.ts*"],
-      branches: 80,
+      branches: 70,
       functions: 80,
       lines: 80,
     },
     setupFiles: "vitest.setup.ts",
+    deps: {
+      inline: ["vuetify"],
+    },
   },
   resolve: {
     alias: {

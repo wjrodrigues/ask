@@ -7,6 +7,7 @@ ENV['RACK_ENV'] ||= 'test'
 require 'support/simplecov'
 require_relative '../config/environment'
 require_relative '../config/application'
+require_relative '../config/cors'
 require File.expand_path('./config/initializers/i18n')
 require 'sinatra/activerecord/rake'
 require 'support/factory_bot'
