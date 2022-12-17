@@ -10,15 +10,8 @@
           type="text"
           :label="$t('form.user.profile.first_name')"
           variant="underlined"
-        ></v-text-field>
-
-        <v-text-field
-          v-model="last_name"
-          :readonly="loading"
-          clearable
-          type="text"
-          :label="$t('form.user.profile.last_name')"
-          variant="underlined"
+          name="first_name"
+          :error-messages="errors.first_name"
         ></v-text-field>
 
         <v-text-field
@@ -29,6 +22,8 @@
           type="email"
           label="Email"
           variant="underlined"
+          :error-messages="errors.email"
+          name="email"
         ></v-text-field>
 
         <v-text-field
@@ -39,16 +34,18 @@
           :label="$t('form.user.password')"
           type="password"
           variant="underlined"
+          :error-messages="errors.password"
+          name="password"
         ></v-text-field>
 
         <v-card-actions>
           <v-btn
-            :disabled="!form"
-            :loading="loading"
             block
             type="submit"
             variant="tonal"
             rounded="pill"
+            :disabled="loading"
+            :loading="loading"
           >
             {{ $t("form.save") }}
           </v-btn>
@@ -59,22 +56,41 @@
 </template>
 
 <script lang="ts">
+import { Signup } from "@/service/signup";
+
 export default {
   data: () => ({
     form: false,
     first_name: null,
-    last_name: null,
     email: null,
     password: null,
     loading: false,
+    errors: { first_name: "", email: "", password: "" },
   }),
 
   methods: {
-    onSubmit() {
+    async onSubmit() {
       this.loading = true;
+      await Signup({
+        first_name: this.first_name || "",
+        email: this.email || "",
+        password: this.password || "",
+      }).then((response) => {
+        this.loading = false;
+
+        this.errorMessages(response.errors);
+      });
     },
-    required(v: String) {
-      return !!v || this.$t("form.field_required");
+    required(value: String) {
+      return !!value || this.$t("form.field_required");
+    },
+    errorMessages(errors = []) {
+      if (errors.length == 0) return;
+      let listError = {} as any;
+      const error = errors.pop() || {};
+
+      Object.keys(error).forEach((key) => (listError[key] = { ...error }[key]));
+      this.errors = { ...this.errors, ...listError };
     },
   },
 };

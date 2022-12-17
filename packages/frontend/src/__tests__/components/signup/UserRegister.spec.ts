@@ -2,7 +2,7 @@ import { describe, it, expect } from "vitest";
 import { shallowMount, mount } from "@vue/test-utils";
 
 import UserRegisterVue from "@/components/signup/UserRegister.vue";
-import { basic_mount } from "@/__tests__/help";
+import { base_urls, basic_mount, faker, nock } from "@/__tests__/help";
 
 describe("when render UserRegisterVue", () => {
   it("render form with all components", () => {
@@ -37,7 +37,7 @@ describe("when render UserRegisterVue", () => {
       basic_mount({ props: {}, plugins: [] })
     );
 
-    expect(wrapper.find("button").attributes("disabled")).toEqual("");
+    expect(wrapper.find("button").attributes("disabled")).toBeUndefined;
 
     await wrapper.findAll("input").forEach(async (e) => e.setValue("Ask"));
     await wrapper.trigger("change");
@@ -47,5 +47,30 @@ describe("when render UserRegisterVue", () => {
     expect(data.form).toBeTruthy;
     expect(wrapper.find("button:disabled")).toBeNull;
     expect(wrapper.find("button").attributes("disabled")).toBeUndefined;
+  });
+
+  it("validates form submission errors", async () => {
+    const wrapper = mount(
+      UserRegisterVue,
+      basic_mount({ props: {}, plugins: [] })
+    );
+    wrapper.find("[name='first_name']").setValue(faker.name.firstName());
+    wrapper.find("[name='email']").setValue(faker.internet.email());
+    wrapper.find("[name='password']").setValue(faker.internet.password());
+
+    nock(base_urls.API_REGISTRATION)
+      .post("/users")
+      .reply(422, [{ email: ["já está em uso"] }]);
+
+    await wrapper.trigger("change");
+
+    expect(wrapper.vm.errors).toEqual({
+      first_name: "",
+      email: "",
+      password: "",
+    });
+    expect(wrapper.vm.form).toBeTruthy;
+
+    await wrapper.find("form").trigger("submit.prevent")
   });
 });
