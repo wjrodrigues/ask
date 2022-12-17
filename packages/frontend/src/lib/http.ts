@@ -1,4 +1,5 @@
 import axios from "axios";
+const env = import.meta.env;
 
 const simpleHttp = () => {
   return axios.create({
@@ -8,8 +9,9 @@ const simpleHttp = () => {
 
 const apiRegistration = () => {
   return axios.create({
-    baseURL: process.env.VITE_API_REGISTRATION_URL,
+    baseURL: env.VITE_API_REGISTRATION_URL,
     timeout: 1000,
+    headers: { "Accept-Language": "pt-BR" },
   });
 };
 
