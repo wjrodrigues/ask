@@ -22,7 +22,7 @@ cp docker/keycloak/config.json.example docker/keycloak/config.json
 
 Run container
 ```bash
-docker-compose -f docker/docker-compose.yml up -d
+cd docker && docker-compose up -d && cd .. 
 ```
 
 # Access
