@@ -21,7 +21,7 @@ export default defineConfig({
       reporter: ["text", "lcov"],
       reportsDirectory: "coverage",
       include: ["**/*.vue", "**/*.js", "**/*.ts*"],
-      branches: 80,
+      branches: 70,
       functions: 80,
       lines: 80,
     },
