@@ -15,3 +15,17 @@ Purpose is to register questions and their answers in a collaborative way.
 - [Access management](https://github.com/wjrodrigues/ask/tree/main/packages/access_management)
 - [Registration](https://github.com/wjrodrigues/ask/tree/main/packages/registration)
 - [Frontend](https://github.com/wjrodrigues/ask/tree/main/packages/frontend)
+
+## Start
+
+Copy file with environment variables
+
+```bash
+cp docker/.env-example .env
+```
+
+Run container
+
+```bash
+docker-compose up -d
+```
