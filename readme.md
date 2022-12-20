@@ -18,14 +18,11 @@ Purpose is to register questions and their answers in a collaborative way.
 
 ## Start
 
-Copy file with environment variables
+Run containers
 
 ```bash
-cp docker/.env-example .env
-```
-
-Run container
-
-```bash
-docker-compose up -d
+make infra
+make access_management
+make registration
+make frontend
 ```
