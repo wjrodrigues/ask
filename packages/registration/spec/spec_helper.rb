@@ -14,11 +14,17 @@ require 'support/factory_bot'
 require_all 'lib'
 require_all 'app'
 require 'pry'
+require 'vcr'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
 
   Application.load!
+
+  VCR.configure do |vcr_config|
+    vcr_config.hook_into :webmock
+    vcr_config.cassette_library_dir = 'spec/support/vcr_cassettes'
+  end
 
   # Database setup
   if ActiveRecord::Base.connection.migration_context.needs_migration?

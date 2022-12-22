@@ -3,7 +3,7 @@
 require 'redis'
 
 module Lib
-  class Lib::Cache
+  class Cache
     REDIS = lambda do
       Redis.new(
         host: ENV.fetch('CACHE_HOST'),
