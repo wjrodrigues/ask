@@ -15,3 +15,14 @@ Purpose is to register questions and their answers in a collaborative way.
 - [Access management](https://github.com/wjrodrigues/ask/tree/main/packages/access_management)
 - [Registration](https://github.com/wjrodrigues/ask/tree/main/packages/registration)
 - [Frontend](https://github.com/wjrodrigues/ask/tree/main/packages/frontend)
+
+## Start
+
+Run containers
+
+```bash
+make infra
+make access_management
+make registration
+make frontend
+```

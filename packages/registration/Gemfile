@@ -49,6 +49,9 @@ gem 'dotenv', '~> 2.8', '>= 2.8.1'
 # Cors
 gem 'sinatra-cross_origin'
 
+# Cache
+gem 'redis', '~> 5.0', '>= 5.0.5'
+
 # These gems will only be used when we are running the application locally
 group :development do
   gem 'pry', '~> 0.14.1'
