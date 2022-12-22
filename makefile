@@ -10,6 +10,7 @@ frontend_path = ${pwd}/packages/frontend
 .SILENT:frontend
 
 infra:
+	docker network create application || true
 	cp ${package_path}/docker/.env-example ${package_path}/.env
 	cd ${package_path} && docker-compose up -d
 	echo "Finish ✅"
