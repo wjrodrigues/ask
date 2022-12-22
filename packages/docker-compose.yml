@@ -2,7 +2,7 @@ version: "3"
 
 services:
   cache:
-    image: redis:7.0.7-alpine
+    image: redis:latest
     container_name: cache
     restart: always
     tty: true
@@ -10,11 +10,9 @@ services:
       - $REDIS_PORT:$REDIS_PORT
     command: >
       --requirepass ${REDIS_PASSWORD}
-    volumes:
-      - ../:/app
     networks:
-      - registration_app
+      - application
 
 networks:
-  registration_app:
-    driver: bridge
+  application:
+    external: true
