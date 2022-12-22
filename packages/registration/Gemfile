@@ -52,6 +52,9 @@ gem 'sinatra-cross_origin'
 # Cache
 gem 'redis', '~> 5.0', '>= 5.0.5'
 
+# Network
+gem 'http', '~> 5.1', '>= 5.1.1'
+
 # These gems will only be used when we are running the application locally
 group :development do
   gem 'pry', '~> 0.14.1'
@@ -75,4 +78,6 @@ group :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'simplecov', '~> 0.21.2'
   gem 'timecop', '~> 0.9.5'
+  gem 'vcr', '~> 6.1'
+  gem 'webmock', '~> 3.18', '>= 3.18.1'
 end
