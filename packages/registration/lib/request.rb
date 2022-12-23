@@ -1,26 +1,18 @@
 # frozen_string_literal: true
 
-require 'http'
+require 'rest-client'
 
 module Lib
   class Request
-    TIMEOUT = 30 # seconds
+    TIMEOUT = 20 # seconds
 
-    DEFAULT = -> { HTTP.timeout(TIMEOUT) }
-
-    def self.get(*args)
-      DEFAULT.call.get(*args)
+    def self.execute(url, args = {})
+      RestClient::Request.execute(url:, timeout: TIMEOUT, **args)
     rescue StandardError => e
-      raise Lib::HttpError e
+      raise Lib::HttpError, e
     end
 
-    def self.post(*args)
-      DEFAULT.call.post(*args)
-    rescue StandardError => e
-      raise Lib::HttpError e
-    end
-
-    private_constant :DEFAULT, :TIMEOUT
+    private_constant :TIMEOUT
   end
 
   class HttpError < StandardError; end
