@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://keycloak:8080/admin/realms/ask/users
+    body:
+      encoding: UTF-8
+      string: '{"username":"billie_harvey@bauch-hills.info","email":"billie_harvey@bauch-hills.info","enabled":true,"firstName":"Derek","lastName":"Harber","emailVerified":true}'
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.1.2p20
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJMdm1RakY3UHRXSFIyV2Qwd21NSGlEVE8tMll4VHA1MnVPNnQtN2wweTBBIn0.eyJleHAiOjE2NzE4MDc3NDksImlhdCI6MTY3MTgwNTk0OSwianRpIjoiMDc5NWY0YjctMTRhNC00ZTNkLTgwNjItM2I5YTExMTFlM2FlIiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL2FzayIsImF1ZCI6InJlYWxtLW1hbmFnZW1lbnQiLCJzdWIiOiI3NTYyMmU3Yi01NjZkLTQwYTAtOTY1ZS1lNGY3NGQwMzEyMTQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhc2stYXBpLWNsaWVudCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiIiwiKiJdLCJyZXNvdXJjZV9hY2Nlc3MiOnsicmVhbG0tbWFuYWdlbWVudCI6eyJyb2xlcyI6WyJtYW5hZ2UtdXNlcnMiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJjbGllbnRJZCI6ImFzay1hcGktY2xpZW50IiwiY2xpZW50SG9zdCI6IjE5Mi4xNjguNDguMyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWFzay1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiMTkyLjE2OC40OC4zIn0.iMTLJ0ItexssKaaRTs-fo1TTXy7vukGvZXs2OdGMf2dr0PYFhXaYNSvC0vlcvaxGELJQKLwFp2Iiq5KZDPhDNAla0o-ChkL2ewa3qF7YZ9l185CABHy1InKAPz1r8ypF2zC6fnxm1UnVsjQlCZ2JTSQwlfvbDLVUROA8h11cUDFBoepwZijD1JAiVqRNsKJpQXdj_u6WrTKgnqFG4yqhRNET6UIIS5LzYe7AHWJU1oxz7LY0lrCadF-OLvRZvSHJYzInx-5dFottqNhvDCHteeibYKI3CRXqj1V3mQxXe6Gc4w0EgnFWNcLdpIfhglZhby_wTrGWCPm2pTcVJYBn_A
+      Content-Length:
+      - '162'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - keycloak:8080
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Referrer-Policy:
+      - no-referrer
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Location:
+      - http://keycloak:8080/admin/realms/ask/users/dad9abdd-c4c2-4ff3-a9f3-1a7c1ee8c542
+      Content-Length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+  recorded_at: Fri, 23 Dec 2022 14:42:52 GMT
+recorded_with: VCR 6.1.0
