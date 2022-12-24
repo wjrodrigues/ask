@@ -53,7 +53,7 @@ gem 'sinatra-cross_origin'
 gem 'redis', '~> 5.0', '>= 5.0.5'
 
 # Network
-gem 'http', '~> 5.1', '>= 5.1.1'
+gem 'rest-client', '~> 2.1'
 
 # These gems will only be used when we are running the application locally
 group :development do

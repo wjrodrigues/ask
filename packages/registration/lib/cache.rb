@@ -21,20 +21,20 @@ module Lib
 
     private_constant :REDIS
 
-    def self.fetch(key, expires_in: nil, &)
+    def self.fetch(key, expires_in: nil, &block)
       in_memory = REDIS.call.get(key)
       # rubocop:disable Security/MarshalLoad
       return Marshal.load(in_memory) unless in_memory.nil?
       # rubocop:enable Security/MarshalLoad
 
-      response = yield
-      VALID_RESPONSE.call(response)
+      cache_response = yield unless block.nil?
+      VALID_RESPONSE.call(cache_response)
 
-      return response if response.nil?
+      return cache_response if cache_response.nil?
 
-      REDIS.call.set(key, Marshal.dump(response), ex: expires_in)
+      REDIS.call.set(key, Marshal.dump(cache_response), ex: expires_in)
 
-      response
+      cache_response
     end
   end
 end

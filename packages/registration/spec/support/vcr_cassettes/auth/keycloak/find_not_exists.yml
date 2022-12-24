@@ -1,0 +1,47 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://keycloak:8080/admin/realms/ask/users?email=ask@ask.info
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.1.2p20
+      Content-Type:
+      - application/json
+      Authorization:
+      - Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJMdm1RakY3UHRXSFIyV2Qwd21NSGlEVE8tMll4VHA1MnVPNnQtN2wweTBBIn0.eyJleHAiOjE2NzE4MTExNzUsImlhdCI6MTY3MTgwOTM3NSwianRpIjoiYWQxOGRkNTUtN2UwOC00MmFjLWJlZGEtOWYwMjA4ZmIxOTNjIiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL2FzayIsImF1ZCI6InJlYWxtLW1hbmFnZW1lbnQiLCJzdWIiOiI3NTYyMmU3Yi01NjZkLTQwYTAtOTY1ZS1lNGY3NGQwMzEyMTQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhc2stYXBpLWNsaWVudCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiIiwiKiJdLCJyZXNvdXJjZV9hY2Nlc3MiOnsicmVhbG0tbWFuYWdlbWVudCI6eyJyb2xlcyI6WyJtYW5hZ2UtdXNlcnMiXX19LCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJjbGllbnRJZCI6ImFzay1hcGktY2xpZW50IiwiY2xpZW50SG9zdCI6IjE5Mi4xNjguNDguMyIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwicHJlZmVycmVkX3VzZXJuYW1lIjoic2VydmljZS1hY2NvdW50LWFzay1jbGllbnQiLCJjbGllbnRBZGRyZXNzIjoiMTkyLjE2OC40OC4zIn0.AqqZRtGYnGcQX1x5BEiVRH8KjzAtbn9CcpzvQB3e3urpKrcPNvhN0oFVo7IGJGaY-5WXrY1ql1TZLH2xtw2O5N_wAdFXNn7bFyMR6axb1PMT0WxpqSVOoUyMcCMdhH4I3g238W--5II8ZHnSd2pYYIXxL1dJoKlqqgWmlGPJqkv8CWVlhlHp_72OnWwBVz9Eac4bEGODjEWtZQY3XLEp9r5onAMQSDecbwwGeRJZfgLqgoljm8-7Y9-8Gpryu29lyG4AV_D5f_0djY8hSef-zFoLdDFyocTmtCcw8GJL8CSpcmrF5-7fjgnfL1kiLsK44hYD-UMGzQcVnzqmv_5gGw
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - keycloak:8080
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Referrer-Policy:
+      - no-referrer
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Cache-Control:
+      - no-cache
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2'
+    body:
+      encoding: UTF-8
+      string: "[]"
+  recorded_at: Fri, 23 Dec 2022 15:42:40 GMT
+recorded_with: VCR 6.1.0

@@ -22,6 +22,7 @@ services:
     networks:
       - keycloak-net
       - keycloak-db-net
+      - application
     depends_on:
       - keycloak_db
 
@@ -44,3 +45,5 @@ networks:
     driver: bridge
   keycloak-db-net:
     driver: bridge
+  application:
+    external: true
