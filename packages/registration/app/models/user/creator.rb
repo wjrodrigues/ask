@@ -2,11 +2,12 @@
 
 module User
   class Creator < Model::Application
-    attr_accessor :params, :repository
+    attr_accessor :params, :repository, :auth
 
-    def initialize(params, repository: Repository)
+    def initialize(params, repository: Repository, auth: Lib::Auth)
       self.params = params
       self.repository = repository
+      self.auth = auth
 
       super
     end
@@ -16,11 +17,14 @@ module User
 
       result = repository.create(**values)
 
-      return response.add_result(repository.find(value: params.email)) if result
+      if result
+        auth.create(**values, target: :keycloack)
+        return response.add_result(repository.find(value: params.email))
+      end
 
       response.add_error(repository.errors(**values), translate: false)
     end
 
-    private :params=, :repository=
+    private :params=, :repository=, :auth=
   end
 end
