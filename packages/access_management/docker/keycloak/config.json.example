@@ -18,7 +18,31 @@
       "webOrigins": [
         "http://localhost:3000"
       ]
+    },
+    {
+      "clientId": "ask-api-client",
+      "name": "ask-api-client",
+      "description": "Client for API",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "authorizationServicesEnabled": true,
+      "secret": "#%skV59P@a%ci6D#U^tg9!^8Du@9do",
+      "serviceAccountsEnabled": true,
+      "redirectUris": [
+        "*"
+      ]
     }
   ],
-  "users": []
+  "users": [
+    {
+      "username": "service-account-ask-client",
+      "enabled": true,
+      "serviceAccountClientId": "ask-api-client",
+      "clientRoles": {
+        "realm-management": [
+          "manage-users"
+        ]
+      }
+    }
+  ]
 }
