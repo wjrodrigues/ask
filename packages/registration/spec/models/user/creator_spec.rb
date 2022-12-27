@@ -12,6 +12,9 @@ RSpec.describe ::User::Creator, type: :model do
             password: Faker::Internet.password
           }
         )
+
+        expect(Lib::Auth).to receive(:create)
+
         response = described_class.call(params)
 
         expect(response.ok?).to be_truthy

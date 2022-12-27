@@ -45,13 +45,13 @@ module Lib
       false
     end
 
-    def reset_password(email, passowrd)
+    def reset_password(email, password)
       user = find(email)
 
       return false unless user
 
       url = "#{url(:user)}/#{user['id']}/reset-password"
-      payload = { temporary: false, type: 'password', value: passowrd }.to_json
+      payload = { temporary: false, type: 'password', value: password }.to_json
 
       response = Lib::Request.execute(url, method: :put, payload:, headers: auth_header).code
       response == 204

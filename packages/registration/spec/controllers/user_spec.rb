@@ -8,6 +8,8 @@ RSpec.describe Controller::User, type: :controller do
       it 'creates user, return http :created status and empty body' do
         body = { email: Faker::Internet.email, password: Faker::Internet.password }
 
+        expect(Lib::Auth).to receive(:create)
+
         post '/users', body.to_json, 'CONTENT_TYPE' => 'application/json'
 
         expected_user = ::User::Record.find_by(email: body[:email])

@@ -11,7 +11,7 @@ module Lib
       TARGETS.fetch(target)
     end
 
-    def self.create(first_name:, last_name:, password:, email:, target:)
+    def self.create(password:, email:, target:, first_name: nil, last_name: nil)
       klass = GET_TARGET.call(target).constantize.new
       klass.create(first_name:, last_name:, password:, email:)
     end
