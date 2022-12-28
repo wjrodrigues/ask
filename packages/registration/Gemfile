@@ -55,6 +55,9 @@ gem 'redis', '~> 5.0', '>= 5.0.5'
 # Network
 gem 'rest-client', '~> 2.1'
 
+# Messenger
+gem 'bunny', '~> 2.20', '>= 2.20.1'
+
 # These gems will only be used when we are running the application locally
 group :development do
   gem 'pry', '~> 0.14.1'
