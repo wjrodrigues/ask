@@ -3,11 +3,13 @@ package_path = ${pwd}/packages
 access_management_path = ${pwd}/packages/access_management
 registration_path = ${pwd}/packages/registration
 frontend_path = ${pwd}/packages/frontend
+message_broker = ${pwd}/packages/message_broker
 
 .SILENT:infra
 .SILENT:access_management
 .SILENT:registration
 .SILENT:frontend
+.SILENT:message_broker
 
 infra:
 	docker network create application || true
@@ -32,4 +34,9 @@ frontend:
 	cp ${frontend_path}/docker/.env-example ${frontend_path}/docker/.env
 	cp ${frontend_path}/.env.example ${frontend_path}/.env
 	cd ${frontend_path}/docker && docker-compose up -d
+	echo "Finish ✅"
+
+message_broker:
+	cp ${message_broker}/.env.example ${message_broker}/.env
+	cd ${message_broker} && docker-compose up -d
 	echo "Finish ✅"
