@@ -15,6 +15,7 @@ Purpose is to register questions and their answers in a collaborative way.
 - [Access management](https://github.com/wjrodrigues/ask/tree/main/packages/access_management)
 - [Registration](https://github.com/wjrodrigues/ask/tree/main/packages/registration)
 - [Frontend](https://github.com/wjrodrigues/ask/tree/main/packages/frontend)
+- [Message broker](https://github.com/wjrodrigues/ask/tree/main/packages/message_broker)
 
 ## Start
 
@@ -23,6 +24,7 @@ Run containers
 ```bash
 make infra
 make access_management
+make message_broker
 make registration
 make frontend
 ```
