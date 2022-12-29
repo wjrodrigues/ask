@@ -20,3 +20,9 @@ Run container
 ```bash
 docker-compose up -d
 ```
+
+# Manager
+
+**Host:** http://localhost:15672/#/  
+**User:** rabbitmq  
+**Password:** rabbitmq  

@@ -2,7 +2,7 @@ version: '3'
 
 services:
   message_broker:
-    image: rabbitmq:3.11.5-alpine
+    image: rabbitmq:3.11.5-management-alpine
     container_name: message_broker
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
@@ -13,7 +13,10 @@ services:
       - ${RABBITMQ_LOCAL_MANAGEMENT_CONSOLE_PORT}:${RABBITMQ_LOCAL_MANAGEMENT_CONSOLE_PORT}
     networks:
       - application
+      - messaging
 
 networks:
   application:
     external: true
+  messaging:
+      driver: bridge
