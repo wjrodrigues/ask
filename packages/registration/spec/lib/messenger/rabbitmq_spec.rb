@@ -16,7 +16,7 @@ RSpec.describe Lib::Messenger::Rabbitmq, type: :lib do
         allow(Bunny).to receive(:new).and_return(double_bunny)
 
         described_class.publish(
-          message: 'Ask message', exchange: 'notification', target: 'mobile'
+          message: 'Ask message', exchange: 'notification', queue: 'mobile'
         )
 
         expect(spy_channel).to have_received(:close).once
@@ -30,7 +30,7 @@ RSpec.describe Lib::Messenger::Rabbitmq, type: :lib do
 
         2.times do
           described_class.publish(
-            message: 'Ask message', exchange: 'notification', target: 'mobile'
+            message: 'Ask message', exchange: 'notification', queue: 'mobile'
           )
         end
       end
@@ -44,7 +44,7 @@ RSpec.describe Lib::Messenger::Rabbitmq, type: :lib do
 
         RSpec::Mocks.with_temporary_scope do
           described_class.publish(
-            message: 'Ask message', exchange: 'notification', target: 'mobile'
+            message: 'Ask message', exchange: 'notification', queue: 'mobile'
           )
         end
       end

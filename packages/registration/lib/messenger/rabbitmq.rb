@@ -21,11 +21,11 @@ module Lib
       @@session = SESSION.call if @@session.nil? || !@@session.connected?
     end
 
-    def self.publish(message:, exchange:, target:)
+    def self.publish(message:, exchange:, queue:)
       CHECK_SESSION.call
 
       channel = @@session.create_channel
-      channel.basic_publish(message, exchange, target)
+      channel.basic_publish(message, exchange, queue)
 
       true
     rescue StandardError => e
