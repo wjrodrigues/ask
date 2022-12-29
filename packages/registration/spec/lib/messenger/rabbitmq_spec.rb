@@ -15,9 +15,7 @@ RSpec.describe Lib::Messenger::Rabbitmq, type: :lib do
 
         allow(Bunny).to receive(:new).and_return(double_bunny)
 
-        described_class.publish(
-          message: 'Ask message', exchange: 'notification', queue: 'mobile'
-        )
+        described_class.publish(message: 'Ask message', exchange: 'notification', queue: 'mobile')
 
         expect(spy_channel).to have_received(:close).once
       end
