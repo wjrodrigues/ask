@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+require 'bunny'
+
 module Lib
   # rubocop:disable Style/ClassVars
   class Messenger::Rabbitmq
-    @@connection = nil
+    @@session = nil
 
-    INSTANCE = lambda do
+    SESSION = lambda do
       Bunny.new(
         host: ENV.fetch('RABBITMQ_HOST'),
         user: ENV.fetch('RABBITMQ_USER'),
@@ -15,56 +17,26 @@ module Lib
       ).start
     end
 
-    CONNECTION = lambda do
-      @@connection = INSTANCE.call if @@connection.nil? || !@@connection.connected?
-
-      @@connection
+    CHECK_SESSION = lambda do
+      @@session = SESSION.call if @@session.nil? || !@@session.connected?
     end
 
-    def self.publish
-      CONNECTION.call
+    def self.publish(message:, exchange:, target:)
+      CHECK_SESSION.call
+
+      channel = @@session.create_channel
+      channel.basic_publish(message, exchange, target)
+
+      true
+    rescue StandardError => e
+      Lib::ErrorTracker.notify(e)
+
+      false
+    ensure
+      channel&.close
     end
 
-    private_constant :INSTANCE, :CONNECTION
+    private_constant :SESSION, :CHECK_SESSION
   end
   # rubocop:enable Style/ClassVars
 end
-
-# connection = Bunny.new(:host => "message_broker", :user => "producer", :password => "rabbitmq")
-# connection.start
-# channel = connection.create_channel
-# channel.queue('notification')
-# channel.default_exchange.publish('Hello World!', routing_key: '')
-# puts " [x] Sent 'Hello World!'"
-
-# connection = Bunny.new(:host => "message_broker", :user => "producer", :password => "rabbitmq")
-# connection.start
-# channel = connection.create_channel
-# channel.basic_publish("message2", "notification", "mobile")
-
-# connection = Bunny.new(:host => "message_broker", :user => "consumer", :password => "rabbitmq")
-# connection.start
-# channel = connection.create_channel
-# channel.basic_publish("message2", "notification", "mobile2")
-
-# connection = Bunny.new(:host => "message_broker", :user => "producer", :password => "rabbitmq")
-# connection.start
-# channel = connection.create_channel
-# queue = Bunny::Queue.new(channel, 'mobile', {durable: true})
-# queue.subscribe do |delivery_info, properties, payload|
-#     channel.basic_ack(delivery_info.delivery_tag.to_i)
-#     puts "------"
-#     puts payload
-#     puts "------"
-# end
-
-# connection = Bunny.new(:host => "message_broker", :user => "consumer", :password => "rabbitmq")
-# connection.start
-# channel = connection.create_channel
-# queue = Bunny::Queue.new(channel, 'mobil3e', {durable: true})
-# queue.subscribe do |delivery_info, properties, payload|
-#     channel.basic_ack(delivery_info.delivery_tag.to_i)
-#     puts "------"
-#     puts payload
-#     puts "------"
-# end
