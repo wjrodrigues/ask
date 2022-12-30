@@ -19,7 +19,9 @@ module Lib
       raise NotImplementedError, "#{key} unsupported" unless QUEUES.include?(key)
     end
 
-    def self.publish(message:, exchange:, queue:, target: :rabbitmq)
+    def self.publish!(message:, exchange:, queue:, target: :rabbitmq)
+      [message] => [String]
+
       CHECK_QUEUE.call(exchange, queue)
 
       TARGET.call(target.to_sym).publish(message:, exchange:, queue:)
