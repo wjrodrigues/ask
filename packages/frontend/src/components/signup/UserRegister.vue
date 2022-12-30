@@ -3,18 +3,6 @@
     <v-container>
       <v-form v-model="form" @submit.prevent="onSubmit">
         <v-text-field
-          v-model="first_name"
-          :readonly="loading"
-          :rules="[required]"
-          clearable
-          type="text"
-          :label="$t('form.user.profile.first_name')"
-          variant="underlined"
-          name="first_name"
-          :error-messages="errors.first_name"
-        ></v-text-field>
-
-        <v-text-field
           v-model="email"
           :readonly="loading"
           :rules="[required]"
@@ -61,18 +49,17 @@ import { Signup } from "@/service/signup";
 export default {
   data: () => ({
     form: false,
-    first_name: null,
     email: null,
     password: null,
     loading: false,
-    errors: { first_name: "", email: "", password: "" },
+    errors: { email: "", password: "" },
   }),
 
   methods: {
     async onSubmit() {
+      this.cleanError();
       this.loading = true;
       await Signup({
-        first_name: this.first_name || "",
         email: this.email || "",
         password: this.password || "",
       }).then((response) => {
@@ -94,6 +81,9 @@ export default {
         );
         this.errors = { ...this.errors, ...listError };
       }
+    },
+    cleanError() {
+      this.errors = { email: "", password: "" };
     },
   },
 };

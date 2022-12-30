@@ -25,7 +25,7 @@ describe("when render UserRegisterVue", () => {
 
     const error_messages = await wrapper.findAll(".v-messages > div");
 
-    expect(error_messages.length).toEqual(3);
+    expect(error_messages.length).toEqual(2);
     error_messages.map((msg) =>
       expect(msg.text()).toEqual("Campo é obrigatório")
     );
@@ -54,14 +54,12 @@ describe("when render UserRegisterVue", () => {
       UserRegisterVue,
       basic_mount({ props: {}, plugins: [] })
     );
-    wrapper.find("[name='first_name']").setValue(faker.name.firstName());
     wrapper.find("[name='email']").setValue(faker.internet.email());
     wrapper.find("[name='password']").setValue(faker.internet.password());
 
     await wrapper.trigger("change");
 
     expect(wrapper.vm.errors).toEqual({
-      first_name: "",
       email: "",
       password: "",
     });
