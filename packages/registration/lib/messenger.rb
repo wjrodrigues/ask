@@ -20,6 +20,8 @@ module Lib
     end
 
     def self.publish!(message:, exchange:, queue:, target: :rabbitmq)
+      [message] => [String]
+
       CHECK_QUEUE.call(exchange, queue)
 
       TARGET.call(target.to_sym).publish(message:, exchange:, queue:)
