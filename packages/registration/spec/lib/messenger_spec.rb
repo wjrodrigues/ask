@@ -6,7 +6,7 @@ RSpec.describe Lib::Messenger, type: :lib do
       it 'publishs to default client' do
         expect(Lib::Messenger::Rabbitmq).to receive(:publish)
 
-        described_class.publish(message: 'Ask', exchange: 'notification', queue: 'mobile')
+        described_class.publish!(message: 'Ask', exchange: 'notification', queue: 'mobile')
       end
     end
 
@@ -15,7 +15,7 @@ RSpec.describe Lib::Messenger, type: :lib do
         expect(Lib::Messenger::Rabbitmq).not_to receive(:publish)
 
         expect do
-          described_class.publish(message: 'Ask', exchange: 'notification', queue: 'sms')
+          described_class.publish!(message: 'Ask', exchange: 'notification', queue: 'sms')
         end.to raise_error(NotImplementedError, 'notification.sms unsupported')
       end
 
@@ -23,7 +23,7 @@ RSpec.describe Lib::Messenger, type: :lib do
         expect(Lib::Messenger::Rabbitmq).not_to receive(:publish)
 
         expect do
-          described_class.publish(message: 'Ask', exchange: 'notify', queue: 'mobile')
+          described_class.publish!(message: 'Ask', exchange: 'notify', queue: 'mobile')
         end.to raise_error(NotImplementedError, 'notify.mobile unsupported')
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe Lib::Messenger, type: :lib do
         expect(Lib::Messenger::Rabbitmq).not_to receive(:publish)
 
         expect do
-          described_class.publish(
+          described_class.publish!(
             message: 'Ask', exchange: 'notification', queue: 'mobile', target: :sqs
           )
         end.to raise_error(NotImplementedError, 'sqs unsupported')
