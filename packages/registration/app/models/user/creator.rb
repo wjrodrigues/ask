@@ -31,7 +31,7 @@ module User
 
     def send_notification
       notification.publish!(
-        message: { template: :welcome, email: params.email },
+        message: { template: :welcome, email: params.email }.to_json,
         exchange: 'notification',
         queue: 'email'
       )
