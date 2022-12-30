@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Copy Env's
         run: cp packages/registration/.env.example packages/registration/.env && cp packages/registration/docker/.env-example packages/registration/docker/.env
 
@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Copy Env's
         run: cp packages/frontend/docker/.env-example packages/frontend/docker/.env && cp packages/frontend/.env.example packages/frontend/.env
 
