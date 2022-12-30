@@ -6,11 +6,11 @@ module Controller
       return nil if params.empty?
 
       struct = Struct.new(*params.keys.map(&:to_sym)) do
-        # rubocop:disable Lint/MissingRespondToMissing
         def method_missing(method, *_)
           return nil unless respond_to?(method)
         end
-        # rubocop:enable Lint/MissingRespondToMissing
+
+        def respond_to_missing?(method_name, *args); end
       end
 
       klass = struct.new
