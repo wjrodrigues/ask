@@ -27,16 +27,20 @@
         ></v-text-field>
 
         <v-card-actions>
-          <v-btn
-            block
-            type="submit"
-            variant="tonal"
-            rounded="pill"
-            :disabled="loading"
-            :loading="loading"
-          >
-            {{ $t("form.save") }}
-          </v-btn>
+          <v-row justify="space-between">
+            <v-btn @click="goSignIn" variant="text" :disabled="loading">
+              {{ $t("signin.title") }}
+            </v-btn>
+
+            <v-btn
+              type="submit"
+              :disabled="loading"
+              :loading="loading"
+              color="success"
+            >
+              {{ $t("form.save") }}
+            </v-btn>
+          </v-row>
         </v-card-actions>
       </v-form>
     </v-container>
@@ -84,6 +88,9 @@ export default {
     },
     cleanError() {
       this.errors = { email: "", password: "" };
+    },
+    goSignIn() {
+      this.$router.push("/signin");
     },
   },
 };

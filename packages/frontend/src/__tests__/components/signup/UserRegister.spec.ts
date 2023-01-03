@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { shallowMount, mount } from "@vue/test-utils";
 
 import UserRegisterVue from "@/components/signup/UserRegister.vue";
@@ -70,5 +70,32 @@ describe("when render UserRegisterVue", () => {
       .reply(422, [{ email: ["já está em uso"] }]);
 
     await wrapper.find("form").trigger("submit");
+  });
+
+  it("go to sign in", async () => {
+    const spyPush = { push: () => {} };
+    const spy = vi.spyOn(spyPush, "push");
+
+    const wrapper = mount(
+      UserRegisterVue,
+      basic_mount({
+        props: {},
+        plugins: [],
+        mocks: {
+          $router: {
+            push: spy,
+          },
+        },
+      })
+    );
+
+    const signin = wrapper.findAll("button")[0];
+    expect(signin.text()).toEqual("Entrar");
+
+    await signin.trigger("click");
+    await wrapper.trigger("change");
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith("/signin");
   });
 });
