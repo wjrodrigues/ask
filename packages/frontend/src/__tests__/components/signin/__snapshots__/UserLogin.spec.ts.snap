@@ -1,0 +1,20 @@
+// Vitest Snapshot v1
+
+exports[`when render UserLoginVue > render form with all components 1`] = `
+<v-card-stub
+  border="false"
+  class="mx-auto"
+  density="default"
+  disabled="false"
+  exact="false"
+  flat="false"
+  hover="false"
+  loading="false"
+  replace="false"
+  ripple="false"
+  tag="div"
+  title="Entrar"
+  variant="elevated"
+  width="344"
+/>
+`;
