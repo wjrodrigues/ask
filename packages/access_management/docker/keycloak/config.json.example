@@ -11,7 +11,7 @@
       "enabled": true,
       "publicClient": false,
       "directAccessGrantsEnabled": true,
-      "secret": "DWkGNT6Hv53mG7#$%cj@d*^pLMU9Y#",
+      "secret": "DWkGNT6Hv53mG7#%cj@d*^pLMU9Y#",
       "rootUrl": "",
       "baseUrl": "",
       "redirectUris": ["*"],
