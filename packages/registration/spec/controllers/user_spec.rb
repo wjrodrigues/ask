@@ -9,6 +9,7 @@ RSpec.describe Controller::User, type: :controller do
         body = { email: Faker::Internet.email, password: Faker::Internet.password }
 
         expect(Lib::Auth).to receive(:create)
+        expect(Lib::Messenger).to receive(:publish!)
 
         post '/users', body.to_json, 'CONTENT_TYPE' => 'application/json'
 
