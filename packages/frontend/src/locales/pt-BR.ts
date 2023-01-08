@@ -2,6 +2,7 @@ export default {
   "pt-BR": {
     form: {
       field_required: "Campo é obrigatório",
+      invalid_data: "Dados inválidos",
       save: "Salvar",
       send: "Enviar",
       user: {

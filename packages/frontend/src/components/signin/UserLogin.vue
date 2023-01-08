@@ -48,6 +48,8 @@
 </template>
 
 <script lang="ts">
+import { auth } from "@/service/auth";
+
 export default {
   data: () => ({
     form: false,
@@ -56,28 +58,30 @@ export default {
     loading: false,
     errors: { email: "", password: "" },
   }),
-
   methods: {
     async onSubmit() {
       this.cleanError();
       this.loading = true;
+
+      const response = await auth(`${this.email}`, `${this.password}`);
+      if (response) {
+        // TODO: redirect to profile
+        return;
+      }
+      this.setErrors();
     },
     required(value: String) {
       return !!value || this.$t("form.field_required");
     },
-    errorMessages(errors: []) {
-      if (errors.length > 0) {
-        let listError = {} as any;
-        const error = errors.pop() || {};
-
-        Object.keys(error).forEach(
-          (key) => (listError[key] = { ...error }[key])
-        );
-        this.errors = { ...this.errors, ...listError };
-      }
-    },
     cleanError() {
       this.errors = { email: "", password: "" };
+    },
+    setErrors() {
+      this.loading = false;
+      this.errors = {
+        email: this.$t("form.invalid_data"),
+        password: this.$t("form.invalid_data"),
+      };
     },
     goSignUp() {
       this.$router.push("/signup");
