@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" width="344" :title="$t('signup.form.title')">
+  <v-card class="mx-auto" width="344" :title="$t('signin.form.title')">
     <v-container>
       <v-form v-model="form" @submit.prevent="onSubmit">
         <v-text-field
@@ -28,17 +28,17 @@
 
         <v-card-actions>
           <v-row justify="space-between">
-            <v-btn @click="goSignIn" variant="text" :disabled="loading">
-              {{ $t("signin.title") }}
+            <v-btn variant="text" :disabled="loading" @click="goSignUp">
+              {{ $t("signup.title") }}
             </v-btn>
 
             <v-btn
               type="submit"
               :disabled="loading"
               :loading="loading"
-              color="success"
+              color="info"
             >
-              {{ $t("form.save") }}
+              {{ $t("form.send") }}
             </v-btn>
           </v-row>
         </v-card-actions>
@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { Signup } from "@/service/signup";
+import { auth } from "@/service/auth";
 
 export default {
   data: () => ({
@@ -58,39 +58,33 @@ export default {
     loading: false,
     errors: { email: "", password: "" },
   }),
-
   methods: {
     async onSubmit() {
       this.cleanError();
       this.loading = true;
-      await Signup({
-        email: this.email || "",
-        password: this.password || "",
-      }).then((response) => {
-        this.loading = false;
 
-        this.errorMessages(response.errors || []);
-      });
+      const response = await auth(`${this.email}`, `${this.password}`);
+      if (response) {
+        // TODO: redirect to profile
+        return;
+      }
+      this.setErrors();
     },
     required(value: String) {
       return !!value || this.$t("form.field_required");
     },
-    errorMessages(errors: []) {
-      if (errors.length > 0) {
-        let listError = {} as any;
-        const error = errors.pop() || {};
-
-        Object.keys(error).forEach(
-          (key) => (listError[key] = { ...error }[key])
-        );
-        this.errors = { ...this.errors, ...listError };
-      }
-    },
     cleanError() {
       this.errors = { email: "", password: "" };
     },
-    goSignIn() {
-      this.$router.push("/signin");
+    setErrors() {
+      this.loading = false;
+      this.errors = {
+        email: this.$t("form.invalid_data"),
+        password: this.$t("form.invalid_data"),
+      };
+    },
+    goSignUp() {
+      this.$router.push("/signup");
     },
   },
 };

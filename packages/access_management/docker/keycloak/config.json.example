@@ -9,15 +9,13 @@
       "name": "ask-frontend-client",
       "description": "Client for frontend",
       "enabled": true,
-      "publicClient": true,
+      "publicClient": false,
       "directAccessGrantsEnabled": true,
-      "rootUrl": "http://localhost:3000",
-      "redirectUris": [
-        "http://localhost:3000/*"
-      ],
-      "webOrigins": [
-        "http://localhost:3000"
-      ]
+      "secret": "DWkGNT6Hv53mG7#%cj@d*^pLMU9Y#",
+      "rootUrl": "",
+      "baseUrl": "",
+      "redirectUris": ["*"],
+      "webOrigins": []
     },
     {
       "clientId": "ask-api-client",

@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { shallowMount, mount } from "@vue/test-utils";
 
 import UserRegisterVue from "@/components/signup/UserRegister.vue";
@@ -25,7 +25,7 @@ describe("when render UserRegisterVue", () => {
 
     const error_messages = await wrapper.findAll(".v-messages > div");
 
-    expect(error_messages.length).toEqual(3);
+    expect(error_messages.length).toEqual(2);
     error_messages.map((msg) =>
       expect(msg.text()).toEqual("Campo é obrigatório")
     );
@@ -54,14 +54,12 @@ describe("when render UserRegisterVue", () => {
       UserRegisterVue,
       basic_mount({ props: {}, plugins: [] })
     );
-    wrapper.find("[name='first_name']").setValue(faker.name.firstName());
     wrapper.find("[name='email']").setValue(faker.internet.email());
     wrapper.find("[name='password']").setValue(faker.internet.password());
 
     await wrapper.trigger("change");
 
     expect(wrapper.vm.errors).toEqual({
-      first_name: "",
       email: "",
       password: "",
     });
@@ -72,5 +70,32 @@ describe("when render UserRegisterVue", () => {
       .reply(422, [{ email: ["já está em uso"] }]);
 
     await wrapper.find("form").trigger("submit");
+  });
+
+  it("go to sign in", async () => {
+    const spyPush = { push: () => {} };
+    const spy = vi.spyOn(spyPush, "push");
+
+    const wrapper = mount(
+      UserRegisterVue,
+      basic_mount({
+        props: {},
+        plugins: [],
+        mocks: {
+          $router: {
+            push: spy,
+          },
+        },
+      })
+    );
+
+    const signin = wrapper.findAll("button")[0];
+    expect(signin.text()).toEqual("Entrar");
+
+    await signin.trigger("click");
+    await wrapper.trigger("change");
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith("/signin");
   });
 });

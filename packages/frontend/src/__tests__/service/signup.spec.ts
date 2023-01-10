@@ -7,7 +7,6 @@ describe("when request /users with valid parameters", () => {
     nock(base_urls.API_REGISTRATION).post("/users").reply(201);
 
     const response = await Signup({
-      first_name: faker.name.firstName(),
       email: faker.internet.email(),
       password: faker.internet.password(),
     });
@@ -27,7 +26,6 @@ describe("when request /users with invalid parameters", () => {
     };
 
     const signup_params = {
-      first_name: "",
       email: "",
       password: faker.internet.password(),
     };

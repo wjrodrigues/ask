@@ -7,6 +7,7 @@ import nock from "nock";
 interface Options {
   props: {};
   plugins: any[];
+  mocks?: {};
 }
 
 const vuetify = createVuetify({ components, directives });
@@ -23,6 +24,7 @@ const basic_mount = (options: Options) => {
     attachTo: document.body,
     global: {
       plugins: [vuetify, ...options.plugins],
+      mocks: options.mocks,
     },
     props: options.props,
   };
