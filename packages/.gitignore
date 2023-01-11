@@ -1,0 +1,5 @@
+## Folders
+docker/localstack/data/*
+
+## Env's
+.env
