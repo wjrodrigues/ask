@@ -19,6 +19,10 @@ module Profile
         return response.add_error(:'models.profile.storer.errors.unsupported_action')
       end
 
+      if params.extension.nil? || !EXTENSIONS.include?(params.extension.to_sym)
+        return response.add_error(:'models.profile.storer.errors.unsupported_extension')
+      end
+
       response.add_result({ url: send(params.action.to_sym) })
     end
 
@@ -26,10 +30,6 @@ module Profile
     private_constant :ACTIONS, :EXTENSIONS
 
     def presigned_url
-      if params.extension.nil? || !EXTENSIONS.include?(params.extension.to_sym)
-        return response.add_error(:'models.profile.storer.errors.unsupported_extension')
-      end
-
       storage_instance = storage.new(folder_name: 'profilePictures')
       file_name = "#{params.user_id}.#{params.extension}"
 
