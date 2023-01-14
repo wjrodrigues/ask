@@ -14,7 +14,7 @@ RSpec.describe ::Profile::Storer, type: :model do
         response = described_class.call(params)
 
         expect(response.ok?).to be_truthy
-        expect(response.result[:url]).to start_with("https://s3.amazonaws.com/profilePictures/#{user.id}.jpg")
+        expect(response.result[:url]).to start_with("https://s3.amazonaws.com/profilepictures/#{user.id}.jpg")
       end
     end
 

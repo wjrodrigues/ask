@@ -8,7 +8,7 @@ RSpec.describe Lib::Storage do
       it 'returns URL pre-signed' do
         expect(Lib::Storage::S3).to receive(:presigned_url)
 
-        instance = described_class.new(folder_name: 'profilePictures')
+        instance = described_class.new(folder_name: 'profilepictures')
         instance.presigned_url('image.png')
       end
     end

@@ -30,7 +30,7 @@ module Profile
     private_constant :ACTIONS, :EXTENSIONS
 
     def presigned_url
-      storage_instance = storage.new(folder_name: 'profilePictures')
+      storage_instance = storage.new(folder_name: 'profilepictures')
       file_name = "#{params.user_id}.#{params.extension}"
 
       storage_instance.presigned_url(file_name)
