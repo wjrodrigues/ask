@@ -1,0 +1,7 @@
+en-US:
+  models:
+    profile:
+      storer:
+        errors:
+          unsupported_action: Unsupported action
+          unsupported_extension: Unsupported extension
