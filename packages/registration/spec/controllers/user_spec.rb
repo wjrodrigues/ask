@@ -110,4 +110,43 @@ RSpec.describe Controller::User, type: :controller do
       end
     end
   end
+
+  describe '#POST - Presigned URL' do
+    let(:user) { create(:user) }
+
+    context 'when the parameters are valid' do
+      it 'returns URL and http :OK' do
+        params = { action: :presigned_url, extension: 'jpeg' }.to_json
+
+        post "/users/#{user.id}/profile/presigned_url", params, 'CONTENT_TYPE' => 'application/json'
+
+        expected = "https://s3.amazonaws.com/profilepictures/#{user.id}.jpeg"
+
+        expect(last_response.body).to start_with(expected)
+        expect(last_response.status).to eq(Controller::Response::REASONS[:OK])
+      end
+    end
+
+    context 'when extension are not valid' do
+      it 'returns errors and http :UNPROCESSABLE_ENTITY status' do
+        params = { action: :presigned_url, extension: 'mp4' }.to_json
+
+        post "/users/#{user.id}/profile/presigned_url", params, 'CONTENT_TYPE' => 'application/json'
+
+        expect(last_response.body).to eq('Unsupported extension')
+        expect(last_response.status).to eq(Controller::Response::REASONS[:UNPROCESSABLE_ENTITY])
+      end
+    end
+
+    context 'when action are not valid' do
+      it 'returns errors and http :UNPROCESSABLE_ENTITY status' do
+        params = { action: :upload, extension: 'png' }.to_json
+
+        post "/users/#{user.id}/profile/presigned_url", params, 'CONTENT_TYPE' => 'application/json'
+
+        expect(last_response.body).to eq('Unsupported action')
+        expect(last_response.status).to eq(Controller::Response::REASONS[:UNPROCESSABLE_ENTITY])
+      end
+    end
+  end
 end
