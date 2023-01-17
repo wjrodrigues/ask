@@ -28,6 +28,12 @@ class Routes < Sinatra::Base
     Controller::User.update_profile(request)
   end
 
+  post '/users/:id/profile/presigned_url' do
+    request.params.merge!(params)
+
+    Controller::User.presigned_url(request)
+  end
+
   post '/tokens' do
     Controller::Token.post(request)
   end
