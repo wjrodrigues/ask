@@ -5,13 +5,6 @@ export default {
       invalid_data: "Dados inválidos",
       save: "Salvar",
       send: "Enviar",
-      user: {
-        password: "Senha",
-        profile: {
-          first_name: "Nome",
-          last_name: "Sobrenome",
-        },
-      },
     },
     signup: {
       title: "Inscrever-se",
@@ -24,6 +17,18 @@ export default {
       form: {
         title: "Entrar",
       },
+    },
+    profile: {
+      title: "Perfil",
+      first_name: "Nome",
+      last_name: "Sobrenome",
+      photo: "Imagem do perfil",
+      form: {
+        photo: "Selecionar imagem",
+      },
+    },
+    user: {
+      password: "Senha",
     },
     notify: {
       snackbar: {

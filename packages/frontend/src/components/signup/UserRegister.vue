@@ -19,7 +19,7 @@
           :readonly="loading"
           :rules="[required]"
           clearable
-          :label="$t('form.user.password')"
+          :label="$t('user.password')"
           type="password"
           variant="underlined"
           :error-messages="errors.password"
