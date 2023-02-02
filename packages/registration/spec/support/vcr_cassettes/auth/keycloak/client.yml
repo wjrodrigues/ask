@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://keycloak:8080/realms/ask/protocol/openid-connect/token
+    body:
+      encoding: UTF-8
+      string: client_secret=DWkGNT6Hv53mG7%23%25cj%40d*%5EpLMU9Y%23&client_id=ask-frontend-client&grant_type=password&password=YzQgQmRmB2xD9f&username=billie_harvey%40bauch-hills.info
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.1.2p20
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Content-Length:
+      - '169'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - keycloak:8080
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Referrer-Policy:
+      - no-referrer
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Cache-Control:
+      - no-store
+      X-Content-Type-Options:
+      - nosniff
+      Set-Cookie:
+      - KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0;
+        Path=/realms/ask/; HttpOnly
+      - KEYCLOAK_LOCALE=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970
+        00:00:10 GMT; Max-Age=0; Path=/realms/ask/; HttpOnly
+      Pragma:
+      - no-cache
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2180'
+    body:
+      encoding: UTF-8
+      string: '{"access_token":"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJBMkFPd2UyNU5lWmhWcTJWRlBidDVtZlY3d0pfSUJTYnRzaGxxZjVFZnk0In0.eyJleHAiOjE2NzUzMDQyNTUsImlhdCI6MTY3NTMwMjQ1NSwianRpIjoiMGVhMjE5NDAtOWY3NC00NzBkLWIyMTYtOWNkMTJmMmFmZWVlIiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL2FzayIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJmODc5YTZjMC1jNGExLTQ2MzAtYjg1Ny0xNzA5NDJjNmI2YTciLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhc2stZnJvbnRlbmQtY2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6ImU2NjQwNTQyLWNiNGItNDc3ZC1iMjcxLTRkYjM3MmQ4NDIyNiIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1hc2siLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiZTY2NDA1NDItY2I0Yi00NzdkLWIyNzEtNGRiMzcyZDg0MjI2IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInByZWZlcnJlZF91c2VybmFtZSI6ImJpbGxpZV9oYXJ2ZXlAYmF1Y2gtaGlsbHMuaW5mbyIsImVtYWlsIjoiYmlsbGllX2hhcnZleUBiYXVjaC1oaWxscy5pbmZvIn0.TQGhP1WZZVNw9kdkm-cpWNZFKDgP6h6CbWEkbHZtreqqADIXiZiwNvb1tH4A35uLhYIzTpe8sBqA5BF4hpt_YpwYcGmtWDEWh1eSu1zpwkbpY29zeHkqhxr5Od7B7X-ei54_GvtMbKghq2X6a0oSaIYBqfmBVfmWY9cB9jAQY5DL6PpJJvQiL_PknGg9bwr2Qh0Y29j_YoXDRgZTF5D8H4P2OJS9YmQ8nZEUOKYnNNcg22iONAStix0mxnkWoWQQJ7TWrh9VRXZ3EUxLj0U_4xi2XIZgsG4tAOkn1pknA9CJ-XHOUbf442DQodm3wuSStE9Uu9GE3CihaDd9sQRg3w","expires_in":1800,"refresh_expires_in":1800,"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzZDIzZWIxZi05NzZjLTQzNjEtYWQ3Yy1lZTI4ZTNlZGUxM2EifQ.eyJleHAiOjE2NzUzMDQyNTUsImlhdCI6MTY3NTMwMjQ1NSwianRpIjoiMTNiNzk3ZWMtNjhhZS00ZWQ3LTk0MWEtOTk5YWYwMGI2MzU4IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL2FzayIsImF1ZCI6Imh0dHA6Ly9rZXljbG9hazo4MDgwL3JlYWxtcy9hc2siLCJzdWIiOiJmODc5YTZjMC1jNGExLTQ2MzAtYjg1Ny0xNzA5NDJjNmI2YTciLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoiYXNrLWZyb250ZW5kLWNsaWVudCIsInNlc3Npb25fc3RhdGUiOiJlNjY0MDU0Mi1jYjRiLTQ3N2QtYjI3MS00ZGIzNzJkODQyMjYiLCJzY29wZSI6InByb2ZpbGUgZW1haWwiLCJzaWQiOiJlNjY0MDU0Mi1jYjRiLTQ3N2QtYjI3MS00ZGIzNzJkODQyMjYifQ.N2VeuQZznd3YLpVGARllM3jEBCp9JP90KzXj6wTqlzM","token_type":"Bearer","not-before-policy":0,"session_state":"e6640542-cb4b-477d-b271-4db372d84226","scope":"profile
+        email"}'
+  recorded_at: Thu, 02 Feb 2023 01:47:35 GMT
+recorded_with: VCR 6.1.0

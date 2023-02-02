@@ -7,9 +7,30 @@ module Lib
     KEY_CACHE = 'auth_keycloack_access_token'
     EXPIRES_IN = 1500 # 25 minutes
 
-    def initialize(grant_type: :client_credentials)
+    def initialize(grant_type: :client_credentials, admin_access_token: true)
       @grant_type = grant_type.to_s
-      access_token!
+
+      access_token! if admin_access_token
+    end
+
+    def client(username:, password:)
+      payload = {
+        client_secret: ENV.fetch('KEYCLOAK_FRONTEND_SECRET'),
+        client_id: ENV.fetch('KEYCLOAK_FRONTEND_CLIENT_ID'),
+        grant_type: 'password',
+        password:,
+        username:
+      }
+
+      headers = { content_type: 'application/x-www-form-urlencoded' }
+
+      response = Lib::Request.execute(url(:access_token), method: :post, payload:, headers:)
+
+      return false if response.code != 200
+
+      JSON.parse(response.body)
+    rescue StandardError
+      false
     end
 
     def create(first_name:, last_name:, password:, email:)
