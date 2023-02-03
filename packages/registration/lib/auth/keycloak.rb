@@ -6,14 +6,23 @@ module Lib
 
     KEY_CACHE = 'auth_keycloack_access_token'
     EXPIRES_IN = 1500 # 25 minutes
+    URL = lambda do |target|
+      base_url = "#{ENV.fetch('KEYCLOAK_HOST')}:#{ENV.fetch('KEYCLOAK_PORT')}"
+      realm = ENV.fetch('KEYCLOAK_AUTH_REALM')
 
-    def initialize(grant_type: :client_credentials, admin_access_token: true)
-      @grant_type = grant_type.to_s
-
-      access_token! if admin_access_token
+      {
+        access_token: "#{base_url}/realms/#{realm}/protocol/openid-connect/token",
+        user: "#{base_url}/admin/realms/#{realm}/users"
+      }.fetch(target)
     end
 
-    def client(username:, password:)
+    def initialize(grant_type: :client_credentials)
+      @grant_type = grant_type.to_s
+
+      access_token!
+    end
+
+    def self.client(username:, password:)
       payload = {
         client_secret: ENV.fetch('KEYCLOAK_FRONTEND_SECRET'),
         client_id: ENV.fetch('KEYCLOAK_FRONTEND_CLIENT_ID'),
@@ -24,7 +33,7 @@ module Lib
 
       headers = { content_type: 'application/x-www-form-urlencoded' }
 
-      response = Lib::Request.execute(url(:access_token), method: :post, payload:, headers:)
+      response = Lib::Request.execute(URL.call(:access_token), method: :post, payload:, headers:)
 
       return false if response.code != 200
 
@@ -43,7 +52,7 @@ module Lib
         emailVerified: true
       }.to_json
 
-      response = Lib::Request.execute(url(:user), method: :post, payload:, headers: auth_header)
+      response = Lib::Request.execute(URL.call(:user), method: :post, payload:, headers: auth_header)
       return { create: false, reset: nil } if response.code != 201
 
       { create: true, reset: reset_password(email, password) }
@@ -55,7 +64,7 @@ module Lib
 
     def find(email)
       response = Lib::Request.execute(
-        url(:user), method: :get, headers: auth_header(options: { params: { email: } })
+        URL.call(:user), method: :get, headers: auth_header(options: { params: { email: } })
       )
       response = JSON.parse(response.body)
 
@@ -71,7 +80,7 @@ module Lib
 
       return false unless user
 
-      url = "#{url(:user)}/#{user['id']}/reset-password"
+      url = "#{URL.call(:user)}/#{user['id']}/reset-password"
       payload = { temporary: false, type: 'password', value: password }.to_json
 
       response = Lib::Request.execute(url, method: :put, payload:, headers: auth_header).code
@@ -80,7 +89,7 @@ module Lib
       false
     end
 
-    private_constant :KEY_CACHE, :EXPIRES_IN
+    private_constant :KEY_CACHE, :EXPIRES_IN, :URL
 
     private
 
@@ -111,17 +120,7 @@ module Lib
 
       headers = { content_type: 'application/x-www-form-urlencoded' }
 
-      Lib::Request.execute(url(:access_token), method: :post, payload:, headers:)
-    end
-
-    def url(target)
-      base_url = "#{ENV.fetch('KEYCLOAK_HOST')}:#{ENV.fetch('KEYCLOAK_PORT')}"
-      realm = ENV.fetch('KEYCLOAK_AUTH_REALM')
-
-      {
-        access_token: "#{base_url}/realms/#{realm}/protocol/openid-connect/token",
-        user: "#{base_url}/admin/realms/#{realm}/users"
-      }.fetch(target)
+      Lib::Request.execute(URL.call(:access_token), method: :post, payload:, headers:)
     end
 
     def auth_header(content_type: :json, options: {})
