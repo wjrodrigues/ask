@@ -1,0 +1,6 @@
+pt-BR:
+  models:
+    user:
+      auth:
+        errors:
+          invalid: Username ou senha inválido
