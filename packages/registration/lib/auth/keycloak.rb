@@ -52,7 +52,9 @@ module Lib
         emailVerified: true
       }.to_json
 
-      response = Lib::Request.execute(URL.call(:user), method: :post, payload:, headers: auth_header)
+      response = Lib::Request.execute(
+        URL.call(:user), method: :post, payload:, headers: auth_header
+      )
       return { create: false, reset: nil } if response.code != 201
 
       { create: true, reset: reset_password(email, password) }
