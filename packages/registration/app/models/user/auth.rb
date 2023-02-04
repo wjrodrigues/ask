@@ -13,13 +13,13 @@ module User
     end
 
     def call
-      return response.add_error(:'models.user.auth.errors.invalid') if params.email.nil?
+      return response.add_error(:'models.user.auth.errors.invalid') if params.username.nil?
 
-      user = repository.find(value: params.email)
+      user = repository.find(value: params.username)
 
       return response.add_error(:'models.user.auth.errors.invalid') if user.nil?
 
-      token = auth.client(username: params.email, password: params.password)
+      token = auth.client(username: params.username, password: params.password)
 
       return response.add_error(:'models.user.auth.errors.invalid') unless token
 

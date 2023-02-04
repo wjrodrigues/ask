@@ -11,7 +11,7 @@ RSpec.describe User::Auth, type: :model do
         response = described_class.call(params)
 
         expect(response.ok?).not_to be_truthy
-        expect(response.errors).to eq(['invalid username or password'])
+        expect(response.errors).to eq(['Invalid username or password'])
       end
     end
 
@@ -20,14 +20,14 @@ RSpec.describe User::Auth, type: :model do
         password = Faker::Internet.password
         user = create(:user, password:)
 
-        params = Controller::Request.call({ email: user.email, password: })
+        params = Controller::Request.call({ username: user.email, password: })
 
         expect(Lib::Auth::Keycloack).to receive(:client).and_return(false)
 
         response = described_class.call(params)
 
         expect(response.ok?).to be_falsy
-        expect(response.errors).to eq(['invalid username or password'])
+        expect(response.errors).to eq(['Invalid username or password'])
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe User::Auth, type: :model do
         response = described_class.call(params)
 
         expect(response.ok?).not_to be_truthy
-        expect(response.errors).to eq(['invalid username or password'])
+        expect(response.errors).to eq(['Invalid username or password'])
       end
     end
 
@@ -52,7 +52,7 @@ RSpec.describe User::Auth, type: :model do
         password = Faker::Internet.password
         user = create(:user, password:)
 
-        params = Controller::Request.call({ email: user.email, password: })
+        params = Controller::Request.call({ username: user.email, password: })
 
         expected_token = Faker::Alphanumeric.alphanumeric
 
