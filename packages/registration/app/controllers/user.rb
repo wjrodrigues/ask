@@ -46,5 +46,14 @@ module Controller
               .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors)
               .call(response.ok?)
     end
+
+    def self.auth(request)
+      struct = Controller::Request.call(body(request))
+      response = ::User::Auth.call(struct)
+
+      Response.success(status: :OK, body: response.result.to_json)
+              .failure(status: :UNAUTHORIZED, body: response.errors.to_json)
+              .call(response.ok?)
+    end
   end
 end

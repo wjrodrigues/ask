@@ -149,4 +149,34 @@ RSpec.describe Controller::User, type: :controller do
       end
     end
   end
+
+  describe '#POST - Auth user' do
+    context 'when the parameters are valid' do
+      it 'returns http :OK status and token in body' do
+        user = create(:user)
+        params = { username: user.email, password: user.password }
+
+        expect(Lib::Auth::Keycloack).to receive(:client).and_return({ access_token: 'ask#1!2%3' })
+
+        post '/users/auth', params.to_json, 'CONTENT_TYPE' => 'application/json'
+
+        expect(json_body(last_response.body)).to eq({ 'access_token' => 'ask#1!2%3' })
+        expect(last_response.status).to eq(Controller::Response::REASONS[:OK])
+      end
+    end
+
+    context 'when parameters are not valid' do
+      it 'returns http :UNAUTHORIZED status and error message in body' do
+        user = create(:user)
+        params = { username: user.email, password: user.password }
+
+        expect(Lib::Auth::Keycloack).to receive(:client).and_return(false)
+
+        post '/users/auth', params.to_json, 'CONTENT_TYPE' => 'application/json'
+
+        expect(json_body(last_response.body)).to eq(['Invalid username or password'])
+        expect(last_response.status).to eq(Controller::Response::REASONS[:UNAUTHORIZED])
+      end
+    end
+  end
 end

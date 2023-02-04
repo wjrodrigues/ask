@@ -1,7 +1,4 @@
-import { simpleHttp } from "@/lib/http";
-const env = import.meta.env;
-
-const AUTH_URL = `${env.VITE_AUTH_URL}/realms/${env.VITE_AUTH_REALM}/protocol/openid-connect/token`;
+import { apiRegistration } from "@/lib/http";
 
 interface ResponseAuth {
   access_token: string;
@@ -13,22 +10,11 @@ interface ResponseAuth {
 }
 
 const auth = (username: string, password: string): Promise<boolean> => {
-  return simpleHttp()
-    .post(
-      AUTH_URL,
-      new URLSearchParams({
-        grant_type: "password",
-        client_secret: env.VITE_AUTH_CLIENT_SECRET,
-        client_id: env.VITE_AUTH_CLIENT_ID,
-        password,
-        username,
-      }),
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      }
-    )
+  return apiRegistration()
+    .post("users/auth", {
+      password,
+      username,
+    })
     .then((response) => saveToken(response.data as ResponseAuth))
     .catch(() => false);
 };

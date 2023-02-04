@@ -1,0 +1,6 @@
+en-US:
+  models:
+    user:
+      auth:
+        errors:
+          invalid: Invalid username or password
