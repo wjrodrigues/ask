@@ -34,6 +34,10 @@ class Routes < Sinatra::Base
     Controller::User.presigned_url(request)
   end
 
+  post '/users/auth' do
+    Controller::User.auth(request)
+  end
+
   post '/tokens' do
     Controller::Token.post(request)
   end
