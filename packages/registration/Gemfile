@@ -62,6 +62,9 @@ gem 'bunny', '~> 2.20', '>= 2.20.1'
 ## AWS [https://github.com/aws/aws-sdk-ruby/]
 gem 'aws-sdk-s3', '~> 1.117', '>= 1.117.2'
 
+# Auth
+gem 'jwt', '~> 2.6'
+
 # These gems will only be used when we are running the application locally
 group :development do
   gem 'pry', '~> 0.14.1'

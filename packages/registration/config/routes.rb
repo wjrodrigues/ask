@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require 'sinatra/cross_origin'
+
 class Routes < Sinatra::Base
   set :default_content_type, 'application/json'
   set :bind, '0.0.0.0'
+
   configure { enable :cross_origin }
 
   before do
@@ -23,6 +25,8 @@ class Routes < Sinatra::Base
   end
 
   post '/users/:id/profile' do
+    Middleware::Auth.check!(self, env['HTTP_AUTHORIZATION'])
+
     request.params.merge!(params)
 
     Controller::User.update_profile(request)
