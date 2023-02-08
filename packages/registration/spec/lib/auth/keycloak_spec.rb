@@ -153,4 +153,33 @@ eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzemtzbVpJV3BaN2hXRnNQT0JmQXZn
       end
     end
   end
+
+  describe '#client' do
+    context 'when params are valid' do
+      it 'returns access token' do
+        params = { username: 'billie_harvey@bauch-hills.info', password: 'YzQgQmRmB2xD9f' }
+
+        VCR.use_cassette('auth/keycloak/client') do
+          response = described_class.client(**params)
+
+          expect(response.keys).to match(
+            %w[access_token expires_in refresh_expires_in refresh_token token_type
+               not-before-policy session_state scope]
+          )
+        end
+      end
+    end
+
+    context 'when params are invalid' do
+      it 'returns false' do
+        params = { username: 'billie@bauch.info', password: 'YzQgQmRmB2xD9f2' }
+
+        VCR.use_cassette('auth/keycloak/client_invalid') do
+          response = described_class.client(**params)
+
+          expect(response).to be_falsy
+        end
+      end
+    end
+  end
 end
