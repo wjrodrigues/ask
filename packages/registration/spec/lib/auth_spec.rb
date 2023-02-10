@@ -76,4 +76,47 @@ RSpec.describe Lib::Auth, type: :lib do
       end
     end
   end
+
+  describe '#valid_token?' do
+    context 'when the token is not formatted' do
+      it 'returns false' do
+        token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.Et9HFtf9R3GEMA0IICOfFMVXY7kkTX1wr4qCyhIf'
+
+        VCR.use_cassette('auth/keycloak/certificates') do
+          expect(described_class.valid_token?(token:)).to be_falsy
+        end
+      end
+    end
+
+    context 'when the token is formatted' do
+      let(:token) { File.read('spec/lib/auth/token.txt') }
+
+      it 'returns false when expired' do
+        VCR.use_cassette('auth/keycloak/certificates') do
+          expect(described_class.valid_token?(token:)).to be_falsy
+        end
+      end
+
+      it 'returns true' do
+        VCR.use_cassette('auth/keycloak/certificates') do
+          result = described_class.valid_token?(token:, validate_expired: false)
+
+          expect(result).to be_truthy
+        end
+      end
+
+      it 'sets cache' do
+        token = File.read('spec/lib/auth/token.txt')
+        key_cache = 'certificate_keycloak_validation_token'
+
+        allow(Redis).to receive(:new).and_return(double(get: nil, set: nil))
+        expect(Lib::Cache).to receive(:fetch).with(key_cache).and_return(nil)
+        expect(Lib::Cache).to receive(:fetch).with(key_cache, expires_in: 1500).and_call_original
+
+        VCR.use_cassette('auth/keycloak/certificates') do
+          described_class.valid_token?(token:, validate_expired: false)
+        end
+      end
+    end
+  end
 end
