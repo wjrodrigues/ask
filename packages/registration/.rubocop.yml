@@ -96,6 +96,7 @@ Metrics/ClassLength:
   Exclude:
     - lib/rubocop/config_obsoletion.rb
     - lib/rubocop/options.rb
+  Max: 200
 
 Metrics/ModuleLength:
   Exclude:
