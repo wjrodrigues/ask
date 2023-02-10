@@ -156,7 +156,7 @@ RSpec.describe Controller::User, type: :controller do
         user = create(:user)
         params = { username: user.email, password: user.password }
 
-        expect(Lib::Auth::Keycloak).to receive(:client).and_return({ access_token: 'ask#1!2%3' })
+        expect(Lib::Auth).to receive(:client).and_return({ access_token: 'ask#1!2%3' })
 
         post '/users/auth', params.to_json, 'CONTENT_TYPE' => 'application/json'
 
@@ -170,7 +170,7 @@ RSpec.describe Controller::User, type: :controller do
         user = create(:user)
         params = { username: user.email, password: user.password }
 
-        expect(Lib::Auth::Keycloak).to receive(:client).and_return(false)
+        expect(Lib::Auth).to receive(:client).and_return(false)
 
         post '/users/auth', params.to_json, 'CONTENT_TYPE' => 'application/json'
 
