@@ -3,27 +3,16 @@
 require 'spec_helper'
 
 RSpec.describe Lib::Auth::Keycloack, type: :lib do
-  let(:key_cache) { 'auth_keycloack_access_token' }
   let(:fake_access_token) { Faker::Alphanumeric.alpha }
 
   describe '#new' do
     context 'when instance' do
-      it 'sets access token in cache' do
-        #         require 'jwt'
-        # certificate = <<~EOS
-        # -----BEGIN CERTIFICATE-----
-        # MIIClTCCAX0CBgGGLjuZVjANBgkqhkiG9w0BAQsFADAOMQwwCgYDVQQDDANhc2swHhcNMjMwMjA3MjMzMzIzWhcNMzMwMjA3MjMzNTAzWjAOMQwwCgYDVQQDDANhc2swggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDDHHu6UlbZ0EG/Av3EpLe/2ElMI4cXhcvUHV36XXottEmJTWXWyBKjKjIehWpG6Ui96FLsjy/NbP4ex6ncnhMR3Chz+txl5g2FrMw2YoBU+pA5wass9B4Bj8AY1jGzJqJmM+xVnDW3phLOqcFUMVehEn2+I1PqCizXhj5ytdFH02I8F6F65umNfe/7w1qirNg5uZIn01bbufHCq37dHX6RgeSFY25qJkLmQt++8NF/3Lir9w+cRaxKj6iOPDv1oKsKZq/50vWij6HD330TgXR2pjsIHHGabRGUFk2F9Buu0bQID9tZo9WWhSwLAvXEbCLLhBircZA2T5M79uEa8WvhAgMBAAEwDQYJKoZIhvcNAQELBQADggEBACEhqN/r8FwbajNn0pVBKWPLivdre6XmHtebT4pvxuq2ublgq7jlHmH/lByRMr8lvUjQDFI6TkQMNLXURtbXDGslOHg7AGdQWNwTigUVIrO4tDb1WB9yJwFr8n0BXA1Y7i+m8N/IMgbc8vMPuk8LZ7HQlemS2zHW/dv8e9tFdfoMI1mHhDs29xmUOPr90zOydnPpmhZ45CTxqihk9ZL4Tua7OgDeo+TFuLGSIzqlUdQKm6nLA7E2BqW/ECtXlXBll68K5e99HCTKEqa+RI0EohcnNbp5ThjJvkMKeC74NQCBtc3am2kAm7RYKtnPJIusgGSEwTod6p5wYzFrUx/awwU=
-        # -----END CERTIFICATE-----
-        # EOS
-        # token = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2RmsyZkpXVzc4Q2tIcHJzRWh2dDhNNlhjbmV6YWJ3cm5tRi01RUpDeTRzIn0.eyJleHAiOjE2NzU4MTkzMjUsImlhdCI6MTY3NTgxNzUyNSwianRpIjoiM2NiY2IzMGYtOGFkZS00YmI5LTk3ODktODAzMjAxM2U0OTgyIiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL2FzayIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI1ZGZjYzU1My1kNDc5LTQyOGUtYTcwOS04NjJiNGZiYjllYjciLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhc2stZnJvbnRlbmQtY2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6ImQzOGQ1NmMyLTQ0ZTEtNDViMi04YTFkLTM4MGNlODhlZWZjZiIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1hc2siLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiZDM4ZDU2YzItNDRlMS00NWIyLThhMWQtMzgwY2U4OGVlZmNmIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInByZWZlcnJlZF91c2VybmFtZSI6ImJpbGxpZV9oYXJ2ZXlAYmF1Y2gtaGlsbHMuaW5mbyIsImVtYWlsIjoiYmlsbGllX2hhcnZleUBiYXVjaC1oaWxscy5pbmZvIn0.GWMGE3xrXcmL_IfRed-Uhu2-7R8no49PC5KHPF3jwZddnNbk1M1I30OGuZ9AWkppkjaWz5vtH9p_ljxU0FRol33a96A49r5_GCIUOQZBuxWM_Eniv7SVLGQqpZDl8K9ogIF9CHsc3YydRyTFMmxtUxIWRdx-iXqRjeVkszbpZGc3Kmfh_xrAFHRCXPkTuMlwkW7X0FTibj-v7FNzUritmsvGOAUVOhg0fyh2e45a5ADMmvXISRA47PF6GvTrHDrAmWl0PC1d6xUi5eJZaEqtwI1HwKI6DvYkWbFacfQm_KgsKiq0JIYrU5KtRpszspr6xqXs63N-eRHnPHw72VWkbQ'
-        # #public_key = OpenSSL::PKey::RSA.new(hmac_secret)
+      let(:key_cache) { 'auth_keycloack_access_token' }
 
-        # certificate = OpenSSL::X509::Certificate.new(certificate)
-        # binding.pry
-        #         decoded_token = JWT.decode(token, certificate.public_key, true, { algorithm: 'RS256' })
-        #         allow(Redis).to receive(:new).and_return(double(get: nil, set: nil))
-        #         expect(Lib::Cache).to receive(:fetch).and_return(nil).and_call_original
-        #         expect(Lib::Cache).to receive(:fetch).with(key_cache, expires_in: 1500).and_call_original
+      it 'sets access token in cache' do
+        allow(Redis).to receive(:new).and_return(double(get: nil, set: nil))
+        expect(Lib::Cache).to receive(:fetch).and_return(nil).and_call_original
+        expect(Lib::Cache).to receive(:fetch).with(key_cache, expires_in: 1500).and_call_original
 
         VCR.use_cassette('auth/keycloak/access_token') { described_class.new }
       end
@@ -186,7 +175,7 @@ RSpec.describe Lib::Auth::Keycloack, type: :lib do
   describe '#valid_token?' do
     context 'when the token is not formatted' do
       it 'returns false' do
-        token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.Et9HFtf9R3GEMA0IICOfFMVXY7kkTX1wr4qCyhIf58U'
+        token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.Et9HFtf9R3GEMA0IICOfFMVXY7kkTX1wr4qCyhIf'
 
         VCR.use_cassette('auth/keycloak/certificates') do
           expect(described_class.valid_token?(token)).to be_falsy
@@ -206,6 +195,19 @@ RSpec.describe Lib::Auth::Keycloack, type: :lib do
       it 'returns true' do
         VCR.use_cassette('auth/keycloak/certificates') do
           expect(described_class.valid_token?(token, validate_expired: false)).to be_truthy
+        end
+      end
+
+      it 'sets cache' do
+        token = File.read('spec/lib/auth/token.txt')
+        key_cache = 'certificate_keycloak_validation_token'
+
+        allow(Redis).to receive(:new).and_return(double(get: nil, set: nil))
+        expect(Lib::Cache).to receive(:fetch).with(key_cache).and_return(nil)
+        expect(Lib::Cache).to receive(:fetch).with(key_cache, expires_in: 1500).and_call_original
+
+        VCR.use_cassette('auth/keycloak/certificates') do
+          expect(described_class.valid_token?(token)).to be_falsy
         end
       end
     end
