@@ -16,6 +16,11 @@ module Lib
       klass.create(first_name:, last_name:, password:, email:)
     end
 
+    def self.client(username:, password:, target: :keycloak)
+      klass = GET_TARGET.call(target).constantize.new(with_access_token: false)
+      klass.client(username:, password:)
+    end
+
     private_constant :TARGETS, :GET_TARGET
   end
 end

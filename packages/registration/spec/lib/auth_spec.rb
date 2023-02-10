@@ -54,4 +54,26 @@ RSpec.describe Lib::Auth, type: :lib do
       end
     end
   end
+
+  describe '#client' do
+    context 'when username and password are valid' do
+      it 'returns token' do
+        params = { username: 'billie_harvey@bauch-hills.info', password: 'YzQgQmRmB2xD9f' }
+
+        VCR.use_cassette('auth/keycloak/client') do
+          expect(Lib::Auth.client(**params)).to be_truthy
+        end
+      end
+    end
+
+    context 'when username and password are invalid' do
+      it 'returns false' do
+        params = { username: 'billie@bauch.info', password: 'YzQgQmRmB2xD9f2' }
+
+        VCR.use_cassette('auth/keycloak/client_invalid') do
+          expect(Lib::Auth.client(**params)).to be_falsy
+        end
+      end
+    end
+  end
 end
