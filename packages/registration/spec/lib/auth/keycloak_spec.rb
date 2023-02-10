@@ -9,21 +9,21 @@ RSpec.describe Lib::Auth::Keycloack, type: :lib do
   describe '#new' do
     context 'when instance' do
       it 'sets access token in cache' do
-        require 'jwt'
-hmac_secret = <<~EOS
------BEGIN PUBLIC KEY-----
-MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxFNJtW+10y1TgK0D6zP+fscsAUrPz32g77NdOm/PefElKJP06vD5fKH9gCFHRYfa8B9m+S365e5J90LJBT1Riqeb8DDNaaOnBSE+ZR3Gm3/pV23A2V5eHi802mnDmQNMvqBz2tHqj8mExzVv1tONshakGd0iFcBDmDeQ7A351h1YFBhByucLVeLqvHDWR+ghRoR/0zdSmpY9hbNYNs4cG2H8kGAjh7+DcItqy5JmiwS+tAv9in3tN6Njon5Ynol/rws5TdW9erSMCL0MZPq2t8aIsFbZFw3q33EouJEJqPpBk6K3SpopG/RGR1gv1/38PcgkKSX6zlg6vei21rRE+wIDAQAB
------END PUBLIC KEY-----
-EOS
-eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzemtzbVpJV3BaN2hXRnNQT0JmQXZnal9INkFNb0QzWXBGZzYtRFQyV0QwIn0.eyJleHAiOjE2NzQ3ODM2MDUsImlhdCI6MTY3NDc4MTgwNSwianRpIjoiZDc0Y2QxM2ItZjdjYS00MzNlLWIyNDUtNmM1NWFkYmE2MWMyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9hc2siLCJhdWQiOiJyZWFsbS1tYW5hZ2VtZW50Iiwic3ViIjoiNjQ3YjI4ZTYtZmE2Ni00NzQzLWJlYWUtNzAyZDYzMTUyMThjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYXNrLWFwaS1jbGllbnQiLCJhY3IiOiIxIiwicmVzb3VyY2VfYWNjZXNzIjp7InJlYWxtLW1hbmFnZW1lbnQiOnsicm9sZXMiOlsibWFuYWdlLXVzZXJzIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiY2xpZW50SG9zdCI6IjE5Mi4xNjguNDguMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJhc2stYXBpLWNsaWVudCIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC1hc2stY2xpZW50IiwiY2xpZW50QWRkcmVzcyI6IjE5Mi4xNjguNDguMSJ9.JixUAvLPSUCig5zKhOe6ZjjcW_KoPsJZ1LrzbH2EDFG2KHxTKNUeDzbvlDVFVa-9S4VScy6rOsdSA5s-yb5F1WauvYaIhJubIY0576dlLOCrlX7KyHZP5fpKtdA6BqrzsbFiiTOFEsz9MWW9ZlgvKynooGARYteVVWmd-QzrOOLVIgHSp-Ckl_7R41UtOwmjnDH1HlqPehoxNP4CyZIpP7lX6Tsd1bQdJFZv6eE2p_cXiJRENKoZHpCD6vOYJm1BG-Loa-sxw3UISGYLLrjNXAhY8LuDxxuU17zHkTrXd2tgo-4q-AQYOjXEffJGJdpzkXr7PKWuo42M4DALGbberw
-        #public_key = OpenSSL::X509::Certificate.new(hmac_secret)
-        public_key = OpenSSL::PKey::RSA.new(hmac_secret)
-        token = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzemtzbVpJV3BaN2hXRnNQT0JmQXZnal9INkFNb0QzWXBGZzYtRFQyV0QwIn0.eyJleHAiOjE2NzQ3ODU4MTQsImlhdCI6MTY3NDc4NDAxNCwianRpIjoiN2NiMjg0MmUtOTI2OS00NzA1LWE3YzUtZWZiNTgzN2I4ZWI5IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9hc2siLCJhdWQiOiJyZWFsbS1tYW5hZ2VtZW50Iiwic3ViIjoiNjQ3YjI4ZTYtZmE2Ni00NzQzLWJlYWUtNzAyZDYzMTUyMThjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiYXNrLWFwaS1jbGllbnQiLCJhY3IiOiIxIiwicmVzb3VyY2VfYWNjZXNzIjp7InJlYWxtLW1hbmFnZW1lbnQiOnsicm9sZXMiOlsibWFuYWdlLXVzZXJzIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiY2xpZW50SG9zdCI6IjE5Mi4xNjguNDguMSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiY2xpZW50SWQiOiJhc2stYXBpLWNsaWVudCIsInByZWZlcnJlZF91c2VybmFtZSI6InNlcnZpY2UtYWNjb3VudC1hc2stY2xpZW50IiwiY2xpZW50QWRkcmVzcyI6IjE5Mi4xNjguNDguMSJ9.KVyI989GbWTRH0bUts7oJ8tkBskRl1QZ9uV2szTddD5tmDqK8M985KjWWzA7DzmhO68LjjLJvr02elzdgJjxvfKzh-CL3yb6ys7AU9J4o9Y_x0uBXOB84ozJhHOxWGK2F41Oizz2YvSZBRmvTp6x6lS4dDSr9bSIzmYcGth8OOCVwYL1kpQmZlD91dP6vLJlt4i0iYlHxsLZetoGLrZ3Q0Glz_OAsiwpRJYri_dS6odmoSFD07_eu-1QUCEQe201JvtLmuLZ0U6PZ6rG5VDQFwk2ZDWRqCx0mPskRAeuURjOaVOoHmXZF91Vi6uLBpe4ayKDGB6vyxT-UzBoKm1Giw'
-        binding.pry
-        decoded_token = JWT.decode(token, public_key, true, { algorithm: 'RS256' })
-        allow(Redis).to receive(:new).and_return(double(get: nil, set: nil))
-        expect(Lib::Cache).to receive(:fetch).and_return(nil).and_call_original
-        expect(Lib::Cache).to receive(:fetch).with(key_cache, expires_in: 1500).and_call_original
+        #         require 'jwt'
+        # certificate = <<~EOS
+        # -----BEGIN CERTIFICATE-----
+        # MIIClTCCAX0CBgGGLjuZVjANBgkqhkiG9w0BAQsFADAOMQwwCgYDVQQDDANhc2swHhcNMjMwMjA3MjMzMzIzWhcNMzMwMjA3MjMzNTAzWjAOMQwwCgYDVQQDDANhc2swggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDDHHu6UlbZ0EG/Av3EpLe/2ElMI4cXhcvUHV36XXottEmJTWXWyBKjKjIehWpG6Ui96FLsjy/NbP4ex6ncnhMR3Chz+txl5g2FrMw2YoBU+pA5wass9B4Bj8AY1jGzJqJmM+xVnDW3phLOqcFUMVehEn2+I1PqCizXhj5ytdFH02I8F6F65umNfe/7w1qirNg5uZIn01bbufHCq37dHX6RgeSFY25qJkLmQt++8NF/3Lir9w+cRaxKj6iOPDv1oKsKZq/50vWij6HD330TgXR2pjsIHHGabRGUFk2F9Buu0bQID9tZo9WWhSwLAvXEbCLLhBircZA2T5M79uEa8WvhAgMBAAEwDQYJKoZIhvcNAQELBQADggEBACEhqN/r8FwbajNn0pVBKWPLivdre6XmHtebT4pvxuq2ublgq7jlHmH/lByRMr8lvUjQDFI6TkQMNLXURtbXDGslOHg7AGdQWNwTigUVIrO4tDb1WB9yJwFr8n0BXA1Y7i+m8N/IMgbc8vMPuk8LZ7HQlemS2zHW/dv8e9tFdfoMI1mHhDs29xmUOPr90zOydnPpmhZ45CTxqihk9ZL4Tua7OgDeo+TFuLGSIzqlUdQKm6nLA7E2BqW/ECtXlXBll68K5e99HCTKEqa+RI0EohcnNbp5ThjJvkMKeC74NQCBtc3am2kAm7RYKtnPJIusgGSEwTod6p5wYzFrUx/awwU=
+        # -----END CERTIFICATE-----
+        # EOS
+        # token = 'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI2RmsyZkpXVzc4Q2tIcHJzRWh2dDhNNlhjbmV6YWJ3cm5tRi01RUpDeTRzIn0.eyJleHAiOjE2NzU4MTkzMjUsImlhdCI6MTY3NTgxNzUyNSwianRpIjoiM2NiY2IzMGYtOGFkZS00YmI5LTk3ODktODAzMjAxM2U0OTgyIiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL2FzayIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI1ZGZjYzU1My1kNDc5LTQyOGUtYTcwOS04NjJiNGZiYjllYjciLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhc2stZnJvbnRlbmQtY2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6ImQzOGQ1NmMyLTQ0ZTEtNDViMi04YTFkLTM4MGNlODhlZWZjZiIsImFjciI6IjEiLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1hc2siLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiZDM4ZDU2YzItNDRlMS00NWIyLThhMWQtMzgwY2U4OGVlZmNmIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInByZWZlcnJlZF91c2VybmFtZSI6ImJpbGxpZV9oYXJ2ZXlAYmF1Y2gtaGlsbHMuaW5mbyIsImVtYWlsIjoiYmlsbGllX2hhcnZleUBiYXVjaC1oaWxscy5pbmZvIn0.GWMGE3xrXcmL_IfRed-Uhu2-7R8no49PC5KHPF3jwZddnNbk1M1I30OGuZ9AWkppkjaWz5vtH9p_ljxU0FRol33a96A49r5_GCIUOQZBuxWM_Eniv7SVLGQqpZDl8K9ogIF9CHsc3YydRyTFMmxtUxIWRdx-iXqRjeVkszbpZGc3Kmfh_xrAFHRCXPkTuMlwkW7X0FTibj-v7FNzUritmsvGOAUVOhg0fyh2e45a5ADMmvXISRA47PF6GvTrHDrAmWl0PC1d6xUi5eJZaEqtwI1HwKI6DvYkWbFacfQm_KgsKiq0JIYrU5KtRpszspr6xqXs63N-eRHnPHw72VWkbQ'
+        # #public_key = OpenSSL::PKey::RSA.new(hmac_secret)
+
+        # certificate = OpenSSL::X509::Certificate.new(certificate)
+        # binding.pry
+        #         decoded_token = JWT.decode(token, certificate.public_key, true, { algorithm: 'RS256' })
+        #         allow(Redis).to receive(:new).and_return(double(get: nil, set: nil))
+        #         expect(Lib::Cache).to receive(:fetch).and_return(nil).and_call_original
+        #         expect(Lib::Cache).to receive(:fetch).with(key_cache, expires_in: 1500).and_call_original
 
         VCR.use_cassette('auth/keycloak/access_token') { described_class.new }
       end
@@ -178,6 +178,34 @@ eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzemtzbVpJV3BaN2hXRnNQT0JmQXZn
           response = described_class.client(**params)
 
           expect(response).to be_falsy
+        end
+      end
+    end
+  end
+
+  describe '#valid_token?' do
+    context 'when the token is not formatted' do
+      it 'returns false' do
+        token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.Et9HFtf9R3GEMA0IICOfFMVXY7kkTX1wr4qCyhIf58U'
+
+        VCR.use_cassette('auth/keycloak/certificates') do
+          expect(described_class.valid_token?(token)).to be_falsy
+        end
+      end
+    end
+
+    context 'when the token is formatted' do
+      let(:token) { File.read('spec/lib/auth/token.txt') }
+
+      it 'returns false when expired' do
+        VCR.use_cassette('auth/keycloak/certificates') do
+          expect(described_class.valid_token?(token)).to be_falsy
+        end
+      end
+
+      it 'returns true' do
+        VCR.use_cassette('auth/keycloak/certificates') do
+          expect(described_class.valid_token?(token, validate_expired: false)).to be_truthy
         end
       end
     end
