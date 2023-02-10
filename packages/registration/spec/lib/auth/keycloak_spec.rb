@@ -180,7 +180,9 @@ RSpec.describe Lib::Auth::Keycloak, type: :lib do
         token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.Et9HFtf9R3GEMA0IICOfFMVXY7kkTX1wr4qCyhIf'
 
         VCR.use_cassette('auth/keycloak/certificates') do
-          expect(described_class.valid_token?(token)).to be_falsy
+          subject = described_class.new(with_access_token: false)
+
+          expect(subject.valid_token?(token)).to be_falsy
         end
       end
     end
@@ -190,13 +192,17 @@ RSpec.describe Lib::Auth::Keycloak, type: :lib do
 
       it 'returns false when expired' do
         VCR.use_cassette('auth/keycloak/certificates') do
-          expect(described_class.valid_token?(token)).to be_falsy
+          subject = described_class.new(with_access_token: false)
+
+          expect(subject.valid_token?(token)).to be_falsy
         end
       end
 
       it 'returns true' do
         VCR.use_cassette('auth/keycloak/certificates') do
-          expect(described_class.valid_token?(token, validate_expired: false)).to be_truthy
+          subject = described_class.new(with_access_token: false)
+
+          expect(subject.valid_token?(token, validate_expired: false)).to be_truthy
         end
       end
 
@@ -209,7 +215,7 @@ RSpec.describe Lib::Auth::Keycloak, type: :lib do
         expect(Lib::Cache).to receive(:fetch).with(key_cache, expires_in: 1500).and_call_original
 
         VCR.use_cassette('auth/keycloak/certificates') do
-          expect(described_class.valid_token?(token)).to be_falsy
+          described_class.new(with_access_token: false).valid_token?(token)
         end
       end
     end

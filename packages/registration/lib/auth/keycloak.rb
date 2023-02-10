@@ -28,7 +28,7 @@ module Lib
       access_token! if with_access_token
     end
 
-    def self.valid_token?(token, validate_expired: true)
+    def valid_token?(token, validate_expired: true)
       certificate = nil
       raw_cert = Lib::Cache.fetch(KEY_CACHE[:cert])
 
