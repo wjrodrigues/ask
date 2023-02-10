@@ -22,10 +22,10 @@ module Lib
       }.fetch(target)
     end
 
-    def initialize(grant_type: :client_credentials)
+    def initialize(grant_type: :client_credentials, with_access_token: true)
       @grant_type = grant_type.to_s
 
-      access_token!
+      access_token! if with_access_token
     end
 
     def self.valid_token?(token, validate_expired: true)
@@ -55,11 +55,11 @@ module Lib
       false
     end
 
-    def self.client(username:, password:)
+    def client(username:, password:)
       payload = {
         client_secret: ENV.fetch('KEYCLOAK_FRONTEND_SECRET'),
         client_id: ENV.fetch('KEYCLOAK_FRONTEND_CLIENT_ID'),
-        grant_type: 'password',
+        grant_type: @grant_type,
         password:,
         username:
       }

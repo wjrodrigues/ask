@@ -148,8 +148,9 @@ RSpec.describe Lib::Auth::Keycloak, type: :lib do
       it 'returns access token' do
         params = { username: 'billie_harvey@bauch-hills.info', password: 'YzQgQmRmB2xD9f' }
 
+        subject = described_class.new(grant_type: :password, with_access_token: false)
         VCR.use_cassette('auth/keycloak/client') do
-          response = described_class.client(**params)
+          response = subject.client(**params)
 
           expect(response.keys).to match(
             %w[access_token expires_in refresh_expires_in refresh_token token_type
@@ -163,8 +164,9 @@ RSpec.describe Lib::Auth::Keycloak, type: :lib do
       it 'returns false' do
         params = { username: 'billie@bauch.info', password: 'YzQgQmRmB2xD9f2' }
 
+        subject = described_class.new(grant_type: :password, with_access_token: false)
         VCR.use_cassette('auth/keycloak/client_invalid') do
-          response = described_class.client(**params)
+          response = subject.client(**params)
 
           expect(response).to be_falsy
         end
