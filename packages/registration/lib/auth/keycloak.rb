@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 module Lib
-  class Auth::Keycloack
+  class Auth::Keycloak
     attr_reader :access_token, :grant_type
 
     EXPIRES_IN = 1500 # 25 minutes
 
     KEY_CACHE = {
-      access_token: 'auth_keycloack_access_token',
+      access_token: 'auth_keycloak_access_token',
       cert: 'certificate_keycloak_validation_token'
     }.freeze
 

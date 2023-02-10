@@ -2,7 +2,7 @@
 
 module Lib
   class Auth
-    TARGETS = { keycloack: 'Lib::Auth::Keycloack' }.freeze
+    TARGETS = { keycloak: 'Lib::Auth::Keycloak' }.freeze
     GET_TARGET = lambda do |target|
       [target] => [Symbol]
 

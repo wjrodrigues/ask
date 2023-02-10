@@ -2,12 +2,12 @@
 
 require 'spec_helper'
 
-RSpec.describe Lib::Auth::Keycloack, type: :lib do
+RSpec.describe Lib::Auth::Keycloak, type: :lib do
   let(:fake_access_token) { Faker::Alphanumeric.alpha }
 
   describe '#new' do
     context 'when instance' do
-      let(:key_cache) { 'auth_keycloack_access_token' }
+      let(:key_cache) { 'auth_keycloak_access_token' }
 
       it 'sets access token in cache' do
         allow(Redis).to receive(:new).and_return(double(get: nil, set: nil))

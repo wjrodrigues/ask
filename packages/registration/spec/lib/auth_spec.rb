@@ -21,14 +21,14 @@ RSpec.describe Lib::Auth, type: :lib do
 
       context 'and parameters are valid' do
         it 'returns true' do
-          expect_any_instance_of(Lib::Auth::Keycloack).to receive(:reset_password).and_return(true)
+          expect_any_instance_of(Lib::Auth::Keycloak).to receive(:reset_password).and_return(true)
 
           params = {
             first_name: 'Derek',
             last_name: 'Harber',
             password: 'YzQgQmRmB2xD9f',
             email: 'billie_harvey@bauch-hills.info',
-            target: :keycloack
+            target: :keycloak
           }
 
           VCR.use_cassette('auth/keycloak/create_user') do
@@ -44,7 +44,7 @@ RSpec.describe Lib::Auth, type: :lib do
             last_name: 'Harber',
             password: 'YzQgQmRmB2xD9f',
             email: '',
-            target: :keycloack
+            target: :keycloak
           }
 
           VCR.use_cassette('auth/keycloak/create_user_invalid') do

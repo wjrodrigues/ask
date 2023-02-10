@@ -4,7 +4,7 @@ module User
   class Auth < Model::Application
     attr_accessor :params, :repository, :auth
 
-    def initialize(params, auth: Lib::Auth::Keycloack, repository: Repository)
+    def initialize(params, auth: Lib::Auth::Keycloak, repository: Repository)
       self.params = params
       self.repository = repository
       self.auth = auth

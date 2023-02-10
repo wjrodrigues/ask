@@ -22,7 +22,7 @@ RSpec.describe User::Auth, type: :model do
 
         params = Controller::Request.call({ username: user.email, password: })
 
-        expect(Lib::Auth::Keycloack).to receive(:client).and_return(false)
+        expect(Lib::Auth::Keycloak).to receive(:client).and_return(false)
 
         response = described_class.call(params)
 
@@ -56,7 +56,7 @@ RSpec.describe User::Auth, type: :model do
 
         expected_token = Faker::Alphanumeric.alphanumeric
 
-        expect(Lib::Auth::Keycloack)
+        expect(Lib::Auth::Keycloak)
           .to receive(:client)
           .and_return({ access_token: expected_token })
 

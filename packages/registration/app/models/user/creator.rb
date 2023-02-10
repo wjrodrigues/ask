@@ -19,7 +19,7 @@ module User
       result = repository.create(**values)
 
       if result
-        auth.create(**values, target: :keycloack)
+        auth.create(**values, target: :keycloak)
         send_notification
         return response.add_result(repository.find(value: params.email))
       end
