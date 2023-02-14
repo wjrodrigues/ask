@@ -15,7 +15,8 @@
       "rootUrl": "",
       "baseUrl": "",
       "redirectUris": ["*"],
-      "webOrigins": []
+      "webOrigins": [],
+      "authorizationServicesEnabled": true
     },
     {
       "clientId": "ask-api-client",
