@@ -18,22 +18,29 @@ class Routes < Sinatra::Base
     Controller::User.post(request)
   end
 
-  patch '/users/:id' do
-    request.params.merge!(params)
+  patch '/users' do
+    Middleware::Auth.check!(self)
+    current_user = Middleware::Auth.current_user(self)
+
+    request.params.merge!(params, 'id' => current_user[:id])
 
     Controller::User.patch(request)
   end
 
-  post '/users/:id/profile' do
-    Middleware::Auth.check!(self, env['HTTP_AUTHORIZATION'])
+  post '/users/profile' do
+    Middleware::Auth.check!(self)
+    current_user = Middleware::Auth.current_user(self)
 
-    request.params.merge!(params)
+    request.params.merge!(params, 'id' => current_user[:id])
 
     Controller::User.update_profile(request)
   end
 
-  post '/users/:id/profile/presigned_url' do
-    request.params.merge!(params)
+  post '/users/profile/presigned_url' do
+    Middleware::Auth.check!(self)
+    current_user = Middleware::Auth.current_user(self)
+
+    request.params.merge!(params, 'id' => current_user[:id])
 
     Controller::User.presigned_url(request)
   end
