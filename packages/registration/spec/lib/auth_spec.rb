@@ -83,7 +83,7 @@ RSpec.describe Lib::Auth, type: :lib do
         token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.Et9HFtf9R3GEMA0IICOfFMVXY7kkTX1wr4qCyhIf'
 
         VCR.use_cassette('auth/keycloak/certificates') do
-          expect(described_class.valid_token?(token:)).to be_falsy
+          expect(described_class.valid_token?(token)).to be_falsy
         end
       end
     end
@@ -93,13 +93,13 @@ RSpec.describe Lib::Auth, type: :lib do
 
       it 'returns false when expired' do
         VCR.use_cassette('auth/keycloak/certificates') do
-          expect(described_class.valid_token?(token:)).to be_falsy
+          expect(described_class.valid_token?(token)).to be_falsy
         end
       end
 
       it 'returns true' do
         VCR.use_cassette('auth/keycloak/certificates') do
-          result = described_class.valid_token?(token:, validate_expired: false)
+          result = described_class.valid_token?(token, validate_expired: false)
 
           expect(result).to be_truthy
         end
@@ -114,8 +114,31 @@ RSpec.describe Lib::Auth, type: :lib do
         expect(Lib::Cache).to receive(:fetch).with(key_cache, expires_in: 1500).and_call_original
 
         VCR.use_cassette('auth/keycloak/certificates') do
-          described_class.valid_token?(token:, validate_expired: false)
+          described_class.valid_token?(token, validate_expired: false)
         end
+      end
+    end
+  end
+
+  describe '#decode_token' do
+    let(:token) { '123' }
+
+    context 'when the token is not formatted' do
+      it 'returns false' do
+        expect(Lib::Auth).to receive(:valid_token?).and_return(false)
+        expect(described_class.decode_token(token)).to be_falsy
+      end
+    end
+
+    context 'when the token is formatted' do
+      it 'returns true' do
+        expect(Lib::Auth).to receive(:valid_token?).and_return(
+          [{ 'email' => 'billie_harvey@bauch-hills.info', 'any' => true }]
+        )
+
+        result = described_class.decode_token(token, validate_expired: false)
+
+        expect(result).to eq({ 'email' => 'billie_harvey@bauch-hills.info' })
       end
     end
   end

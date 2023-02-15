@@ -21,9 +21,17 @@ module Lib
       klass.client(username:, password:)
     end
 
-    def self.valid_token?(token:, validate_expired: true, target: :keycloak)
+    def self.valid_token?(token, validate_expired: true, target: :keycloak)
       klass = GET_TARGET.call(target).constantize.new(with_access_token: false)
       klass.valid_token?(token, validate_expired:)
+    end
+
+    def self.decode_token(token, validate_expired: true, target: :keycloak)
+      token = valid_token?(token, validate_expired:, target:)
+
+      return false unless token
+
+      token.first.slice('email')
     end
 
     private_constant :TARGETS, :GET_TARGET
