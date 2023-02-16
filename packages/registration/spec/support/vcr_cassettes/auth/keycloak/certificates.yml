@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://keycloak:8080/realms/ask/protocol/openid-connect/certs
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - "*/*"
+      User-Agent:
+      - rest-client/2.1.0 (linux x86_64) ruby/3.1.2p20
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Host:
+      - keycloak:8080
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Referrer-Policy:
+      - no-referrer
+      X-Frame-Options:
+      - SAMEORIGIN
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Cache-Control:
+      - no-cache
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '2901'
+    body:
+      encoding: UTF-8
+      string: '{"keys":[{"kid":"6Fk2fJWW78CkHprsEhvt8M6XcnezabwrnmF-5EJCy4s","kty":"RSA","alg":"RS256","use":"sig","n":"wxx7ulJW2dBBvwL9xKS3v9hJTCOHF4XL1B1d-l16LbRJiU1l1sgSoyoyHoVqRulIvehS7I8vzWz-Hsep3J4TEdwoc_rcZeYNhazMNmKAVPqQOcGrLPQeAY_AGNYxsyaiZjPsVZw1t6YSzqnBVDFXoRJ9viNT6gos14Y-crXRR9NiPBeheubpjX3v-8NaoqzYObmSJ9NW27nxwqt-3R1-kYHkhWNuaiZC5kLfvvDRf9y4q_cPnEWsSo-ojjw79aCrCmav-dL1oo-hw999E4F0dqY7CBxxmm0RlBZNhfQbrtG0CA_bWaPVloUsCwL1xGwiy4QYq3GQNk-TO_bhGvFr4Q","e":"AQAB","x5c":["MIIClTCCAX0CBgGGLjuZVjANBgkqhkiG9w0BAQsFADAOMQwwCgYDVQQDDANhc2swHhcNMjMwMjA3MjMzMzIzWhcNMzMwMjA3MjMzNTAzWjAOMQwwCgYDVQQDDANhc2swggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDDHHu6UlbZ0EG/Av3EpLe/2ElMI4cXhcvUHV36XXottEmJTWXWyBKjKjIehWpG6Ui96FLsjy/NbP4ex6ncnhMR3Chz+txl5g2FrMw2YoBU+pA5wass9B4Bj8AY1jGzJqJmM+xVnDW3phLOqcFUMVehEn2+I1PqCizXhj5ytdFH02I8F6F65umNfe/7w1qirNg5uZIn01bbufHCq37dHX6RgeSFY25qJkLmQt++8NF/3Lir9w+cRaxKj6iOPDv1oKsKZq/50vWij6HD330TgXR2pjsIHHGabRGUFk2F9Buu0bQID9tZo9WWhSwLAvXEbCLLhBircZA2T5M79uEa8WvhAgMBAAEwDQYJKoZIhvcNAQELBQADggEBACEhqN/r8FwbajNn0pVBKWPLivdre6XmHtebT4pvxuq2ublgq7jlHmH/lByRMr8lvUjQDFI6TkQMNLXURtbXDGslOHg7AGdQWNwTigUVIrO4tDb1WB9yJwFr8n0BXA1Y7i+m8N/IMgbc8vMPuk8LZ7HQlemS2zHW/dv8e9tFdfoMI1mHhDs29xmUOPr90zOydnPpmhZ45CTxqihk9ZL4Tua7OgDeo+TFuLGSIzqlUdQKm6nLA7E2BqW/ECtXlXBll68K5e99HCTKEqa+RI0EohcnNbp5ThjJvkMKeC74NQCBtc3am2kAm7RYKtnPJIusgGSEwTod6p5wYzFrUx/awwU="],"x5t":"tv09_y6NEqVfykh-lk0dhPZ13mo","x5t#S256":"pLa6uUh_X_qc3S6Hff7aOqKuRDIa6To7ZSv0bjICvpI"},{"kid":"SyG_Q_FCuUUcD8lTiBenfszZ8eo_DJZ92_k7je9wB94","kty":"RSA","alg":"RSA-OAEP","use":"enc","n":"uP0xHtaGi7M2UsOFggbEkFiwlVe8FLc9plin1kllBjcPs5esK-usENdaeIuVg42T4-Vb9A1cVLGv6ia0bYey0l8bsUfRcCKjEeireCsL2aBynlb3HDf5T2XfRDmmG8nrV346bjTAa1u_4idZe-gu2bnAyFCW16DntI1ot_K-4S00sQtXNyFLcxPlBU-oOqfAI2vYC44D-Mi6v8HKUDbW0By_CyNVZ4Ux_fpJpQ6vIrpDvQv3L3fkHNdtFDAXfnwo6QPBgkHUmF-oT2lGbG-YbMjB6BmZfpMZzv6bJzQs_RnRK_5hkDA8sSklpFMDScPEEgeOspumMLzOsHl6T3eHCw","e":"AQAB","x5c":["MIIClTCCAX0CBgGGLjuaTTANBgkqhkiG9w0BAQsFADAOMQwwCgYDVQQDDANhc2swHhcNMjMwMjA3MjMzMzIzWhcNMzMwMjA3MjMzNTAzWjAOMQwwCgYDVQQDDANhc2swggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC4/TEe1oaLszZSw4WCBsSQWLCVV7wUtz2mWKfWSWUGNw+zl6wr66wQ11p4i5WDjZPj5Vv0DVxUsa/qJrRth7LSXxuxR9FwIqMR6Kt4KwvZoHKeVvccN/lPZd9EOaYbyetXfjpuNMBrW7/iJ1l76C7ZucDIUJbXoOe0jWi38r7hLTSxC1c3IUtzE+UFT6g6p8Aja9gLjgP4yLq/wcpQNtbQHL8LI1VnhTH9+kmlDq8iukO9C/cvd+Qc120UMBd+fCjpA8GCQdSYX6hPaUZsb5hsyMHoGZl+kxnO/psnNCz9GdEr/mGQMDyxKSWkUwNJw8QSB46ym6YwvM6weXpPd4cLAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAERX6wvu6U+pYVGDV7It+lMAIjWT70BqwNjnbd2rYM5bCtWyxsL4TTa0XWkt7n/n6u/PGGPgAvihq0nPUOR2W8PRYRmO0JQLFau2caNNuEsIKLF0I30sVDBEzn1F+FDyJj0ls5iZHTUmuAcGikMoAz2lXf3d+cS7bb/TMiH50c6GDRzXSUcGyvv4lQfK9jyphBYjXcVQIEO1VWowBte2i1onocuPN6X2EXbMS0cWsjYII0ECHu4ZpYmoOCwJYXr2lWvCq5BBYfjmKt3+XCWtALqLNVQ7j1xoVCAWJhhFrcZGs4n3gBfv5FsyYvueSdlAF+qXws1l8GWzSJcuO8B7dsw="],"x5t":"AS3Sx7wD8RtK1iyyN2fSBbyP4wQ","x5t#S256":"_LvVRrXVrMTPKHCHjKrpCKlK6X8jt38aS6w9ihscycw"}]}'
+  recorded_at: Wed, 08 Feb 2023 01:57:31 GMT
+recorded_with: VCR 6.1.0

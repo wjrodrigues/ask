@@ -1,32 +1,65 @@
 # frozen_string_literal: true
 
 module Lib
-  class Auth::Keycloack
+  class Auth::Keycloak
     attr_reader :access_token, :grant_type
 
-    KEY_CACHE = 'auth_keycloack_access_token'
     EXPIRES_IN = 1500 # 25 minutes
+
+    KEY_CACHE = {
+      access_token: 'auth_keycloak_access_token',
+      cert: 'certificate_keycloak_validation_token'
+    }.freeze
+
     URL = lambda do |target|
       base_url = "#{ENV.fetch('KEYCLOAK_HOST')}:#{ENV.fetch('KEYCLOAK_PORT')}"
       realm = ENV.fetch('KEYCLOAK_AUTH_REALM')
 
       {
         access_token: "#{base_url}/realms/#{realm}/protocol/openid-connect/token",
-        user: "#{base_url}/admin/realms/#{realm}/users"
+        user: "#{base_url}/admin/realms/#{realm}/users",
+        certs: "#{base_url}/realms/#{realm}/protocol/openid-connect/certs"
       }.fetch(target)
     end
 
-    def initialize(grant_type: :client_credentials)
+    def initialize(grant_type: :client_credentials, with_access_token: true)
       @grant_type = grant_type.to_s
 
-      access_token!
+      access_token! if with_access_token
     end
 
-    def self.client(username:, password:)
+    def valid_token?(token, validate_expired: true)
+      certificate = nil
+      raw_cert = Lib::Cache.fetch(KEY_CACHE[:cert])
+
+      if raw_cert.nil?
+        response = Lib::Request.execute(URL.call(:certs), method: :get)
+        certificates = JSON.parse(response.body)
+        certificate = certificates['keys'].find { |c| c['alg'] == 'RS256' }
+
+        return false if certificate.nil?
+      end
+
+      raw_cert = Lib::Cache.fetch(KEY_CACHE[:cert], expires_in: EXPIRES_IN) do
+        <<~CERT
+          -----BEGIN CERTIFICATE-----
+          #{certificate['x5c'].first}
+          -----END CERTIFICATE-----
+        CERT
+      end
+
+      certificate = OpenSSL::X509::Certificate.new(raw_cert)
+
+      JWT.decode(token, certificate.public_key, validate_expired, { algorithm: 'RS256' })
+    rescue StandardError
+      false
+    end
+
+    def client(username:, password:)
       payload = {
         client_secret: ENV.fetch('KEYCLOAK_FRONTEND_SECRET'),
         client_id: ENV.fetch('KEYCLOAK_FRONTEND_CLIENT_ID'),
-        grant_type: 'password',
+        grant_type: @grant_type,
         password:,
         username:
       }
@@ -96,7 +129,7 @@ module Lib
     private
 
     def access_token!
-      @access_token = Lib::Cache.fetch(KEY_CACHE)
+      @access_token = Lib::Cache.fetch(KEY_CACHE[:access_token])
 
       return unless @access_token.nil?
 
@@ -104,7 +137,7 @@ module Lib
 
       raise if response.code != 200
 
-      Lib::Cache.fetch(KEY_CACHE, expires_in: EXPIRES_IN) do
+      Lib::Cache.fetch(KEY_CACHE[:access_token], expires_in: EXPIRES_IN) do
         @access_token = JSON.parse(response.body).fetch('access_token')
       end
     rescue StandardError => e

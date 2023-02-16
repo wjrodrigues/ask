@@ -26,7 +26,7 @@ module Profile
       response.add_result({ url: send(params.action.to_sym) })
     end
 
-    private :params, :storage
+    private :params=, :storage=
     private_constant :ACTIONS, :EXTENSIONS
 
     def presigned_url
