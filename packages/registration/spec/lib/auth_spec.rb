@@ -98,6 +98,9 @@ RSpec.describe Lib::Auth, type: :lib do
       end
 
       it 'returns true' do
+        allow_any_instance_of(Redis).to receive(:get).and_return(nil)
+        allow_any_instance_of(Redis).to receive(:set).and_return(nil)
+
         VCR.use_cassette('auth/keycloak/certificates') do
           result = described_class.valid_token?(token, validate_expired: false)
 

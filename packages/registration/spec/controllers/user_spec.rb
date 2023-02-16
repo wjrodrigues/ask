@@ -58,6 +58,8 @@ RSpec.describe Controller::User, type: :controller do
 
     context 'when not authenticated' do
       it 'returns http :UNAUTHORIZED status and empty body' do
+        allow(Lib::Auth).to receive(:valid_token?).and_return(false)
+
         patch '/users', {}.to_json, headers
 
         expect(last_response.status).to eq(Controller::Response::REASONS[:UNAUTHORIZED])
@@ -104,6 +106,8 @@ RSpec.describe Controller::User, type: :controller do
 
     context 'when not authenticated' do
       it 'returns http :unauthorized status and empty body' do
+        allow(Lib::Auth).to receive(:valid_token?).and_return(false)
+
         post '/users/profile', {}.to_json, headers
 
         expect(last_response.status).to eq(Controller::Response::REASONS[:UNAUTHORIZED])
@@ -152,6 +156,8 @@ RSpec.describe Controller::User, type: :controller do
 
     context 'when not authenticated' do
       it 'returns http :unauthorized status and empty body' do
+        allow(Lib::Auth).to receive(:valid_token?).and_return(false)
+
         post '/users/profile/presigned_url', {}.to_json, headers
 
         expect(last_response.status).to eq(Controller::Response::REASONS[:UNAUTHORIZED])

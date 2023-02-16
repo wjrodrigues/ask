@@ -199,6 +199,9 @@ RSpec.describe Lib::Auth::Keycloak, type: :lib do
       end
 
       it 'returns true' do
+        allow_any_instance_of(Redis).to receive(:get).and_return(nil)
+        allow_any_instance_of(Redis).to receive(:set).and_return(nil)
+
         VCR.use_cassette('auth/keycloak/certificates') do
           subject = described_class.new(with_access_token: false)
 
