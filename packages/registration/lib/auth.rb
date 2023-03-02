@@ -18,7 +18,7 @@ module Lib
 
     def self.client(username:, password:, target: :keycloak)
       klass = GET_TARGET.call(target).constantize
-      instance = klass.new(grant_type: :password,with_access_token: false)
+      instance = klass.new(grant_type: :password, with_access_token: false)
 
       instance.client(username:, password:)
     end
