@@ -170,11 +170,12 @@ RSpec.describe Controller::User, type: :controller do
         allow(Middleware::Auth).to receive(:check!)
         allow(Middleware::Auth).to receive(:current_user).and_return(user.slice(:id, :email))
 
+        host = ENV.fetch('S3_ENDPOINT', nil)
         params = { action: :presigned_url, extension: 'jpeg' }.to_json
 
         post '/users/profile/presigned_url', params, headers
 
-        expected = "https://s3.amazonaws.com/profilepictures/#{user.id}.jpeg"
+        expected = "#{host}/profilepictures/#{user.id}.jpeg"
 
         expect(last_response.body).to start_with(expected)
         expect(last_response.status).to eq(Controller::Response::REASONS[:OK])
