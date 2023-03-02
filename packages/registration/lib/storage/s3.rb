@@ -3,7 +3,10 @@
 module Lib
   class Storage::S3
     def self.build_client
-      Aws::S3::Client.new(force_path_style: true)
+      params = { force_path_style: true }
+      params[:endpoint] = ENV['S3_ENDPOINT'] if ENV['S3_ENDPOINT']
+
+      Aws::S3::Client.new(params)
     end
 
     def self.presigned_url(folder_name:, file_name:)
