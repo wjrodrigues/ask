@@ -8,13 +8,14 @@ RSpec.describe ::Profile::Storer, type: :model do
 
     context 'when values are valid' do
       it 'returns response with presigned url' do
+        host = ENV.fetch('S3_ENDPOINT', nil)
         params = Controller::Request.call(
           extension: 'jpg', user_id: user.id, action: :presigned_url
         )
         response = described_class.call(params)
 
         expect(response.ok?).to be_truthy
-        expect(response.result[:url]).to start_with("https://s3.amazonaws.com/profilepictures/#{user.id}.jpg")
+        expect(response.result[:url]).to start_with("#{host}/profilepictures/#{user.id}.jpg")
       end
     end
 
