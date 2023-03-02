@@ -17,8 +17,10 @@ module Lib
     end
 
     def self.client(username:, password:, target: :keycloak)
-      klass = GET_TARGET.call(target).constantize.new(grant_type: :password, with_access_token: false)
-      klass.client(username:, password:)
+      klass = GET_TARGET.call(target).constantize
+      instance = klass.new(grant_type: :password,with_access_token: false)
+
+      instance.client(username:, password:)
     end
 
     def self.valid_token?(token, validate_expired: true, target: :keycloak)
