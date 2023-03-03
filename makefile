@@ -40,3 +40,10 @@ message_broker:
 	cp ${message_broker}/.env.example ${message_broker}/.env
 	cd ${message_broker} && docker-compose up -d
 	echo "Finish ✅"
+
+start:
+	make infra
+	make access_management
+	make registration
+	make frontend
+	make message_broker
