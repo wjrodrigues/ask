@@ -1,5 +1,8 @@
 export default {
   "pt-BR": {
+    errors: {
+      default: "Ocorreu um erro interno, tente novamente mais tarde",
+    },
     form: {
       field_required: "Campo é obrigatório",
       invalid_data: "Dados inválidos",

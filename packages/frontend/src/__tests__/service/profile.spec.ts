@@ -1,7 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { base_urls, faker, nock } from "@/__tests__/help";
 import { presignedURL, update, uploadImage } from "@/service/profile";
-const env = import.meta.env;
 
 describe("when profile is updated", () => {
   it("returns true if successful", async () => {
