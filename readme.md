@@ -21,6 +21,14 @@ Purpose is to register questions and their answers in a collaborative way.
 
 Run containers
 
+Start service all
+
+```bash
+make start
+```
+
+Start individual service
+
 ```bash
 make infra
 make access_management

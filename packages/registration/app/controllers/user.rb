@@ -38,6 +38,7 @@ module Controller
     def self.presigned_url(request)
       params = body(request)
       params[:user_id] = request.params['id']
+      params[:action] = 'presigned_url'
 
       struct = Controller::Request.call(params)
       response = ::Profile::Storer.call(struct)

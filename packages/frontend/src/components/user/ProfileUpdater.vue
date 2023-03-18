@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto" width="344" :title="$t('profile.title')">
     <v-container>
-      <v-form v-model="form" @submit.prevent="">
+      <v-form v-model="form" @submit.prevent="onSubmit">
         <v-row justify="center">
           <input
             class="d-none"
@@ -72,12 +72,14 @@
 </template>
 
 <script lang="ts">
+import { update, presignedURL, uploadImage } from "@/service/profile";
+import notify from "@/components/notify/index";
+
 export default {
   data: () => ({
     form: false,
     first_name: "",
     last_name: "",
-    url_photo: "",
     photo: false,
     loading: false,
     errors: { first_name: "", last_name: "", photo: "" },
@@ -116,6 +118,58 @@ export default {
       const extension = file.name.split(".").pop() || "";
 
       return ["png", "jpeg", "ico", "gif", "jpg"].includes(extension);
+    },
+    async onSubmit() {
+      if (!this.form) return false;
+      this.loading = true;
+
+      const uri: string = (await this.processUploadImage()) as string;
+
+      const params = {
+        first_name: this.first_name,
+        last_name: this.last_name,
+        photo: uri || null,
+      };
+
+      try {
+        const profile = await update(params);
+
+        if (profile instanceof Boolean && profile != true) {
+          notify.snackbar.call(this.$t("errors.default"));
+        }
+      } catch (_) {
+        notify.snackbar.call(this.$t("errors.default"));
+      }
+      this.loading = false;
+
+      return false;
+    },
+    async processUploadImage() {
+      const targetElement = this.$refs.photo as HTMLInputElement;
+      const file = (targetElement.files || [])[0];
+
+      if (!file) return "";
+
+      const extension = file.name.split(".").pop() as string;
+      const presignedUrl = await presignedURL(extension);
+
+      if (presignedUrl) {
+        const reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+
+        return new Promise((resolve, reject) => {
+          reader.onload = async () => {
+            const result: string = await uploadImage(
+              presignedUrl,
+              reader.result as ArrayBuffer
+            );
+
+            if (!result) return reject("");
+
+            resolve(new URL(String(result)).pathname);
+          };
+        });
+      }
     },
   },
 };

@@ -20,8 +20,8 @@ describe("when request /token with valid parameters", () => {
     });
 
     const response = await auth("billie_harvey@bauch-hills.info", "123456789");
-    expect(sessionStorage.getItem("access_token")).toBe(access_token);
-    expect(sessionStorage.getItem("refresh_token")).toBe(refresh_token);
+    expect(localStorage.getItem("access_token")).toBe(access_token);
+    expect(localStorage.getItem("refresh_token")).toBe(refresh_token);
     expect(response).toBeTruthy;
   });
 });

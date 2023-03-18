@@ -165,13 +165,13 @@ RSpec.describe Controller::User, type: :controller do
       end
     end
 
-    context 'when the paqrameters are valid' do
+    context 'when the parameters are valid' do
       it 'returns URL and http :OK' do
         allow(Middleware::Auth).to receive(:check!)
         allow(Middleware::Auth).to receive(:current_user).and_return(user.slice(:id, :email))
 
         host = ENV.fetch('S3_ENDPOINT', nil)
-        params = { action: :presigned_url, extension: 'jpeg' }.to_json
+        params = { extension: 'jpeg' }.to_json
 
         post '/users/profile/presigned_url', params, headers
 
@@ -187,25 +187,11 @@ RSpec.describe Controller::User, type: :controller do
         allow(Middleware::Auth).to receive(:check!)
         allow(Middleware::Auth).to receive(:current_user).and_return(user.slice(:id, :email))
 
-        params = { action: :presigned_url, extension: 'mp4' }.to_json
+        params = { extension: 'mp4' }.to_json
 
         post '/users/profile/presigned_url', params, headers
 
         expect(last_response.body).to eq('Unsupported extension')
-        expect(last_response.status).to eq(Controller::Response::REASONS[:UNPROCESSABLE_ENTITY])
-      end
-    end
-
-    context 'when action are not valid' do
-      it 'returns errors and http :UNPROCESSABLE_ENTITY status' do
-        allow(Middleware::Auth).to receive(:check!)
-        allow(Middleware::Auth).to receive(:current_user).and_return(user.slice(:id, :email))
-
-        params = { action: :upload, extension: 'png' }.to_json
-
-        post '/users/profile/presigned_url', params, headers
-
-        expect(last_response.body).to eq('Unsupported action')
         expect(last_response.status).to eq(Controller::Response::REASONS[:UNPROCESSABLE_ENTITY])
       end
     end

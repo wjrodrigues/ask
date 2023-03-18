@@ -2,12 +2,14 @@
 
 module Profile
   class Repository
-    def self.update(user_id:, first_name:, last_name: nil, photo: nil)
-      record = Record.find_or_create_by(user_id:)
-      record.last_name unless last_name.nil?
-      record.photo unless photo.nil?
+    def self.update(user_id:, first_name: nil, last_name: nil, photo: nil)
+      record = Record.find_or_initialize_by(user_id:)
 
-      record.update(first_name:)
+      record.first_name = first_name unless first_name.nil?
+      record.last_name = last_name unless last_name.nil?
+      record.photo = photo unless photo.nil?
+
+      record.save
     end
 
     def self.errors(user_id:, first_name:, last_name: nil, photo: nil)

@@ -20,12 +20,12 @@ const auth = (username: string, password: string): Promise<boolean> => {
 };
 
 const saveToken = (data: ResponseAuth): boolean => {
-  sessionStorage.setItem("access_token", data.access_token);
-  sessionStorage.setItem("expires_in", data.expires_in.toString());
-  sessionStorage.setItem("refresh_token", data.refresh_token);
-  sessionStorage.setItem("token_type", data.token_type);
-  sessionStorage.setItem("session_state", data.session_state);
-  sessionStorage.setItem(
+  localStorage.setItem("access_token", data.access_token);
+  localStorage.setItem("expires_in", data.expires_in.toString());
+  localStorage.setItem("refresh_token", data.refresh_token);
+  localStorage.setItem("token_type", data.token_type);
+  localStorage.setItem("session_state", data.session_state);
+  localStorage.setItem(
     "refresh_expires_in",
     data.refresh_expires_in.toString()
   );
@@ -33,4 +33,6 @@ const saveToken = (data: ResponseAuth): boolean => {
   return true;
 };
 
-export { auth };
+const session = (key = "access_token") => localStorage.getItem(key);
+
+export { auth, session };
