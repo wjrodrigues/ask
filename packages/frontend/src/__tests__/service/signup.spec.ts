@@ -11,7 +11,7 @@ describe("when request /users with valid parameters", () => {
       password: faker.internet.password(),
     });
 
-    expect(response).toEqual({});
+    expect(response).toEqual({ message: [true] });
   });
 });
 

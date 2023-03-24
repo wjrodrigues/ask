@@ -13,7 +13,7 @@ interface ISignupResponse {
 const Signup = async (form: ISignupForm) => {
   return (await apiRegistration()
     .post("/users", form)
-    .then(() => ({}))
+    .then(() => ({ message: [true] }))
     .catch((error) => ({ errors: error.response.data }))) as ISignupResponse;
 };
 
