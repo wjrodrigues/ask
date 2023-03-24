@@ -48,6 +48,7 @@
 </template>
 
 <script lang="ts">
+import { auth } from "@/service/auth";
 import { Signup } from "@/service/signup";
 
 export default {
@@ -66,11 +67,18 @@ export default {
       await Signup({
         email: this.email || "",
         password: this.password || "",
-      }).then((response) => {
-        this.loading = false;
+      }).then(async (response) => {
+        if (response.message?.pop() == true) {
+          return await this.auth(`${this.email}`, `${this.password}`);
+        }
 
+        this.loading = false;
         this.errorMessages(response.errors || []);
       });
+    },
+    async auth(username: string, password: string) {
+      await auth(username, password)
+      this.$router.push("/profile");
     },
     required(value: String) {
       return !!value || this.$t("form.field_required");

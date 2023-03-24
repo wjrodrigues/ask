@@ -32,21 +32,32 @@ describe("when render UserRegisterVue", () => {
   });
 
   it("submit form button", async () => {
+    const spyPush = { push: () => {} };
+    const spy = vi.spyOn(spyPush, "push");
+
     const wrapper = mount(
       UserRegisterVue,
-      basic_mount({ props: {}, plugins: [] })
+      basic_mount({
+        props: {},
+        plugins: [],
+        mocks: {
+          $router: {
+            push: spy,
+          },
+        },
+      })
     );
 
-    expect(wrapper.find("button").attributes("disabled")).toBeUndefined;
+    nock(base_urls.API_REGISTRATION).post("/users").reply(200);
 
-    await wrapper.findAll("input").forEach(async (e) => e.setValue("Ask"));
+    await wrapper.find("input[type='email']").setValue(faker.internet.email());
+    await wrapper
+      .find("input[type='password']")
+      .setValue(faker.internet.password());
     await wrapper.trigger("change");
 
-    const data: any = wrapper.vm.$data;
-
-    expect(data.form).toBeTruthy;
-    expect(wrapper.find("button:disabled")).toBeNull;
-    expect(wrapper.find("button").attributes("disabled")).toBeUndefined;
+    await wrapper.find("form").trigger("submit");
+    await wrapper.trigger("change");
   });
 
   it("validates form submission errors", async () => {
