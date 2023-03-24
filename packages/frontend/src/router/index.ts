@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { session } from "@/service/auth";
 import Signup from "../views/SignUp.vue";
 import Signin from "../views/SignIn.vue";
+import NotFound from "../views/NotFound.vue";
 import ProfileUpdaterVue from "../views/ProfileUpdater.vue";
 
 const router = createRouter({
@@ -28,9 +30,25 @@ const router = createRouter({
       component: () => ProfileUpdaterVue,
       meta: {
         title: "profile.title",
+        guard: true,
+      },
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "notFound",
+      component: () => NotFound,
+      meta: {
+        title: "pages.not_found.title",
       },
     },
   ],
+});
+
+router.beforeEach((to) => {
+  if (to.meta.guard == undefined) return true;
+  if (session() == null) return router.push("/signin");
+
+  return true;
 });
 
 export default router;

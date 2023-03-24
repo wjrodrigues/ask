@@ -11,7 +11,7 @@ interface ResponseAuth {
 
 const auth = (username: string, password: string): Promise<boolean> => {
   return apiRegistration()
-    .post("users/auth", {
+    .post("/users/auth", {
       password,
       username,
     })

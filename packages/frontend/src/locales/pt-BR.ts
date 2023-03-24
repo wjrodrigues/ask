@@ -38,5 +38,11 @@ export default {
         close: "Fechar",
       },
     },
+    pages: {
+      not_found: {
+        title: "Página não encontrada",
+        home: "início",
+      },
+    },
   },
 };

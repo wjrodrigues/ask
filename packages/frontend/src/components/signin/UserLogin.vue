@@ -64,10 +64,8 @@ export default {
       this.loading = true;
 
       const response = await auth(`${this.email}`, `${this.password}`);
-      if (response) {
-        // TODO: redirect to profile
-        return;
-      }
+      if (response) return this.$router.push("/profile");
+
       this.setErrors();
     },
     required(value: String) {
