@@ -16,6 +16,8 @@ module Profile
 
       return response.add_result({}) unless result
 
+      result[:photo] = "#{ENV.fetch('S3_ENDPOINT')}#{result[:photo]}" unless result[:photo].nil?
+
       response.add_result(result)
     end
 
