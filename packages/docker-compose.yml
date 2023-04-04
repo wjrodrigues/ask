@@ -21,7 +21,7 @@ services:
     volumes:
        - ./docker/localstack/data:/tmp/localstack/data
        - ./docker/localstack:/localstack
-       - ./docker/entrypoints/localstack.sh:/docker-entrypoint-initaws.d/localstack.sh
+       - ./docker/entrypoints/localstack.sh:/etc/localstack/init/ready.d/localstack.sh
     environment:
       - DATA_DIR=/tmp/localstack/data
       - SERVICES=s3
