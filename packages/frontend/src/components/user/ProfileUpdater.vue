@@ -74,7 +74,6 @@
 <script lang="ts">
 import { update, presignedURL, uploadImage, load } from "@/service/profile";
 import notify from "@/components/notify/index";
-import type { ComponentPublicInstance } from "vue";
 
 export default {
   data: () => ({

@@ -41,10 +41,10 @@ const uploadImage = (presignedURL: string, file: ArrayBuffer) => {
 };
 
 const load = async () => {
-  return await authHttp()
+  return (await authHttp()
     .get("/users/profile")
     .then((response) => response.data)
-    .catch(() => ({})) as IProfile;
+    .catch(() => ({}))) as IProfile;
 };
 
 export { update, presignedURL, uploadImage, load };

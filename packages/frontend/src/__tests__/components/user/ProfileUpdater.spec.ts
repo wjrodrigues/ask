@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { mount } from "@vue/test-utils";
 
 import ProfileUpdater from "@/components/user/ProfileUpdater.vue";
@@ -77,6 +77,22 @@ describe("when render", () => {
     expect(preview.element.classList.toString()).toEqual(
       "d-none preview-photo"
     );
+  });
+
+  it("load profile", async () => {
+    const expected = {
+      first_name: faker.name.firstName(),
+      last_name: faker.name.lastName(),
+      photo: "http://localhos/123.png",
+    };
+    nock(base_urls.API_REGISTRATION).get("/users/profile").reply(200, expected);
+
+    const methods = ProfileUpdater.methods as any;
+    const spy = vi.spyOn(methods, "load");
+
+    mount(ProfileUpdater, basic_mount({ props: {}, plugins: [] }));
+
+    expect(spy).toBeCalled();
   });
 });
 
