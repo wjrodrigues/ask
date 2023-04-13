@@ -77,7 +77,7 @@ export default {
       });
     },
     async auth(username: string, password: string) {
-      await auth(username, password)
+      await auth(username, password);
       this.$router.push("/profile");
     },
     required(value: String) {

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { base_urls, faker, nock } from "@/__tests__/help";
-import { presignedURL, update, uploadImage } from "@/service/profile";
+import { presignedURL, update, uploadImage, load } from "@/service/profile";
 
 describe("when profile is updated", () => {
   it("returns true if successful", async () => {
@@ -82,5 +82,20 @@ describe("when loading profile picture", () => {
 
     const response = await uploadImage(presignedURL, new ArrayBuffer(200));
     expect(response).toEqual("");
+  });
+});
+
+describe("when there is profile information", () => {
+  it("returns informations", async () => {
+    const expected = {
+      first_name: faker.name.firstName(),
+      last_name: faker.name.lastName(),
+      photo: "http://localhos/123.png",
+    };
+    nock(base_urls.API_REGISTRATION).get("/users/profile").reply(200, expected);
+
+    const response = await load();
+
+    expect(response).toEqual(expected);
   });
 });

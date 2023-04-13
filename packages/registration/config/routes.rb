@@ -36,6 +36,13 @@ class Routes < Sinatra::Base
     Controller::User.update_profile(request)
   end
 
+  get '/users/profile' do
+    Middleware::Auth.check!(self)
+    current_user = Middleware::Auth.current_user(self)
+
+    Controller::User.profile(user_id: current_user[:id])
+  end
+
   post '/users/profile/presigned_url' do
     Middleware::Auth.check!(self)
     current_user = Middleware::Auth.current_user(self)

@@ -1,6 +1,6 @@
 import { authHttp, simpleHttp } from "@/lib/http";
 
-interface IProfileForm {
+interface IProfile {
   first_name: string;
   last_name: string;
   photo: string | null;
@@ -11,7 +11,7 @@ interface IProfileResponse {
   errors?: [];
 }
 
-const update = async (form: IProfileForm) => {
+const update = async (form: IProfile) => {
   return authHttp()
     .post("/users/profile", form)
     .then(() => true)
@@ -40,4 +40,11 @@ const uploadImage = (presignedURL: string, file: ArrayBuffer) => {
     .catch(() => "");
 };
 
-export { update, presignedURL, uploadImage };
+const load = async () => {
+  return (await authHttp()
+    .get("/users/profile")
+    .then((response) => response.data)
+    .catch(() => ({}))) as IProfile;
+};
+
+export { update, presignedURL, uploadImage, load };

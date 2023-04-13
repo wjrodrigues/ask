@@ -56,5 +56,13 @@ module Controller
               .failure(status: :UNAUTHORIZED, body: response.errors.to_json)
               .call(response.ok?)
     end
+
+    def self.profile(user_id:)
+      response = Profile::Lister.call(user_id:)
+
+      Response.success(status: :OK, body: response.result.to_json)
+              .failure(status: :UNPROCESSABLE_ENTITY, body: response.errors.to_json)
+              .call(response.ok?)
+    end
   end
 end

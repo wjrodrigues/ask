@@ -150,6 +150,51 @@ RSpec.describe Controller::User, type: :controller do
     end
   end
 
+  describe '#GET - List profile' do
+    let(:headers) { { 'CONTENT_TYPE' => 'application/json', 'HTTP_AUTHORIZATION' => '123' } }
+    let(:profile) { create(:profile) }
+
+    context 'when not authenticated' do
+      it 'returns http :UNAUTHORIZED status and empty body' do
+        expect(Lib::Auth).to receive(:valid_token?).and_return(false)
+
+        get '/users/profile', {}.to_json, headers
+
+        expect(last_response.status).to eq(Controller::Response::REASONS[:UNAUTHORIZED])
+        expect(last_response.body).to be_empty
+      end
+    end
+
+    context 'when the user has profile' do
+      it 'returns hash with status http :OK' do
+        expect(Middleware::Auth).to receive(:check!)
+        expect(Middleware::Auth)
+          .to receive(:current_user)
+          .and_return(profile.user.slice(:id, :email))
+
+        get '/users/profile', {}, headers
+
+        expect(json_body(last_response.body)).to eq(profile.attributes.as_json)
+        expect(last_response.status).to eq(Controller::Response::REASONS[:OK])
+      end
+    end
+
+    context 'when the user no has profile' do
+      it 'returns empty hash with status http :OK' do
+        user = create(:user)
+
+        expect(Middleware::Auth).to receive(:check!)
+        expect(Middleware::Auth).to receive(:current_user).and_return(user.slice(:id, :email))
+
+        get '/users/profile', {}, headers
+
+        expect(last_response.body).not_to be_empty
+        expect(json_body(last_response.body)).to eq({})
+        expect(last_response.status).to eq(Controller::Response::REASONS[:OK])
+      end
+    end
+  end
+
   describe '#POST - Presigned URL' do
     let(:user) { create(:user) }
     let(:headers) { { 'CONTENT_TYPE' => 'application/json', 'HTTP_AUTHORIZATION' => '123' } }

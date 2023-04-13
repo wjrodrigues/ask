@@ -72,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { update, presignedURL, uploadImage } from "@/service/profile";
+import { update, presignedURL, uploadImage, load } from "@/service/profile";
 import notify from "@/components/notify/index";
 
 export default {
@@ -136,6 +136,8 @@ export default {
 
         if (profile instanceof Boolean && profile != true) {
           notify.snackbar.call(this.$t("errors.default"));
+        } else {
+          notify.snackbar.call(this.$t("success.save"));
         }
       } catch (_) {
         notify.snackbar.call(this.$t("errors.default"));
@@ -171,6 +173,24 @@ export default {
         });
       }
     },
+    async load() {
+      this.loading = true;
+      const profile = await load();
+      this.$data.first_name = profile.first_name;
+      this.$data.last_name = profile.last_name;
+
+      const targetElement = this.$refs.previewPhoto as HTMLImageElement;
+
+      if (profile.photo) {
+        targetElement.src = profile.photo;
+
+        this.photo = true;
+      }
+      this.loading = false;
+    },
+  },
+  async mounted() {
+    this.load();
   },
 };
 </script>
