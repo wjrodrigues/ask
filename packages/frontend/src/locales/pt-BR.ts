@@ -3,6 +3,9 @@ export default {
     errors: {
       default: "Ocorreu um erro interno, tente novamente mais tarde",
     },
+    success: {
+      save: "Salvo com sucesso!"
+    },
     form: {
       field_required: "Campo é obrigatório",
       invalid_data: "Dados inválidos",

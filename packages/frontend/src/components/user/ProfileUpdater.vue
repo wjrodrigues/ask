@@ -136,6 +136,8 @@ export default {
 
         if (profile instanceof Boolean && profile != true) {
           notify.snackbar.call(this.$t("errors.default"));
+        } else {
+          notify.snackbar.call(this.$t("success.save"));
         }
       } catch (_) {
         notify.snackbar.call(this.$t("errors.default"));
